@@ -3,14 +3,14 @@
  * I will not copy or allow others to copy my code.
  * I understand that copying code is considered as plagiarism 
  *
- * 22012568,2 Aug 20232:13:05 pm
+ * 22012568,5 Aug 20233:31:56 pm
  */
 
 /**
  * @author 22012568
  *
  */
-public class Member extends Accounts{
+public class Registration extends Accounts{
 	private String username;
 	private String preference;
 	/**
@@ -19,7 +19,7 @@ public class Member extends Accounts{
 	 * @param username
 	 * @param password
 	 */
-	public Member(String name, String password, String username, String preference) {
+	public Registration(String name, String password, String username, String preference) {
 		super(name, password);
 		this.username = username;
 		this.preference = preference;
@@ -64,9 +64,4 @@ public class Member extends Accounts{
 		
 	}
 
-
-	
-	
-
-	
 }
