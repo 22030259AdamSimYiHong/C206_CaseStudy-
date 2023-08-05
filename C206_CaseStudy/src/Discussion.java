@@ -1,5 +1,5 @@
 /**
- * I declare that this code was wrritn by me.
+ * I declare that this code was writn by me.
  * I will not copy or allow others to copy my code.
  * I understand that copying code is considered as plagiarism 
  *
