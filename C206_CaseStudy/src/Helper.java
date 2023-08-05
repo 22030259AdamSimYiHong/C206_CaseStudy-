@@ -1,4 +1,4 @@
-// Version for AY2013/14 Semster 2
+// Version for AY2013/14 Semster 2.
 
 import java.util.*;
 
