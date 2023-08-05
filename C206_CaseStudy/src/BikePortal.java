@@ -33,8 +33,8 @@ public class BikePortal {
 		memberList.add(new Member("Charmain", "CharmainIsCool", "CharmainAwesome", "Competitive"));
 		memberList.add(new Member("Adam", "AdminIsCool", "AdamAwesome", "Competitive"));
 
-		adminList.add(new Admin("Charmain", "Charmaintan08@gmail.com", "CharmainAwesome"));
-		adminList.add(new Admin("kween", "kween08@gmail.com", "kweenAwesome"));
+		adminList.add(new Admin("Charmain", "CharmainAwesome", "Charmaintan08@gmail.com"));
+		adminList.add(new Admin("kween", "kweenAwesome", "kween08@gmail.com"));
 
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
