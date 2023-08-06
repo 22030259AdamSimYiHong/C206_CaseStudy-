@@ -119,14 +119,7 @@ public class BikePortal {
 						choice = Helper.readInt("Enter an option > ");
 					} else if (choice == 5) {
 						Event newEvent = createEvent();
-						if (addEvent(eventList, newEvent) == true) {
-							BikePortal.setHeader("Create an event");
-							BikePortal.addEvent(eventList, newEvent);
-							System.out.println("Successfully Added ");
-
-						} else {
-							System.out.println("Unsuccessful");
-						}
+					    BikePortal.addEvent(eventList, newEvent);
 						BikePortal.userMenu();
 						choice = Helper.readInt("Enter an option > ");
 
@@ -316,11 +309,10 @@ public class BikePortal {
 		output += retrieveAllEvent(eventList);
 		System.out.println(output);
 	}
-
 	public static Event createEvent() {
-		// REG
-		// user input when registering
-
+		 //REG
+		 //user input when registering
+		
 		String name = Helper.readString("Enter Event Name > ");
 		String difficulty = Helper.readString("Enter Event Difficulty > ");
 		String date = Helper.readString("Enter Event Date (mm/dd/yyyy)> ");
@@ -346,29 +338,45 @@ public class BikePortal {
 			localTime = LocalTime.parse(time, inputFormatter);
 		} catch (DateTimeParseException e) {
 			System.out.println("Invalid time format. Please use HH:mm format.");
-			// Handle the exception or return an error message if necessary
+			 //Handle the exception or return an error message if necessary
 		}
 		Event newEvent = new Event(difficulty, name, localDate, localTime, venue);
 		return newEvent;
 	}
 
-	public static boolean addEvent(ArrayList<Event> eventList, Event newEvent) {
+	public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
 		Event event;
-		// checking if user already exist
+		 //checking if user already exist
 		for (int i = 0; i < eventList.size(); i++) {
 			event = eventList.get(i);
 			if (event.getEventName().equalsIgnoreCase(newEvent.getEventName()))
-				return (false);
+				return;
 		}
 		if ((newEvent.getEventName().isEmpty()) || (newEvent.getDifficulty().isEmpty())
 				|| (newEvent.getEventDate() == null) || (newEvent.getEventTime() == null)
 				|| (newEvent.getVenue().isEmpty())) {
 			System.out.println("Please fill in the entire thing");
-			return (false);
+			return ;
 		}
-		return (true);
+		eventList.add(newEvent);
 
 	}
+
+
+//	public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
+//		Event event;
+//		// checking if user already exist
+//		for (int i = 0; i < eventList.size(); i++) {
+//			event = eventList.get(i);
+//			if (eventList.get(i).getEventName().equalsIgnoreCase(event.getEventName()))
+//				return;
+//		}
+//		// checking if user have input all the fields required
+//		eventList.add(newEvent);
+//
+//	}
+	
+
 
 //------------------------------------------------Registration-------------------------------------------------------
 	public static String retrieveAllReg(ArrayList<Registration> regList) {
