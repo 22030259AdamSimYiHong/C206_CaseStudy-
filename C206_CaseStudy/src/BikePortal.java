@@ -265,6 +265,9 @@ public class BikePortal {
 			member = memberList.get(i);
 			if (member.getUsername().equalsIgnoreCase(newMember.getUsername()))
 				return;
+		}if ((newMember.getUsername().isEmpty()) || (newMember.getPassword().isEmpty()) || (newMember.getName().isEmpty())
+				|| (newMember.getPreference().isEmpty())) {
+			return;
 		}
 		// checking if user have input all the fields required
 		memberList.add(newMember);
