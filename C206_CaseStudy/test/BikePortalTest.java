@@ -18,12 +18,15 @@ public class BikePortalTest {
 	private Discussion d1;
 	private Discussion d2;
 	private Discussion d3;
+	private Registration r1;
+	private Registration r2;
+	private Registration r3;
 
 	private ArrayList<Member> memberList;
 	private ArrayList<Admin> adminList;
 	private ArrayList<Discussion> discussionList;
+	private ArrayList<Registration> regList;
 
-	
 	@Before
 	public void setUp() throws Exception {
 		// Prepare Test Data (name, password)
@@ -33,13 +36,17 @@ public class BikePortalTest {
 		a1 = new Admin("Yi Tuck", "Password4", "yituck@admin.com");
 		a2 = new Admin("Kenneth", "Password5", "kenneth@admin.com");
 		a3 = new Admin("Adam", "Password6", "adam@admin.com");
-		d1 = new Discussion("Easy", "location","Where is it located at?");
+		d1 = new Discussion("Easy", "location", "Where is it located at?");
 		d2 = new Discussion("Medium", "Bike", "What Bikes are allowed?");
 		d3 = new Discussion("Hard", "Bike", "Is modded allowed?");
+		r1 = new Registration("Char", "Char123", "001","Casual");
+		r2 = new Registration("Charming", "Char246", "002","Competitive");
+		r3 = new Registration("Charizard", "Char789", "003","Casual");
 
 		memberList = new ArrayList<Member>();
 		adminList = new ArrayList<Admin>();
 		discussionList = new ArrayList<Discussion>();
+		regList = new ArrayList<Registration>();
 	}
 
 	@Test
@@ -60,7 +67,6 @@ public class BikePortalTest {
 		// Add Member
 		BikePortal.addMember(memberList, m2);
 		assertEquals("Test that the Member arraylist size is now 2.", 2, memberList.size());
-		
 
 		// Test case 1: Test that there are missing details
 		Member missing = new Member("Bob", "", "", "");
@@ -74,14 +80,15 @@ public class BikePortalTest {
 	}
 
 	public void testaddMembertoEvent() {
-		
+
 	}
-	
+
 	public void testaddMembertoGroup() {
-		
+
 	}
-	
-	//pls look at the code again, refer to ResourceCentre's codes not jujst do on your own.
+
+	// pls look at the code again, refer to ResourceCentre's codes not jujst do on
+	// your own.
 	public void test_search_bikers() {
 		// Test case 1: Test when Biker ID exists.
 		assertNotNull("test if there is valid member arraylist to loan from", memberList);
@@ -147,6 +154,31 @@ public class BikePortalTest {
 	        assertEquals("Test that nothing is displayed", testOutput);
 	}
 
+	// Charmain
+	@Test
+	public void testAddReg() {
+		// Reglist not null and is empty
+		assertNotNull("Test if there is valid registration arraylist to add to", regList);
+		assertEquals("Test that the Registration arraylist is empty.", 0, regList.size());
+		// Given an empty list, after adding user, the size of the list is 1
+		BikePortal.addReg(regList, r1);
+		assertEquals("Test that the Registration arraylist size is 1.", 1, regList.size());
+		// Add an item
+		BikePortal.addReg(regList, r2);
+		assertEquals("Test that the Registration arraylist size is now 2.", 2, regList.size());
+		// The user just added already exist in the list
+		assertSame("Test that User is added to the end of the list.", r2, regList.get(1));
+
+		// Add an item that already exists in the list
+		BikePortal.addReg(regList, r2);
+		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
+
+		// Add an user that has missing detail
+		Registration reg_missing = new Registration("CB0014", "", "","");
+		BikePortal.addReg(regList, reg_missing);
+		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
+	}
+
 	@After
 	public void tearDown() throws Exception {
 		m1 = null;
@@ -158,9 +190,13 @@ public class BikePortalTest {
 		d1 = null;
 		d2 = null;
 		d3 = null;
+		r1 = null;
+		r2 = null;
+		r3 = null;
 		memberList = null;
 		adminList = null;
 		discussionList = null;
+		regList = null;
 	}
 
 }
