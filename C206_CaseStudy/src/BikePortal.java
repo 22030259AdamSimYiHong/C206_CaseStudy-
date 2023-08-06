@@ -30,7 +30,11 @@ public class BikePortal {
 		ArrayList<Event> eventList = new ArrayList<Event>();
 		ArrayList<Registration> regList = new ArrayList<Registration>();
 		ArrayList<Group> grpList = new ArrayList<Group>();
+		ArrayList<Discussion> discussionList = new ArrayList<Discussion>();
 
+		discussionList.add(new Discussion("Competitve", "Mount Bike", "What are the features? "));
+
+		regList.add(new Registration("CharmainTAN", "Charmain123", "CharmainTanIsAwesome", "Competitive"));
 		memberList.add(new Member("Charmain", "CharmainIsCool", "CharmainAwesome", "Competitive"));
 		memberList.add(new Member("Adam", "AdminIsCool", "AdamAwesome", "Competitive"));
 
@@ -67,11 +71,10 @@ public class BikePortal {
 					BikePortal.setHeader("Delete User");
 					BikePortal.deleteMember(memberList);
 				} else if (choice == 4) {
-
-				} else if (choice == 5) {
 					BikePortal.setHeader("Delete Registration");
 					BikePortal.removeReg(regList);
-				} else if (choice == 6) {
+				} else if (choice == 5) {
+
 					System.out.println("Logged Out");
 					break;
 				} else {
@@ -91,11 +94,11 @@ public class BikePortal {
 					BikePortal.viewAllGrp(grpList);
 				} else if (choice == 3) {
 					BikePortal.setHeader("Join a Group");
-				    Group joinedGroup = joinAGrp(grpList, memberList);
-				    if (joinedGroup != null) {
-				        BikePortal.viewGroupMembers(grpList, joinedGroup.getGroupName());
-				    }
-					
+					Group joinedGroup = joinAGrp(grpList, memberList);
+					if (joinedGroup != null) {
+						BikePortal.viewGroupMembers(grpList, joinedGroup.getGroupName());
+					}
+
 				} else if (choice == 4) {
 					BikePortal.setHeader("Delete an exiting Group");
 					BikePortal.deleteGrp(grpList);
@@ -119,6 +122,7 @@ public class BikePortal {
 					BikePortal.setHeader("Create a Discussion");
 				} else if (choice == 9) {
 					BikePortal.setHeader("View All Discussion");
+					BikePortal.viewAllDiscussion(discussionList);
 				} else if (choice == 10) {
 					BikePortal.setHeader("Join a Discussion");
 				} else if (choice == 11) {
@@ -242,16 +246,23 @@ public class BikePortal {
 	}
 
 	public static void deleteMember(ArrayList<Member> memberList) {
+		boolean isFound = false;
 		Member mem;
 		String deleteUser = Helper.readString("Enter the user to delete > ");
 		for (int i = 0; i < memberList.size(); i++) {
 			mem = memberList.get(i);
 			if (mem.getUsername().equalsIgnoreCase(deleteUser)) {
 				memberList.remove(i);
+				System.out.println("Deleted Successfully");
+				isFound = true;
 				break;
 			}
+			
 		}
-		System.out.println("User not found");
+		if(!isFound) {
+			System.out.println("User not found");
+		}
+		
 
 	}
 
@@ -363,16 +374,20 @@ public class BikePortal {
 	}
 
 	public static void removeReg(ArrayList<Registration> regList) {
+		boolean isFound = false;
 		Registration reg;
 		String removeReg = Helper.readString("Enter the username to remove from registration list > ");
 		for (int i = 0; i < regList.size(); i++) {
 			reg = regList.get(i);
 			if (reg.getUsername().equalsIgnoreCase(removeReg)) {
 				regList.remove(i);
+				isFound=true;
+				System.out.println("Removed from Registration List");
 				break;
-			} else {
-				System.out.println("User not found");
 			}
+		}
+		if(!isFound) {
+			System.out.println("User not found");
 		}
 
 	}
@@ -468,7 +483,7 @@ public class BikePortal {
 		} else {
 			System.out.println("Group not found.");
 		}
-		return(null);
+		return (null);
 	}
 
 	public static void viewGroupMembers(ArrayList<Group> grpList, String groupName) {
@@ -509,5 +524,42 @@ public class BikePortal {
 		}
 
 	}
+
+	// -------------------------------Discussion--------------------------------
+	public static String retrieveAllDiscussion(ArrayList<Discussion> discussionList) {
+		// obtaining member
+		String output = "";
+		for (int i = 0; i < discussionList.size(); i++) {
+			output += String.format("%-15s %-25s %-25s \n", discussionList.get(i).getDifficulty(),
+					discussionList.get(i).getTopic(), discussionList.get(i).getQuestion());
+		}
+		return output;
+	}
+
+	public static void viewAllDiscussion(ArrayList<Discussion> discussionList) {
+		// printing user
+		BikePortal.setHeader("MEMBER LIST");
+		String output = String.format("%-15s %-25s %-25s\n", "PREFERENCE", "TOPIC", "QUESTION");
+		output += retrieveAllDiscussion(discussionList);
+		System.out.println(output);
+	}
+
+	public static Registration addDiscussion(ArrayList<Registration> regList, Registration newReg) {
+		Registration reg;
+		// checking if user already exist
+		for (int i = 0; i < regList.size(); i++) {
+			reg = regList.get(i);
+			if (reg.getUsername().equalsIgnoreCase(newReg.getUsername()))
+				return (null);
+		}
+		if ((newReg.getUsername().isEmpty()) || (newReg.getPassword().isEmpty()) || (newReg.getName().isEmpty())
+				|| (newReg.getPreference().isEmpty())) {
+			return (null);
+		}
+		regList.add(newReg);
+		return (newReg);
+	}
+
+	
 
 }
