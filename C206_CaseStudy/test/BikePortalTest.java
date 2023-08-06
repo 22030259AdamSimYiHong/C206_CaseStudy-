@@ -51,8 +51,12 @@ public class BikePortalTest {
 		adminList.add(a2);
 		adminList.add(a3);
 	}
-
-	// Adam 1
+//
+//<<<<<<< HEAD
+//	// Adam 1
+//=======
+//	//Adam 1st userstories
+//>>>>>>> branch 'master' of https://github.com/22030259AdamSimYiHong/C206_CaseStudy-.git
 	@Test
 	public void testaddMember() {
 		// Item list is not null and it is empty
@@ -79,7 +83,7 @@ public class BikePortalTest {
 	}
 
 	public void testaddMembertoEvent() {
-
+		
 	}
 
 	public void testaddMembertoGroup() {
