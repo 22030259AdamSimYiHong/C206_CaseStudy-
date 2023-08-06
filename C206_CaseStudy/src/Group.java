@@ -69,6 +69,7 @@ public class Group extends Tag{
 				System.out.println(memberList.get(x).getUsername() + " is already a member of the group " + groupName);
 			}
 	}
+	
     public void printMembers() {
         BikePortal.setHeader("MEMBERS OF GROUP: " + groupName);
         String output = String.format("%-15s %-25s %-15s\n", "NAME", "USERNAME", "PREFERENCE");

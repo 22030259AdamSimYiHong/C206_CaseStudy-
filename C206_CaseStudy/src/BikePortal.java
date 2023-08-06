@@ -42,7 +42,7 @@ public class BikePortal {
 
 		eventList.add(new Event("Exclusive Bike Ride", "Competitive", LocalDate.parse("08/15/2023", dateFormatter),
 				LocalTime.parse("14:30", timeFormatter), "Suntec City"));
-		
+
 		grpList.add(new Group("kween", "kweenAwesome", "kween08@gmail.com"));
 
 		int option = 0;
@@ -85,12 +85,17 @@ public class BikePortal {
 				int choice = Helper.readInt("Enter an option > ");
 				if (choice == 1) {
 					BikePortal.setHeader("Create a Group");
-					BikePortal.createGrp(memberList,grpList);
+					BikePortal.createGrp(memberList, grpList);
 				} else if (choice == 2) {
 					BikePortal.setHeader("View all Group");
-					BikePortal.viewAllGrp(grpList) ;
+					BikePortal.viewAllGrp(grpList);
 				} else if (choice == 3) {
 					BikePortal.setHeader("Join a Group");
+				    Group joinedGroup = joinAGrp(grpList, memberList);
+				    if (joinedGroup != null) {
+				        BikePortal.viewGroupMembers(grpList, joinedGroup.getGroupName());
+				    }
+					
 				} else if (choice == 4) {
 					BikePortal.setHeader("Delete an exiting Group");
 					BikePortal.deleteGrp(grpList);
@@ -188,9 +193,9 @@ public class BikePortal {
 		System.out.println(header);
 		Helper.line(80, "-");
 	}
-	//-------------------------------------------MEMBER------------------------------------------------------------
-	
-	//Obtaining all the Member from the memberList
+	// -------------------------------------------MEMBER------------------------------------------------------------
+
+	// Obtaining all the Member from the memberList
 	public static String retrieveAllUser(ArrayList<Member> memberList) {
 		// obtaining member
 		String output = "";
@@ -201,6 +206,7 @@ public class BikePortal {
 		}
 		return output;
 	}
+
 	//
 	public static void viewAllUser(ArrayList<Member> memberList) {
 		// printing user
@@ -209,7 +215,7 @@ public class BikePortal {
 		output += retrieveAllUser(memberList);
 		System.out.println(output);
 	}
-	
+
 	public static Registration inputUser() {
 		// REG
 		// user input when registering
@@ -221,6 +227,7 @@ public class BikePortal {
 		Registration newReg = new Registration(name, password, username, preference);
 		return newReg;
 	}
+
 	public static void addMember(ArrayList<Member> memberList, Member newMember) {
 		Member member;
 		// checking if user already exist
@@ -233,7 +240,7 @@ public class BikePortal {
 		memberList.add(newMember);
 
 	}
-	
+
 	public static void deleteMember(ArrayList<Member> memberList) {
 		Member mem;
 		String deleteUser = Helper.readString("Enter the user to delete > ");
@@ -247,6 +254,7 @@ public class BikePortal {
 		System.out.println("User not found");
 
 	}
+
 //----------------------------------------------------Event------------------------------------------------------------------
 	public static String retrieveAllEvent(ArrayList<Event> eventList) {
 		// obtaining member
@@ -265,7 +273,7 @@ public class BikePortal {
 		output += retrieveAllEvent(eventList);
 		System.out.println(output);
 	}
-	
+
 	public static Event createEvent() {
 		// REG
 		// user input when registering
@@ -300,7 +308,7 @@ public class BikePortal {
 		Event newEvent = new Event(difficulty, name, localDate, localTime, venue);
 		return newEvent;
 	}
-	
+
 	public static boolean addEvent(ArrayList<Event> eventList, Event newEvent) {
 		Event event;
 		// checking if user already exist
@@ -318,6 +326,7 @@ public class BikePortal {
 		return (true);
 
 	}
+
 //------------------------------------------------Registration-------------------------------------------------------
 	public static String retrieveAllReg(ArrayList<Registration> regList) {
 		// obtaining member
@@ -367,51 +376,53 @@ public class BikePortal {
 		}
 
 	}
-	//------------------------------------------Group-----------------------------------------------------------
-	
-	//Create a Group
-	public static  void createGrp(ArrayList<Member> memberList,ArrayList<Group> grpList) {
+	// ------------------------------------------Group-----------------------------------------------------------
+
+	// Create a Group
+	public static void createGrp(ArrayList<Member> memberList, ArrayList<Group> grpList) {
 		String grpName = Helper.readString("Please Enter Group Name");
 		String grpDescription = Helper.readString("Please Enter Group Description");
 		String grpPreference = Helper.readString("Please Enter Group preference");
-		char addMembers= Helper.readChar("Do you want to add members (y/n)");
+		char addMembers = Helper.readChar("Do you want to add members (y/n)");
 		while (addMembers == 'y') {
 			String memberName = Helper.readString("Enter member username");
 			Member memberFound = null;
-			
-			for (int x=0; x<memberList.size();x++) {
-	            if (memberList.get(x).getUsername().equalsIgnoreCase(memberName)) {
-	            	memberFound = memberList.get(x);
-	                break;
-	            }
-	        }
-			   if (memberFound != null) {
-		            Group group = new Group(grpName, grpDescription, grpPreference);
-					// Add the selected member to the group's memberList
-		            group.addMember(memberFound);
-		            grpList.add(group);
-		            System.out.println(memberFound.getUsername() + " has been added to the group " + grpName);
-		        } else {
-		            System.out.println("Member not found in the member list.");
-		        }
-		        
-		        addMembers = Helper.readChar("Do you want to add more members (y/n)");
+
+			for (int x = 0; x < memberList.size(); x++) {
+				if (memberList.get(x).getUsername().equalsIgnoreCase(memberName)) {
+					memberFound = memberList.get(x);
+					break;
+				}
+			}
+			if (memberFound != null) {
+				Group group = new Group(grpName, grpDescription, grpPreference);
+				// Add the selected member to the group's memberList
+				group.addMember(memberFound);
+				grpList.add(group);
+				System.out.println(memberFound.getUsername() + " has been added to the group " + grpName);
+			} else {
+				System.out.println("Member not found in the member list.");
+			}
+
+			addMembers = Helper.readChar("Do you want to add more members (y/n)");
 		}
 	}
-	
+
 	public static String retrieveAllGrp(ArrayList<Group> grpList) {
 		// obtaining member
 		String output = "";
 		for (int i = 0; i < grpList.size(); i++) {
-			Group group =grpList.get(i);
+			Group group = grpList.get(i);
 			output += String.format("%-15s %-25s %-25s\n", grpList.get(i).getGroupName(),
 					grpList.get(i).getDescription(), grpList.get(i).getDifficulty());
-			for (Member member:group.getMemberList()) {
-				output += String.format("%-15s %-25s %-25s\n", "", member.getName(), member.getUsername(),member.getPreference());
+			for (Member member : group.getMemberList()) {
+				output += String.format("%-15s %-25s %-25s\n", "", member.getName(), member.getUsername(),
+						member.getPreference());
 			}
 		}
 		return output;
 	}
+
 	//
 	public static void viewAllGrp(ArrayList<Group> grpList) {
 		// printing user
@@ -419,32 +430,70 @@ public class BikePortal {
 		String output = String.format("%-15s %-25s %-25s\n", "NAME", "DESCRIPTION", "PREFERENCE");
 		output += retrieveAllGrp(grpList);
 		System.out.println(output);
-		
+
 	}
-	
-	
-	public static void joinAGrp(ArrayList<Group> grpList) {
-	    Group groupToJoin = null;
-	    String groupName = Helper.readString("Enter Group to Join > ");
-	    for (Group group : grpList) {
-	        if (group.getGroupName().equalsIgnoreCase(groupName)) {
-	            groupToJoin = group;
-	            break;
-	        }
-	    }
-	    
-	    if (groupToJoin != null) {
-	        System.out.println("Members of Group: " + groupToJoin.getGroupName());
-	        for (Member member : groupToJoin.getMemberList()) {
-	            System.out.println("Name: " + member.getName());
-	            System.out.println("Username: " + member.getUsername());
-	            System.out.println("Preference: " + member.getPreference());
-	            System.out.println("--------------------");
-	        }
-	    } else {
-	        System.out.println("Group not found.");
-	    }
+
+	public static Group joinAGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
+		String groupName = Helper.readString("Enter Group to Join > ");
+		Group groupToJoin = null;
+
+		// Find the group to join
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				groupToJoin = group;
+				break;
+			}
+		}
+
+		if (groupToJoin != null) {
+			String usernameToJoin = Helper.readString("Enter Username to Join > ");
+			Member memberToJoin = null;
+
+			// Find the member in the memberList
+			for (Member member : memberList) {
+				if (member.getUsername().equalsIgnoreCase(usernameToJoin)) {
+					memberToJoin = member;
+					break;
+				}
+			}
+
+			if (memberToJoin != null) {
+				// Add the member to the group
+				groupToJoin.addMember(memberToJoin);
+				System.out.println(memberToJoin.getUsername() + " has been added to the group " + groupName);
+				return (groupToJoin);
+			} else {
+				System.out.println("Member not found in the member list.");
+			}
+		} else {
+			System.out.println("Group not found.");
+		}
+		return(null);
 	}
+
+	public static void viewGroupMembers(ArrayList<Group> grpList, String groupName) {
+		Group groupToView = null;
+
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				groupToView = group;
+				break;
+			}
+		}
+
+		if (groupToView != null) {
+			System.out.println("Members of Group: " + groupToView.getGroupName());
+			for (Member member : groupToView.getMemberList()) {
+				System.out.println("Name: " + member.getName());
+				System.out.println("Username: " + member.getUsername());
+				System.out.println("Preference: " + member.getPreference());
+				System.out.println("--------------------");
+			}
+		} else {
+			System.out.println("Group not found.");
+		}
+	}
+
 	public static void deleteGrp(ArrayList<Group> grpList) {
 		Group grp;
 		String deleteGrp = Helper.readString("Enter Group Name > ");
@@ -454,20 +503,11 @@ public class BikePortal {
 				grpList.remove(i);
 				System.out.println("Successfully Deleted");
 				break;
-				}
-			else {
-			System.out.println("User not found");
+			} else {
+				System.out.println("User not found");
 			}
 		}
-	
-		}
-	
-	
 
 	}
-	
-	
-	
-	
-	
 
+}
