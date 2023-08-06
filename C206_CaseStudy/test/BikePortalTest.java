@@ -49,20 +49,16 @@ public class BikePortalTest {
 		regList = new ArrayList<Registration>();
 	}
 
+	//Adam 1
 	@Test
-	public void c206_test() {
-		// fail("Not yet implemented");
-		assertTrue("C206_CaseStudy_SampleTest ", true);
-	}
-
 	public void testaddMember() {
 		// Item list is not null and it is empty
 		assertNotNull("Test if there is valid member arraylist to add to", memberList);
-		assertEquals("Test that the member arraylist is empty.", 0, memberList.size());
+		assertEquals("Test that the Member arraylist is empty.", 0, memberList.size());
 
 		// Given an empty list, after adding 1 item, the size of the list is 1
 		BikePortal.addMember(memberList, m1);
-		assertEquals("Test that the Camcorder arraylist size is 1.", 1, memberList.size());
+		assertEquals("Test that the Member arraylist size is 1.", 1, memberList.size());
 
 		// Add Member
 		BikePortal.addMember(memberList, m2);
@@ -75,7 +71,7 @@ public class BikePortalTest {
 
 		// Test Case 2: Add an item that already exists in the list
 		BikePortal.addMember(memberList, m2);
-		assertEquals("Test that the Camcorder arraylist size is unchange.", 2, memberList.size());
+		assertEquals("Test that the Member arraylist size is unchange.", 2, memberList.size());
 
 	}
 
