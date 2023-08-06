@@ -58,39 +58,46 @@ public class BikePortal {
 			option = Helper.readInt("Enter an option > ");
 
 			if (option == 1) {
-				BikePortal.adminMenu();
-				int choice = Helper.readInt("Enter an option > ");
-				while (choice != 5) {
-					if (choice == 1) {
-						BikePortal.setHeader("View All User");
-						BikePortal.viewAllUser(memberList);
-						BikePortal.adminMenu();
-						choice = Helper.readInt("Enter an option > ");
-					} else if (choice == 2) {
-						BikePortal.setHeader("View Registrations");
-						BikePortal.viewAllReg(regList);
-						BikePortal.adminMenu();
-						choice = Helper.readInt("Enter an option > ");
-					} else if (choice == 3) {
-						BikePortal.setHeader("Delete User");
-						BikePortal.deleteMember(memberList);
-						BikePortal.adminMenu();
-						choice = Helper.readInt("Enter an option > ");
-					} else if (choice == 4) {
-						BikePortal.setHeader("Delete Registration");
-						BikePortal.removeReg(regList);
-						BikePortal.adminMenu();
-						choice = Helper.readInt("Enter an option > ");
-					} else if (choice == 5) {
-						break;
-					} else {
-						System.out.println("Invalid Choice");
+				String email = Helper.readString("Enter your emmail registered");
+				String pass = Helper.readString("Enter your password > ");
+				if (BikePortal.adminLogin(adminList,email,pass) == true) {
+					BikePortal.adminMenu();
+					int choice = Helper.readInt("Enter an option > ");
+					while (choice != 5) {
+						if (choice == 1) {
+							BikePortal.setHeader("View All User");
+							BikePortal.viewAllUser(memberList);
+							BikePortal.adminMenu();
+							choice = Helper.readInt("Enter an option > ");
+						} else if (choice == 2) {
+							BikePortal.setHeader("View Registrations");
+							BikePortal.viewAllReg(regList);
+							BikePortal.adminMenu();
+							choice = Helper.readInt("Enter an option > ");
+						} else if (choice == 3) {
+							BikePortal.setHeader("Delete User");
+							BikePortal.deleteMember(memberList);
+							BikePortal.adminMenu();
+							choice = Helper.readInt("Enter an option > ");
+						} else if (choice == 4) {
+							BikePortal.setHeader("Delete Registration");
+							BikePortal.removeReg(regList);
+							BikePortal.adminMenu();
+							choice = Helper.readInt("Enter an option > ");
+						} else if (choice == 5) {
+							break;
+						} else {
+							System.out.println("Invalid Choice");
 
+						}
 					}
+				}else {
+					System.out.println("Unsuccessful Log In");
 				}
 
 			} else if (option == 2) {
 				// USER
+
 				BikePortal.userMenu();
 				int choice = Helper.readInt("Enter an option > ");
 				while (choice != 12) {
@@ -119,7 +126,7 @@ public class BikePortal {
 						choice = Helper.readInt("Enter an option > ");
 					} else if (choice == 5) {
 						Event newEvent = createEvent();
-					    BikePortal.addEvent(eventList, newEvent);
+						BikePortal.addEvent(eventList, newEvent);
 						BikePortal.userMenu();
 						choice = Helper.readInt("Enter an option > ");
 
@@ -223,7 +230,33 @@ public class BikePortal {
 		System.out.println(header);
 		Helper.line(80, "-");
 	}
+
 	// -------------------------------------------MEMBER------------------------------------------------------------
+//Log in as admin
+
+	public static boolean adminLogin(ArrayList<Admin> adminList, String email, String password) {
+		for (int x = 0; x < adminList.size(); x++) {
+			if ((email.equalsIgnoreCase(adminList.get(x).getEmail()))
+					&& (password.equalsIgnoreCase(adminList.get(x).getPassword()))) {
+				
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean validateRegAdmin(String email, String password) {
+		if(email.contains("@gmail.com")) {
+			if(password.length()==8) {
+				return(true);
+			}else {
+				System.out.println("Weak password");
+			}
+		}else {
+			System.out.println("Invalid email");
+		}
+		
+		return(false);
+	}
 
 	// Obtaining all the Member from the memberList
 	public static String retrieveAllUser(ArrayList<Member> memberList) {
@@ -265,8 +298,9 @@ public class BikePortal {
 			member = memberList.get(i);
 			if (member.getUsername().equalsIgnoreCase(newMember.getUsername()))
 				return;
-		}if ((newMember.getUsername().isEmpty()) || (newMember.getPassword().isEmpty()) || (newMember.getName().isEmpty())
-				|| (newMember.getPreference().isEmpty())) {
+		}
+		if ((newMember.getUsername().isEmpty()) || (newMember.getPassword().isEmpty())
+				|| (newMember.getName().isEmpty()) || (newMember.getPreference().isEmpty())) {
 			return;
 		}
 		// checking if user have input all the fields required
@@ -312,10 +346,11 @@ public class BikePortal {
 		output += retrieveAllEvent(eventList);
 		System.out.println(output);
 	}
+
 	public static Event createEvent() {
-		 //REG
-		 //user input when registering
-		
+		// REG
+		// user input when registering
+
 		String name = Helper.readString("Enter Event Name > ");
 		String difficulty = Helper.readString("Enter Event Difficulty > ");
 		String date = Helper.readString("Enter Event Date (mm/dd/yyyy)> ");
@@ -341,7 +376,7 @@ public class BikePortal {
 			localTime = LocalTime.parse(time, inputFormatter);
 		} catch (DateTimeParseException e) {
 			System.out.println("Invalid time format. Please use HH:mm format.");
-			 //Handle the exception or return an error message if necessary
+			// Handle the exception or return an error message if necessary
 		}
 		Event newEvent = new Event(difficulty, name, localDate, localTime, venue);
 		return newEvent;
@@ -349,7 +384,7 @@ public class BikePortal {
 
 	public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
 		Event event;
-		 //checking if user already exist
+		// checking if user already exist
 		for (int i = 0; i < eventList.size(); i++) {
 			event = eventList.get(i);
 			if (event.getEventName().equalsIgnoreCase(newEvent.getEventName()))
@@ -359,12 +394,11 @@ public class BikePortal {
 				|| (newEvent.getEventDate() == null) || (newEvent.getEventTime() == null)
 				|| (newEvent.getVenue().isEmpty())) {
 			System.out.println("Please fill in the entire thing");
-			return ;
+			return;
 		}
 		eventList.add(newEvent);
 
 	}
-
 
 //	public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
 //		Event event;
@@ -378,8 +412,6 @@ public class BikePortal {
 //		eventList.add(newEvent);
 //
 //	}
-	
-
 
 //------------------------------------------------Registration-------------------------------------------------------
 	public static String retrieveAllReg(ArrayList<Registration> regList) {

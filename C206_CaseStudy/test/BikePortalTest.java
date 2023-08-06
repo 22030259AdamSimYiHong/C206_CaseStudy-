@@ -39,17 +39,20 @@ public class BikePortalTest {
 		d1 = new Discussion("Easy", "location", "Where is it located at?");
 		d2 = new Discussion("Medium", "Bike", "What Bikes are allowed?");
 		d3 = new Discussion("Hard", "Bike", "Is modded allowed?");
-		r1 = new Registration("Char", "Char123", "001","Casual");
-		r2 = new Registration("Charming", "Char246", "002","Competitive");
-		r3 = new Registration("Charizard", "Char789", "003","Casual");
+		r1 = new Registration("Char", "Char123", "001", "Casual");
+		r2 = new Registration("Charming", "Char246", "002", "Competitive");
+		r3 = new Registration("Charizard", "Char789", "003", "Casual");
 
 		memberList = new ArrayList<Member>();
 		adminList = new ArrayList<Admin>();
 		discussionList = new ArrayList<Discussion>();
 		regList = new ArrayList<Registration>();
+		adminList.add(a1);
+		adminList.add(a2);
+		adminList.add(a3);
 	}
 
-	//Adam 1
+	// Adam 1
 	@Test
 	public void testaddMember() {
 		// Item list is not null and it is empty
@@ -170,9 +173,23 @@ public class BikePortalTest {
 		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
 
 		// Add an user that has missing detail
-		Registration reg_missing = new Registration("CB0014", "", "","");
+		Registration reg_missing = new Registration("CB0014", "", "", "");
 		BikePortal.addReg(regList, reg_missing);
 		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
+	}
+
+	@Test
+	public void testLoginAdmin() {
+		assertTrue("Test that Admin Logs in with valid Username and Password",
+				BikePortal.adminLogin(adminList, "yituck@admin.com", "Password4"));
+		assertFalse("Test that the adminLogin does not go through.",
+				BikePortal.adminLogin(adminList, "yituck@admin.com", ""));
+		assertFalse("Test that the adminLogin does not go through.",
+				BikePortal.adminLogin(adminList, "yituck@adbmin.com", "password4"));
+	}
+	@Test
+	public void validate(){
+		
 	}
 
 	@After
