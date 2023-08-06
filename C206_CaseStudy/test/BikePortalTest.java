@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class C206_CaseStudyTest {
+public class BikePortalTest {
 
 	// prepare test data
 	private Member m1;
@@ -23,11 +23,7 @@ public class C206_CaseStudyTest {
 	private ArrayList<Admin> adminList;
 	private ArrayList<Discussion> discussionList;
 
-	public C206_CaseStudyTest
-	{
-		super();
-	}
-
+	
 	@Before
 	public void setUp() throws Exception {
 		// Prepare Test Data (name, password)

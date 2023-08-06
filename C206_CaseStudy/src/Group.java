@@ -48,6 +48,9 @@ public class Group extends Tag{
 	public String getDescription() {
 		return description;
 	}
+	public ArrayList<Member> getMemberList() {
+        return memberList;
+    }
 
 	/**
 	 * @param description the description to set
@@ -58,14 +61,25 @@ public class Group extends Tag{
 
 	public void addMember(Member member) {
 
-		for (int x = 0; x <= memberList.size(); x++)
-			if (!memberList.get(x).getUsername().equalsIgnoreCase(member.getUsername())) {
+		for (int x = 0; x < memberList.size(); x++)
+			if (!(memberList.get(x).getUsername().equalsIgnoreCase(member.getUsername()))) {
 				memberList.add(member);
 				System.out.println(member + " has been added to the group " + groupName);
 			} else {
 				System.out.println(memberList.get(x).getUsername() + " is already a member of the group " + groupName);
 			}
 	}
+    public void printMembers() {
+        BikePortal.setHeader("MEMBERS OF GROUP: " + groupName);
+        String output = String.format("%-15s %-25s %-15s\n", "NAME", "USERNAME", "PREFERENCE");
+        for (Member member : memberList) {
+            output += String.format("%-15s %-25s %-25s %-15s\n", member.getName(), member.getUsername(), member.getPassword(), member.getPreference());
+        }
+        System.out.println(output);
+    }
+    
+	
+	
 
 	
 }
