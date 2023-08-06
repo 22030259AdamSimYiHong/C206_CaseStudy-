@@ -49,7 +49,7 @@ public class BikePortalTest {
 		regList = new ArrayList<Registration>();
 	}
 
-	//Adam 1
+	//Adam 1st userstories
 	@Test
 	public void testaddMember() {
 		// Item list is not null and it is empty
