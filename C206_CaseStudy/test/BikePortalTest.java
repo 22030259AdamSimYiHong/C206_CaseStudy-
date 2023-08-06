@@ -76,7 +76,7 @@ public class BikePortalTest {
 	}
 
 	public void testaddMembertoEvent() {
-
+		
 	}
 
 	public void testaddMembertoGroup() {
