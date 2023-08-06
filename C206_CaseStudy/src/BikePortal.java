@@ -60,79 +60,111 @@ public class BikePortal {
 			if (option == 1) {
 				BikePortal.adminMenu();
 				int choice = Helper.readInt("Enter an option > ");
+				while (choice != 5) {
+					if (choice == 1) {
+						BikePortal.setHeader("View All User");
+						BikePortal.viewAllUser(memberList);
+						BikePortal.adminMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 2) {
+						BikePortal.setHeader("View Registrations");
+						BikePortal.viewAllReg(regList);
+						BikePortal.adminMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 3) {
+						BikePortal.setHeader("Delete User");
+						BikePortal.deleteMember(memberList);
+						BikePortal.adminMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 4) {
+						BikePortal.setHeader("Delete Registration");
+						BikePortal.removeReg(regList);
+						BikePortal.adminMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 5) {
+						break;
+					} else {
+						System.out.println("Invalid Choice");
 
-				if (choice == 1) {
-					BikePortal.setHeader("View All User");
-					BikePortal.viewAllUser(memberList);
-				} else if (choice == 2) {
-					BikePortal.setHeader("View Registrations");
-					BikePortal.viewAllReg(regList);
-				} else if (choice == 3) {
-					BikePortal.setHeader("Delete User");
-					BikePortal.deleteMember(memberList);
-				} else if (choice == 4) {
-					BikePortal.setHeader("Delete Registration");
-					BikePortal.removeReg(regList);
-				} else if (choice == 5) {
-
-					System.out.println("Logged Out");
-					break;
-				} else {
-					System.out.println("Invalid Choice");
-
+					}
 				}
 
 			} else if (option == 2) {
 				// USER
 				BikePortal.userMenu();
 				int choice = Helper.readInt("Enter an option > ");
-				if (choice == 1) {
-					BikePortal.setHeader("Create a Group");
-					BikePortal.createGrp(memberList, grpList);
-				} else if (choice == 2) {
-					BikePortal.setHeader("View all Group");
-					BikePortal.viewAllGrp(grpList);
-				} else if (choice == 3) {
-					BikePortal.setHeader("Join a Group");
-					Group joinedGroup = joinAGrp(grpList, memberList);
-					if (joinedGroup != null) {
-						BikePortal.viewGroupMembers(grpList, joinedGroup.getGroupName());
+				while (choice != 12) {
+					if (choice == 1) {
+						BikePortal.setHeader("Create a Group");
+						BikePortal.createGrp(memberList, grpList);
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 2) {
+						BikePortal.setHeader("View all Group");
+						BikePortal.viewAllGrp(grpList);
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 3) {
+						BikePortal.setHeader("Join a Group");
+						Group joinedGroup = joinAGrp(grpList, memberList);
+						if (joinedGroup != null) {
+							BikePortal.viewGroupMembers(grpList, joinedGroup.getGroupName());
+						}
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 4) {
+						BikePortal.setHeader("Delete an exiting Group");
+						BikePortal.deleteGrp(grpList);
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 5) {
+						Event newEvent = createEvent();
+						if (addEvent(eventList, newEvent) == true) {
+							BikePortal.setHeader("Create an event");
+							BikePortal.addEvent(eventList, newEvent);
+							System.out.println("Successfully Added ");
+
+						} else {
+							System.out.println("Unsuccessful");
+						}
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+
+					} else if (choice == 6) {
+						BikePortal.setHeader("View all Events ");
+						BikePortal.viewAllEvent(eventList);
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 7) {
+						BikePortal.setHeader("Delete Existing Event");
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 8) {
+						BikePortal.setHeader("Create a Discussion");
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 9) {
+						BikePortal.setHeader("View All Discussion");
+						BikePortal.viewAllDiscussion(discussionList);
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 10) {
+						BikePortal.setHeader("Join a Discussion");
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 11) {
+						BikePortal.setHeader("Delete an Existing Discussion");
+						BikePortal.userMenu();
+						choice = Helper.readInt("Enter an option > ");
+					} else if (choice == 12) {
+						break;
 					}
 
-				} else if (choice == 4) {
-					BikePortal.setHeader("Delete an exiting Group");
-					BikePortal.deleteGrp(grpList);
-				} else if (choice == 5) {
-					Event newEvent = createEvent();
-					if (addEvent(eventList, newEvent) == true) {
-						BikePortal.setHeader("Create an event");
-						BikePortal.addEvent(eventList, newEvent);
-						System.out.println("Successfully Added ");
-
-					} else {
-						System.out.println("Unsuccessful");
+					else {
+						System.out.println("Invalid Choice");
 					}
 
-				} else if (choice == 6) {
-					BikePortal.setHeader("View all Events ");
-					BikePortal.viewAllEvent(eventList);
-				} else if (choice == 7) {
-					BikePortal.setHeader("Delete Existing Event");
-				} else if (choice == 8) {
-					BikePortal.setHeader("Create a Discussion");
-				} else if (choice == 9) {
-					BikePortal.setHeader("View All Discussion");
-					BikePortal.viewAllDiscussion(discussionList);
-				} else if (choice == 10) {
-					BikePortal.setHeader("Join a Discussion");
-				} else if (choice == 11) {
-					BikePortal.setHeader("Delete an Existing Discussion");
 				}
-
-				else {
-					System.out.println("Invalid Choice");
-				}
-
 			} else if (option == 3) {
 				// SIGN UP (REG)
 				BikePortal.setHeader("Registering as new user");
@@ -189,6 +221,7 @@ public class BikePortal {
 		System.out.println("9. View all discussion");
 		System.out.println("10. Join a discussion");
 		System.out.println("11. Delete an existing Discussion");
+		System.out.println("12. Quit");
 		Helper.line(80, "-");
 	}
 
@@ -257,12 +290,11 @@ public class BikePortal {
 				isFound = true;
 				break;
 			}
-			
+
 		}
-		if(!isFound) {
+		if (!isFound) {
 			System.out.println("User not found");
 		}
-		
 
 	}
 
@@ -381,12 +413,12 @@ public class BikePortal {
 			reg = regList.get(i);
 			if (reg.getUsername().equalsIgnoreCase(removeReg)) {
 				regList.remove(i);
-				isFound=true;
+				isFound = true;
 				System.out.println("Removed from Registration List");
 				break;
 			}
 		}
-		if(!isFound) {
+		if (!isFound) {
 			System.out.println("User not found");
 		}
 
@@ -559,7 +591,5 @@ public class BikePortal {
 		regList.add(newReg);
 		return (newReg);
 	}
-
-	
 
 }
