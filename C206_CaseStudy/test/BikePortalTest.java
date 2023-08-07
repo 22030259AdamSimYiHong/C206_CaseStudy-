@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BikePortalTest {
-
+	
 	// prepare test data
 	private Member m1;
 	private Member m2;
@@ -54,9 +54,7 @@ public class BikePortalTest {
 //
 //<<<<<<< HEAD
 //	// Adam 1
-//=======
-//	//Adam 1st userstories
-//>>>>>>> branch 'master' of https://github.com/22030259AdamSimYiHong/C206_CaseStudy-.git
+
 	@Test
 	public void testaddMember() {
 		// Item list is not null and it is empty
@@ -71,23 +69,63 @@ public class BikePortalTest {
 		BikePortal.addMember(memberList, m2);
 		assertEquals("Test that the Member arraylist size is now 2.", 2, memberList.size());
 
-		// Test case 1: Test that there are missing details
+		// Test case 2: Test that there are missing details
 		Member missing = new Member("Bob", "", "", "");
 		BikePortal.addMember(memberList, missing);
 		assertEquals("Test that the Member arraylist size is unchange.", 2, memberList.size());
 
-		// Test Case 2: Add an item that already exists in the list
+		// Test Case 1: Add an item that already exists in the list
 		BikePortal.addMember(memberList, m2);
 		assertEquals("Test that the Member arraylist size is unchange.", 2, memberList.size());
 
 	}
-
+	// Adam 2
+	@Test//
 	public void testaddMembertoEvent() {
+		// Item list is not null and it is empty
+		assertNotNull("Test if there is valid memberEvent arraylist to add to", memberEventList);
+		assertEquals("Test that the MemberEventarraylist is empty.", 0, memberEventList.size());
 		
+		// Given an empty list, after adding 1 item, the size of the list is 1
+		BikePortal.addMemberEvent(memberEventList, me1);
+		assertEquals("Test that the MemberEvent arraylist size is 1.", 1, memberEventList.size());
+		
+		// Add Member in to Events
+		BikePortal.addMemberEvent(memberEventList, me2);
+		assertEquals("Test that the MemberEvent arraylist size is now 2.", 2, memberEventList.size());
+
+		// Test case 2: Test that there are missing details
+		MembertoEvents missingg = new MemberEvent(" ");
+		BikePortal.addMemberEvent(memberEventList, missingg);
+		assertEquals("Test that the MemberEvent arraylist size is unchange.", 2, memberEventList.size());
+
+		// Test Case 3: Add an item that already exists in the list
+		BikePortal.addMemberEvent(memberGroupList, me2);
+		assertEquals("Test that the MemberEvent arraylist size is unchange.", 2, memberEventList.size());
 	}
-
+// Adam 3
+	@Test
 	public void testaddMembertoGroup() {
+		// Item list is not null and it is empty
+		assertNotNull("Test if there is valid memberGroup arraylist to add to", memberGroupList);
+		assertEquals("Test that the MemberGroup arraylist is empty.", 0, memberGroupList.size());
+		
+		// Given an empty list, after adding 1 item, the size of the list is 1
+		BikePortal.addMemberEvent(memberGroupList, mg1);
+		assertEquals("Test that the MemberGroup arraylist size is 1.", 1, memberGroupList.size());
+		
+		// Add Member in to Events
+		BikePortal.addMemberEvent(memberGroupList, mg2);
+		assertEquals("Test that the MemberGroup arraylist size is now 2.", 2, memberGroupList.size());
 
+		// Test case 2: Test that there are missing details
+		MembertoGroups missinggg = new MemberGroup(" ");
+		BikePortal.addMemberEvent(memberGroupList, missinggg);
+		assertEquals("Test that the MemberGroup arraylist size is unchange.", 2, memberGroupList.size());
+
+		// Test Case 3: Add an item that already exists in the list
+		BikePortal.addMemberGroup(memberGroupList, mg2);
+		assertEquals("Test that the MemberGroup arraylist size is unchange.", 2, memberEventList.size());
 	}
 
 	// pls look at the code again, refer to ResourceCentre's codes not jujst do on
