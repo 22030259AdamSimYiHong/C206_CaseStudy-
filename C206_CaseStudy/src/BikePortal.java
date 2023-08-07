@@ -192,7 +192,7 @@ public class BikePortal {
 //				System.out.println("Invalid option");
 //			}
 //
-//		}
+//		} 
 
 		while (option != OPTION_EXIT) {
 			if (option == 1) {
