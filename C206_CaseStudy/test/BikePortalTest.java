@@ -79,6 +79,7 @@ public class BikePortalTest {
 		assertEquals("Test that the Member arraylist size is unchange.", 2, memberList.size());
 
 	}
+	// Adam 2
 	@Test//
 	public void testaddMembertoEvent() {
 		// Item list is not null and it is empty
@@ -102,7 +103,8 @@ public class BikePortalTest {
 		BikePortal.addMemberEvent(memberGroupList, me2);
 		assertEquals("Test that the MemberEvent arraylist size is unchange.", 2, memberEventList.size());
 	}
-
+// Adam 3
+	@Test
 	public void testaddMembertoGroup() {
 		// Item list is not null and it is empty
 		assertNotNull("Test if there is valid memberGroup arraylist to add to", memberGroupList);
