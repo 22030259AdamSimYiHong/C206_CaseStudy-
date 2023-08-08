@@ -266,8 +266,6 @@ public class BikePortal {
 							BikePortal.adminMenu();
 							internalOption = Helper.readInt("Enter an option > ");
 						}
-						BikePortal.loginTypeMenu();
-						option = Helper.readInt("Enter choice > ");
 					}
 				}
 			} else if (option == 2) {
@@ -300,7 +298,17 @@ public class BikePortal {
 								} else if (loginOption == 2) {
 									BikePortal.setHeader("View All Events");
 									BikePortal.viewAllEvent(eventList);
-									BikePortal.event
+									BikePortal.currentEMenu();
+									int eventOption = Helper.readInt("Enter an option > ");
+									while (eventOption != 4) {
+										if (eventOption == 1) {
+											// need to create a method to view events that user is currently in
+										} else if (eventOption == 2) {
+											BikePortal.createEvent();
+										} else if (eventOption == 3) {
+//											BikePortal.
+										}
+									}
 								}
 							}
 							
@@ -308,6 +316,8 @@ public class BikePortal {
 					}
 				}
 			}
+			BikePortal.loginTypeMenu();
+		    option = Helper.readInt("Enter choice > ");
 		}
 		System.out.println("Good Bye!");
 
