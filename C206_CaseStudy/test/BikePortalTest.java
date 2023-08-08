@@ -288,7 +288,58 @@ public class BikePortalTest {
 	    isDeleted = discussionList.deleteDiscussion(0);
 	    assertFalse("Check that already deleted discussion at index 0 is deleted again - false?", isDeleted);
 	}
-
+	
+	// Yi Tuck
+	  @Test
+	  public void testRecommendGroups() {
+	    //Test for Casual preference and Easy difficulty
+	    assertEquals("Test that Member preference matches with Discussion difficulty", m1.getPreference(), d1.getDifficulty());
+	    
+	    // Test for Intermediate preference and Medium difficulty
+	    assertEquals("Test that Member preference matches with Discussion difficulty", m3.getPreference(), d2.getDifficulty());
+	    
+	    // Test that Competitive preference and Hard difficulty
+	    assertEquals("Test that Member preference matches with Discussion difficulty", m2.getPreference(), d3.getDifficulty());
+	    
+	  }
+	  
+	  // Yi Tuck
+	  @Test
+	  public void testViewMemberGroup() {
+	    // Test that Member has missing details
+	    assertNull("Test that missing member name returns null", m1.getName());
+	    assertNull("Test that missing member username returns null", m1.getUsername());
+	    
+	    // Test that members can be viewed
+	    assertTrue("Test that member username is not null", m2.getUsername() != null);
+	    assertTrue("Test that member name is not null", m2.getName() != null);
+	    
+	  }
+	  
+	  // Yi Tuck
+	  @Test
+	  public void testViewMemberdetails() {
+		  // Test that no Member fields are missing
+		  assertNotNull("Test that member name is not missing", m3.getName());
+		  assertNotNull("Test that member password is not empty", m3.getPassword());
+		  assertFalse("Test that member username is not empty", m3.getUsername() == null);
+		  assertNotNull("Test that member preference is not missing", m3.getPreference());
+		  // Test that Members details can be viewed
+		  assertFalse("Test that the member name can be viewed", m1.getName() == null);
+		  assertFalse("Test that the member username can be viewed", m1.getUsername() == null);
+		  
+	  }
+	  
+	  // Yi Tuck
+	  @Test
+	  public void testDeletedetails() {
+		// Test that Members details can be deleted
+		  assertEquals("Test that memberlist size decrease by 1", 2, memberList.size());
+		  
+		  for(Member member : memberList) {
+			  assertNotEquals("Test that deleted member is no longer in the memberlist", "003", member.getUsername());
+		  }
+	  }
 
 	@After
 	public void tearDown() throws Exception {
