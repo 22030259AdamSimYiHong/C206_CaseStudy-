@@ -70,14 +70,14 @@ public class BikePortalTest {
 		assertEquals("Test that the Member arraylist size is now 2.", 2, memberList.size());
 
 		// Test case 2: Test that there are missing details
-		Member missing = new Member("Bob", "", "", "");
+		Member missing = new Member("Bob", "", "", "", "");
 		BikePortal.addMember(memberList, missing);
 		assertEquals("Test that the Member arraylist size is unchange.", 2, memberList.size());
 
 		// Test Case 1: Add an item that already exists in the list
 		BikePortal.addMember(memberList, m2);
 		assertEquals("Test that the Member arraylist size is unchange.", 2, memberList.size());
-
+		
 	}
 	// Adam 2
 	@Test//
