@@ -39,6 +39,7 @@ public class BikePortal {
 
 		memberList.add(new Member("Charmain", "CharmainIsCool", "CharmainAwesome", "Competitive"));
 		memberList.add(new Member("Adam", "AdminIsCool", "AdamAwesome", "Competitive"));
+		memberList.add(new Member("testUser", "user", "user", "Competitve"));
 
 		adminList.add(new Admin("Charmain", "CharmainAwesome", "Charmaintan08@gmail.com"));
 		adminList.add(new Admin("kween", "kweenAwesome", "kween08@gmail.com"));
@@ -273,7 +274,7 @@ public class BikePortal {
 				int internalOption = Helper.readInt("Enter an option > ");
 				while (internalOption != 3) {
 					if (internalOption == 1) {
-						String loginEmail = Helper.readString("Enter email address > ");
+						String loginEmail = Helper.readString("Enter username > ");
 						String loginPW = Helper.readString("Enter password > ");
 						if (BikePortal.userLogin(memberList, loginEmail, loginPW)) {
 							BikePortal.userMenu();
@@ -290,7 +291,7 @@ public class BikePortal {
 										} else if (grpOption == 2) {
 											BikePortal.createGrp(memberList, grpList);
 										} else if (grpOption == 3) {
-											BikePortal.joinAGrp(grpList, memberList);
+											BikePortal.joinGrp(grpList, memberList);
 										} else if (grpOption == 4) {
 											BikePortal.viewAllDiscussion(discussionList);
 										}
@@ -887,43 +888,76 @@ public class BikePortal {
 
 	}
 
-	public static Group joinAGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
-		String groupName = Helper.readString("Enter Group to Join > ");
-		Group groupToJoin = null;
+//	public static Group joinAGrpOld(ArrayList<Group> grpList, ArrayList<Member> memberList) {
+//		String groupName = Helper.readString("Enter Group to Join > ");
+//		Group groupToJoin = null;
+//
+//		// Find the group to join
+//		for (Group group : grpList) {
+//			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+//				groupToJoin = group;
+//				break;
+//			}
+//		}
+//
+//		if (groupToJoin != null) {
+//			String usernameToJoin = Helper.readString("Enter Username to Join > ");
+//			Member memberToJoin = null;
+//
+//			// Find the member in the memberList
+//			for (Member member : memberList) {
+//				if (member.getUsername().equalsIgnoreCase(usernameToJoin)) {
+//					memberToJoin = member;
+//					break;
+//				}
+//			}
+//
+//			if (memberToJoin != null) {
+//				// Add the member to the group
+//				groupToJoin.addMember(memberToJoin);
+//				System.out.println(memberToJoin.getUsername() + " has been added to the group " + groupName);
+//				return (groupToJoin);
+//			} else {
+//				System.out.println("Member not found in the member list.");
+//			}
+//		} else {
+//			System.out.println("Group not found.");
+//		}
+//		return (null);
+//	}
+	
+	public static Group joinGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
+	    Group groupToJoin = null; // Declare the variable outside the loop
 
-		// Find the group to join
-		for (Group group : grpList) {
-			if (group.getGroupName().equalsIgnoreCase(groupName)) {
-				groupToJoin = group;
-				break;
-			}
-		}
+	    while (true) {
+	        String groupName = Helper.readString("Enter Group Name to Join (or type 'exit' to cancel) > ");
+	        
+	        if (groupName.equalsIgnoreCase("exit")) {
+	            System.out.println("Joining group canceled.");
+	            return null;
+	        }
 
-		if (groupToJoin != null) {
-			String usernameToJoin = Helper.readString("Enter Username to Join > ");
-			Member memberToJoin = null;
+	        // Find the group to join
+	        for (Group group : grpList) {
+	            if (group.getGroupName().equalsIgnoreCase(groupName)) {
+	                groupToJoin = group;
+	                break;
+	            }
+	        }
 
-			// Find the member in the memberList
-			for (Member member : memberList) {
-				if (member.getUsername().equalsIgnoreCase(usernameToJoin)) {
-					memberToJoin = member;
-					break;
-				}
-			}
-
-			if (memberToJoin != null) {
-				// Add the member to the group
-				groupToJoin.addMember(memberToJoin);
-				System.out.println(memberToJoin.getUsername() + " has been added to the group " + groupName);
-				return (groupToJoin);
-			} else {
-				System.out.println("Member not found in the member list.");
-			}
-		} else {
-			System.out.println("Group not found.");
-		}
-		return (null);
+	        if (groupToJoin != null) {
+	            // Add the member to the group (assuming you have a member instance)
+	            // groupToJoin.addMember(memberToJoin);
+	            System.out.println("You have successfully joined the group: " + groupName);
+	            break;  // Exit the loop after successful join
+	        } else {
+	            System.out.println("Group not found. Please try again.");
+	        }
+	    }
+	    return groupToJoin;
 	}
+
+
 
 	public static void viewGroupMembers(ArrayList<Group> grpList, String groupName) {
 		Group groupToView = null;
