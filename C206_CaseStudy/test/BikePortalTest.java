@@ -52,7 +52,7 @@ public class BikePortalTest {
 		adminList.add(a3);
 	}
 //
-//<<<<<<< HEAD
+//<<<<<<< HEAD 1
 //	// Adam 1
 
 	@Test
