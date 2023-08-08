@@ -233,6 +233,62 @@ public class BikePortalTest {
 	public void validate(){
 		
 	}
+	
+	// Kween
+
+	@Test
+	public void testEditMember() {
+		// This is for member editing their own profile
+	    // Simulate the member editing their own profile
+		// Assume that existing member name is Adam Sim
+	    Boolean isEdited = memberList.editMember(0, "Adam Sim Yi Hong");
+	    assertTrue("Check that existing member 'Adam Sim' is edited to 'Adam Sim Yi Hong'", isEdited);
+
+	    // Check that the member's name has been updated
+	    String updatedName = memberList.viewMembers().get(0);
+	    assertEquals("Adam Sim Yi Hong", updatedName);
+
+	    // Try to edit the member's name to the same name, should still return true
+	    isEdited = memberList.editMember(0, "Adam Sim Yi Hong");
+	    assertTrue("Check that existing member 'Adam Sim Yi Hong' is edited to 'Adam Sim Yi Hong'", isEdited);
+	}
+
+	@Test
+	public void testAddAndEditDiscussion() {
+	    // This is to add in a discussion to the arrayList
+	    assertNotNull("Check if there is valid discussion arraylist to add to", discussionList.discussionDescriptions);
+	    discussionList.addDiscussion("Discuss about cycling tips");
+
+	    Boolean isEdited = discussionList.editDiscussion(10, "Discuss about benefits of cycling");
+	    assertFalse("Check that non-existing discussion at index 10 is edited - false?", isEdited);
+
+	    // This is to check that the discussion name has been successfully edited
+	    isEdited = discussionList.editDiscussion(0, "How to cycle?");
+	    assertTrue("Check that existing discussion 'Discuss about cycling tips' at index 0 is edited to 'How to cycle?' - true", isEdited);
+
+	    isEdited = discussionList.editDiscussion(0, "Cycling competitions");
+	    assertFalse("Check that already edited discussion at index 0 is edited again - false?", isEdited);
+	}
+
+	@Test
+	public void testDeleteDiscussion() {
+	    // This is to check that there is a valid discussion to delete in the arrayList
+	    assertNotNull("Check if there is valid discussion arraylist to delete from", discussionList.discussionDescriptions);
+	    discussionList.addDiscussion("Discuss about project A");
+
+	    // error
+	    Boolean isDeleted = discussionList.deleteDiscussion(10);
+	    assertFalse("Check that non-existing discussion at index 10 is deleted - false?", isDeleted);
+
+	    // Check if the discussion can be deleted
+	    isDeleted = discussionList.deleteDiscussion(0);
+	    assertTrue("Check that existing discussion 'Discuss about project A' at index 0 is deleted - true", isDeleted);
+
+	    // error
+	    isDeleted = discussionList.deleteDiscussion(0);
+	    assertFalse("Check that already deleted discussion at index 0 is deleted again - false?", isDeleted);
+	}
+
 
 	@After
 	public void tearDown() throws Exception {
