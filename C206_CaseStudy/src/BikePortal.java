@@ -282,7 +282,25 @@ public class BikePortal {
 							int loginOption = Helper.readInt("Enter an option > ");
 							while (loginOption != 6) {
 								if (loginOption == 1) {
-									
+									BikePortal.setHeader("View All Groups");
+									BikePortal.viewAllGrp(grpList);
+									BikePortal.currentGMenu();
+									int grpOption = Helper.readInt("Enter an option > ");
+									while (grpOption != 5) {
+										if (grpOption == 1) {
+											// need to create a method to view groups that user is currently in
+										} else if (grpOption == 2) {
+											BikePortal.createGrp(memberList, grpList);
+										} else if (grpOption == 3) {
+											BikePortal.joinAGrp(grpList, memberList);
+										} else if (grpOption == 4) {
+											BikePortal.viewAllDiscussion(discussionList);
+										}
+									}
+								} else if (loginOption == 2) {
+									BikePortal.setHeader("View All Events");
+									BikePortal.viewAllEvent(eventList);
+									BikePortal.event
 								}
 							}
 							
@@ -394,6 +412,35 @@ public class BikePortal {
 		System.out.println("1. Login");
 		System.out.println("2. Sign up");
 		System.out.println("3. Return to previous page");
+	}
+	
+	public static void currentGMenu() {
+		BikePortal.setHeader("GROUP PAGE");
+		System.out.println("1. View current groups");
+		System.out.println("2. Create");
+		System.out.println("3. Join");
+		System.out.println("4. View discussions");
+		System.out.println("5. Return to previous page");
+	}
+	
+	public static void currentG2Menu() {
+		BikePortal.setHeader("GROUP PAGE");
+		System.out.println("1. Leave");
+		System.out.println("2. Return to previous page");
+	}
+	
+	public static void discussionMenu() {
+		BikePortal.setHeader("DISCUSSION PAGE");
+		System.out.println("1. Leave discussion");
+		System.out.println("2. Return to previous page");
+	}
+	
+	public static void currentEMenu() {
+		BikePortal.setHeader("Event PAGE");
+		System.out.println("1. View current events");
+		System.out.println("2. Create");
+		System.out.println("3. Join");
+		System.out.println("4. Return to previous page");
 	}
 
 	// -------------------------------------------MEMBER------------------------------------------------------------
