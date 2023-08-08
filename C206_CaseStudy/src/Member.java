@@ -13,16 +13,19 @@
 public class Member extends Accounts{
 	private String username;
 	private String preference;
+	private String bike;
+	
 	/**
 	 * @param name
 	 * @param permission
 	 * @param username
 	 * @param password
 	 */
-	public Member(String name, String password, String username, String preference) {
+	public Member(String name, String password, String username, String preference, String bike) {
 		super(name, password);
 		this.username = username;
 		this.preference = preference;
+		this.bike = bike;
 	}
 	/**
 	 * @param preference the preference to set
@@ -58,13 +61,15 @@ public class Member extends Accounts{
 	
 	public void display() {
 		System.out.println("Username: "+ username);
-		System.out.println("password: "+ getPassword());
-		System.out.println("name: "+ getName());
-		System.out.println("preference: "+ preference);
-		
+		System.out.println("Password: "+ getPassword());
+		System.out.println("Name: "+ getName());
+		System.out.println("Preference: "+ preference);
+		System.out.println("Bike: " + bike);
 	}
 
-	
+	public void setBike(String bike) {
+		this.bike = bike;
+	}
 	
 	
 
