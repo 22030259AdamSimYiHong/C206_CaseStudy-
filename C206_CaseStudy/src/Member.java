@@ -64,7 +64,7 @@ public class Member extends Accounts{
 		System.out.println("Password: "+ getPassword());
 		System.out.println("Name: "+ getName());
 		System.out.println("Preference: "+ preference);
-		System.out.println("Bike: " + bike);
+
 	}
 
 	

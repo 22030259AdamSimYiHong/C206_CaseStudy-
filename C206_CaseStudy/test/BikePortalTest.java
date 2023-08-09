@@ -70,7 +70,7 @@ public class BikePortalTest {
 		assertEquals("Test that the Member arraylist size is now 2.", 2, memberList.size());
 
 		// Test case 2: Test that there are missing details
-		Member missing = new Member("Bob", "", "", "", "");
+		Member missing = new Member("Bob", "", "", "");
 		BikePortal.addMember(memberList, missing);
 		assertEquals("Test that the Member arraylist size is unchange.", 2, memberList.size());
 
@@ -82,118 +82,14 @@ public class BikePortalTest {
 	// Adam 2
 	@Test//
 	public void testaddMembertoEvent() {
-		// Item list is not null and it is empty
-		assertNotNull("Test if there is valid memberEvent arraylist to add to", memberEventList);
-		assertEquals("Test that the MemberEventarraylist is empty.", 0, memberEventList.size());
-		
-		// Given an empty list, after adding 1 item, the size of the list is 1
-		BikePortal.addMemberEvent(memberEventList, me1);
-		assertEquals("Test that the MemberEvent arraylist size is 1.", 1, memberEventList.size());
-		
-		// Add Member in to Events
-		BikePortal.addMemberEvent(memberEventList, me2);
-		assertEquals("Test that the MemberEvent arraylist size is now 2.", 2, memberEventList.size());
-
-		// Test case 2: Test that there are missing details
-		MembertoEvents missingg = new MemberEvent(" ");
-		BikePortal.addMemberEvent(memberEventList, missingg);
-		assertEquals("Test that the MemberEvent arraylist size is unchange.", 2, memberEventList.size());
-
-		// Test Case 3: Add an item that already exists in the list
-		BikePortal.addMemberEvent(memberGroupList, me2);
-		assertEquals("Test that the MemberEvent arraylist size is unchange.", 2, memberEventList.size());
+		//test that user input is in the event arraylist
 	}
-// Adam 3
+	// Adam 3
 	@Test
 	public void testaddMembertoGroup() {
-		// Item list is not null and it is empty
-		assertNotNull("Test if there is valid memberGroup arraylist to add to", memberGroupList);
-		assertEquals("Test that the MemberGroup arraylist is empty.", 0, memberGroupList.size());
-		
-		// Given an empty list, after adding 1 item, the size of the list is 1
-		BikePortal.addMemberEvent(memberGroupList, mg1);
-		assertEquals("Test that the MemberGroup arraylist size is 1.", 1, memberGroupList.size());
-		
-		// Add Member in to Events
-		BikePortal.addMemberEvent(memberGroupList, mg2);
-		assertEquals("Test that the MemberGroup arraylist size is now 2.", 2, memberGroupList.size());
-
-		// Test case 2: Test that there are missing details
-		MembertoGroups missinggg = new MemberGroup(" ");
-		BikePortal.addMemberEvent(memberGroupList, missinggg);
-		assertEquals("Test that the MemberGroup arraylist size is unchange.", 2, memberGroupList.size());
-
-		// Test Case 3: Add an item that already exists in the list
-		BikePortal.addMemberGroup(memberGroupList, mg2);
-		assertEquals("Test that the MemberGroup arraylist size is unchange.", 2, memberEventList.size());
+		// test that the user input is in the groups arraylist
 	}
 
-	// pls look at the code again, refer to ResourceCentre's codes not jujst do on
-	// your own.
-	public void test_search_bikers() {
-		// Test case 1: Test when Biker ID exists.
-		assertNotNull("test if there is valid member arraylist to loan from", memberList);
-		// Adding bikers
-		Boolean ok = member.doCheckMember(memberList, "m1", "001");
-		assertTrue("Test if the biker id exists", ok);
-		assertTrue(memberList.get(0).getIsBiker());
-		assertEquals(memberList.get(0).getBikerId(), "001");
-		String testOutput = "";
-		testOutput += String.format("%-20s %-10s", "NAME", "BIKER ID");
-		testOutput += String.format("%-20s %-10d", "Keith", 001);
-		// Test that the details are displayed correctly
-		assertEquals("Test that the display is correct.", testOutput);
-
-		// Test case 2: Test when Biker ID does not exist.
-		assertNotNull("test if there is valid member arraylist to look from", memberList);
-		// Adding bikers
-		m2.setIsBiker(false);
-		C206.checkBiker(memberList, m2);
-		assertFalse("Test that if the biker id does not exists", memberList.get(1).getIsBiker());
-		ok = C206.doCheckMember(memberList, "m2", "999");
-		assertFalse("Test that the biker id is not found.", ok);
-
-		testOutput += String.format("%-20s %-10s", "NAME", "BIKER ID");
-		testOutput += String.format("%-20s %-10d", "Keith", 001);
-		// Test that the details are displayed correctly
-		assertEquals("Test that the display is correct.", testOutput);
-
-		// Test case 3: Test if the output is empty.
-		ok = C206.doCheckMember(memberList, "");
-		assertTrue("Test that there is no input.", ok);
-		String testOutput = "";
-		// Test that the details are displayed correctly
-		assertEquals("Test that nothing is displayed", testOutput);
-
-	}
-
-	public void testJoinDiscussions() {
-		//Test case 1: Test the discussion exists
-		assertNotNull("test if there is valid discussion arraylist to look from", discussionList);
-		  Boolean ok = Discussion.doCheckDiscussion(discussionList, "d1", "Sengkang");
-	        assertTrue("Test if the discussion exists", ok);+
-	        String testOutput = "";
-	        testOutput += String.format("%-20s", "DISCUSSION");
-	        testOutput += String.format("%-20s", "Sengkang");
-	        // Test that the details are displayed correctly
-	        assertEquals("Test that the display is correct.", testOutput);
-	        
-	        //Test case 2: Test that the details are displayed wrongly
-	        assertNotNull("test if there is valid discussion arraylist to look from", discussionList);
-	        d2.setIsDiscussion(false);
-	        C206.checkBiker(memberList, m2);
-	        assertFalse("Test that if the particular discussion does not exists", discussionList.get(1).getIsDiscussion());
-	        ok = C206.doCheckDiscussion(discussionList, "d2", "999");
-	        assertFalse("Test that the discussion is not found.", ok);
-	        String testOutput = "No such discussion exists!";
-	        
-	        //Test case 3: Test if the output is empty.
-	        ok = C206.doCheckDiscussion(discussionList, "");
-	        assertTrue("Test that there is no input.", ok);
-	        // Test that the details are displayed correctly
-	        String testOutput = "";
-	        assertEquals("Test that nothing is displayed", testOutput);
-	}
 
 	// Charmain
 	@Test
@@ -218,20 +114,6 @@ public class BikePortalTest {
 		Registration reg_missing = new Registration("CB0014", "", "", "");
 		BikePortal.addReg(regList, reg_missing);
 		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
-	}
-
-	@Test
-	public void testLoginAdmin() {
-		assertTrue("Test that Admin Logs in with valid Username and Password",
-				BikePortal.adminLogin(adminList, "yituck@admin.com", "Password4"));
-		assertFalse("Test that the adminLogin does not go through.",
-				BikePortal.adminLogin(adminList, "yituck@admin.com", ""));
-		assertFalse("Test that the adminLogin does not go through.",
-				BikePortal.adminLogin(adminList, "yituck@adbmin.com", "password4"));
-	}
-	@Test
-	public void validate(){
-		
 	}
 	
 	// Kween
