@@ -76,15 +76,16 @@ public class BikePortalFinal {
 					while (internalOption != 5) {
 						if (internalOption == 1) {
 							BikePortalFinal.setHeader("View All Users");
-//							BikePortalFinal.viewAllUser(memberList);
+							BikePortalFinal.viewAllUser(memberList);
 							BikePortalFinal.userPMenu();
 							int userOption = Helper.readInt("Enter an option > ");
 							while (userOption != 2) {
 								if (userOption == 1) {
-//									BikePortalFinal.deleteMember(memberList, regList);
+									String deleteUser = Helper.readString("Enter the user to delete > ");
+									BikePortalFinal.deleteMember(memberList, regList,deleteUser );
 								}
 								BikePortalFinal.setHeader("View All Users");
-//								BikePortalFinal.viewAllUser(memberList);
+								BikePortalFinal.viewAllUser(memberList);
 								BikePortalFinal.userPMenu();
 								userOption = Helper.readInt("Enter an option > ");
 							}
@@ -92,15 +93,15 @@ public class BikePortalFinal {
 							internalOption = Helper.readInt("Enter an option > ");
 						} else if (internalOption == REG_OPTION) {
 							BikePortalFinal.setHeader("View All Registrations");
-//							BikePortalFinal.viewAllReg(regList);
+							BikePortalFinal.viewAllReg(regList);
 							BikePortalFinal.regMenu();
 							int regOption = Helper.readInt("Enter an option > ");
 							while (regOption != 2) {
 								if (regOption == 1) {
-//									BikePortalFinal.removeReg(regList, memberList);
+									BikePortalFinal.removeReg(regList, memberList);
 								}
 								BikePortalFinal.setHeader("View All Registrations");
-//								BikePortalFinal.viewAllReg(regList);
+							BikePortalFinal.viewAllReg(regList);
 								BikePortalFinal.regMenu();
 								regOption = Helper.readInt("Enter an option > ");
 							}
@@ -188,9 +189,32 @@ public class BikePortalFinal {
 										UserOption = Helper.readInt("Enter an option > ");
 									}
 									BikePortalFinal.userMenu();
-									loginOption = Helper.readInt("Enter option: ");
+									loginOption = Helper.readInt("Enter option > ");
 								} else if (loginOption == 4) {
-									// charmain add your fucking code here
+									BikePortal.bikeMenu();
+									int bikeOption = Helper.readInt("Enter an bike option > ");
+									while (bikeOption != 4) {
+										if (bikeOption == 1) {
+											// view all the bike i own 
+											BikePortal.viewAllBike(bikeList);
+											BikePortal.bikeMenu();
+											bikeOption = Helper.readInt("Enter Bike Option > ");
+										} else if (bikeOption == 2) {
+											// add bike
+											Bike newBike = inputBike();
+											BikePortal.addBike(bikeList, newBike);
+											System.out.println("Bike added");
+											BikePortal.bikeMenu();
+											bikeOption = Helper.readInt("Enter Bike Option > ");
+										} else if (bikeOption == 3) {
+											// delete bike
+											String bikeName = Helper.readString("Enter bike name to delete > ");
+											BikePortal.deleteBike(bikeList, bikeName);
+											BikePortal.bikeMenu();
+											bikeOption = Helper.readInt("Enter Bike Option > ");
+
+										}
+									}
 								} else if (loginOption == 5) {
 									// delete this part
 								}
@@ -305,10 +329,16 @@ public class BikePortalFinal {
 		System.out.println("3. Join");
 		System.out.println("4. Return to previous page");
 	}
-
+	public static void bikeMenu() {
+		BikePortal.setHeader("Bike PAGE");
+		System.out.println("1. View all bike");
+		System.out.println("2. Add a bike");
+		System.out.println("3. Delete an existing bike");
+		System.out.println("4. Return to previous page");
+	}
 	// ADD YOUR METHODS BELOW
-	
-	//---------------------------------------------MEMBER---------------------------------------------------
+
+	// ---------------------------------------------MEMBER---------------------------------------------------
 	public static boolean adminLogin(ArrayList<Admin> adminList, String email, String password) {
 		for (int x = 0; x < adminList.size(); x++) {
 			if ((email.equalsIgnoreCase(adminList.get(x).getEmail()))
@@ -319,6 +349,7 @@ public class BikePortalFinal {
 		}
 		return false;
 	}
+
 	public static boolean validateRegAdmin(String email, String password) {
 		if (email.contains("@gmail.com")) {
 			if (password.length() <= 8) {
@@ -344,6 +375,7 @@ public class BikePortalFinal {
 		}
 		return output;
 	}
+
 	public static void viewAllUser(ArrayList<Member> memberList) {
 		// printing user
 		BikePortal.setHeader("MEMBER LIST");
@@ -351,31 +383,32 @@ public class BikePortalFinal {
 		output += retrieveAllUser(memberList);
 		System.out.println(output);
 	}
-	public static void findUser (ArrayList<Member> memberList) {
-        BikePortal.setHeader("Search for Biker");
-        String username = Helper.readString("Enter Username: ");
-        String output = "";
-        output += String.format("%-20s %-20s\n", "USERNAME", "PREFERENCE");
-        boolean isFound = false;
-        for (int i = 0; i < memberList.size(); i++) {
-          Member m = memberList.get(i);
-            if (m.getUsername().toLowerCase().contains(username.toLowerCase())) {
-            output += String.format("%-20s %-20s\n", m.getUsername(), m.getPreference());
-            isFound = true;
-            break;
-            
-            } else {
-                isFound = false;
-            }
-        }
 
-        if(isFound == false) {
-            System.out.println("There is no such user\n");
-        } else { 
-        System.out.println(output);
-        }
-    }
-	
+	public static void findUser(ArrayList<Member> memberList) {
+		BikePortal.setHeader("Search for Biker");
+		String username = Helper.readString("Enter Username: ");
+		String output = "";
+		output += String.format("%-20s %-20s\n", "USERNAME", "PREFERENCE");
+		boolean isFound = false;
+		for (int i = 0; i < memberList.size(); i++) {
+			Member m = memberList.get(i);
+			if (m.getUsername().toLowerCase().contains(username.toLowerCase())) {
+				output += String.format("%-20s %-20s\n", m.getUsername(), m.getPreference());
+				isFound = true;
+				break;
+
+			} else {
+				isFound = false;
+			}
+		}
+
+		if (isFound == false) {
+			System.out.println("There is no such user\n");
+		} else {
+			System.out.println(output);
+		}
+	}
+
 	public static Registration inputUser() {
 		// REG
 		// user input when registering
@@ -386,7 +419,7 @@ public class BikePortalFinal {
 
 		Registration newReg = new Registration(name, password, username, preference);
 		return newReg;
-		 
+
 	}
 
 	public static void addMember(ArrayList<Member> memberList, Member newMember) {
@@ -399,8 +432,8 @@ public class BikePortalFinal {
 			if (username.equalsIgnoreCase(new_username))
 				return;
 		}
-		if ((new_username.isEmpty()) || (newMember.getPassword().isEmpty())
-				|| (newMember.getName().isEmpty()) || (newMember.getPreference().isEmpty())) {
+		if ((new_username.isEmpty()) || (newMember.getPassword().isEmpty()) || (newMember.getName().isEmpty())
+				|| (newMember.getPreference().isEmpty())) {
 			return;
 		}
 		// checking if user have input all the fields required
@@ -408,10 +441,10 @@ public class BikePortalFinal {
 
 	}
 
-	public static void deleteMember(ArrayList<Member> memberList, ArrayList<Registration> regList) {
+	public static void deleteMember(ArrayList<Member> memberList, ArrayList<Registration> regList, String deleteUser) {
 		boolean isFound = false;
 		Member mem;
-		String deleteUser = Helper.readString("Enter the user to delete > ");
+
 		for (int i = 0; i < memberList.size(); i++) {
 			mem = memberList.get(i);
 			if (mem.getUsername().equalsIgnoreCase(deleteUser)) {
@@ -434,6 +467,7 @@ public class BikePortalFinal {
 		}
 
 	}
+
 	public static Admin inputAdmin() {
 
 		// write your code here
@@ -480,6 +514,7 @@ public class BikePortalFinal {
 		output += retrieveAllAdmin(adminList);
 		System.out.println(output);
 	}
+
 	public static boolean userLogin(ArrayList<Member> memberList, String username, String password) {
 		for (Member member : memberList) {
 			if (username.equalsIgnoreCase(member.getUsername()) && password.equals(member.getPassword())) {
@@ -488,6 +523,7 @@ public class BikePortalFinal {
 		}
 		return false;
 	}
+
 	// --------------------------------------REG------------------------------------------------------------
 	public static String retrieveAllReg(ArrayList<Registration> regList) {
 		// obtaining member
@@ -549,4 +585,64 @@ public class BikePortalFinal {
 
 	}
 
+	// ---------------------------------------------------Bike---------------------------------------------------
+	public static String retrieveAllBike(ArrayList<Bike> bikeList) {
+		// obtaining member
+		String output = "";
+		for (int i = 0; i < bikeList.size(); i++) {
+			output += String.format("%-15s %-25s  \n", bikeList.get(i).getBikeName(), bikeList.get(i).getBikeType());
+		}
+		return output;
+	}
+
+	public static void viewAllBike(ArrayList<Bike> bikeList) {
+		// printing user
+		BikePortal.setHeader("BIKE LIST");
+		String output = String.format("%-15s %-25s \n", "NAME", "TYPE");
+		output += retrieveAllBike(bikeList);
+		System.out.println(output);
+	}
+
+	public static Bike inputBike() {
+
+		// write your code here
+		String bikeName = Helper.readString("Enter Bike Name > ");
+		String bikeType = Helper.readString("Enter Bike Type > ");
+
+		Bike newBike = new Bike(bikeName, bikeType);
+		return newBike;
+
+	}
+
+	public static void addBike(ArrayList<Bike> bikeList, Bike newBike) {
+		// write your code here
+		Bike item;
+		for (int i = 0; i < bikeList.size(); i++) {
+			item = bikeList.get(i);
+			if (item.getBikeName().equalsIgnoreCase(newBike.getBikeName()))
+				return;
+		}
+		if ((newBike.getBikeName().isEmpty()) || (newBike.getBikeType().isEmpty())) {
+			return;
+		}
+
+		bikeList.add(newBike);
+	}
+
+	public static void deleteBike(ArrayList<Bike> bikeList, String deleteBike) {
+		boolean isFound = false;
+		for (int i = 0; i < bikeList.size(); i++) {
+			if (bikeList.get(i).getBikeName().equalsIgnoreCase(deleteBike)) {
+				bikeList.remove(i);
+				System.out.println(deleteBike + " was deleted successfully");
+				isFound = true;
+				break;
+			}
+
+		}
+		if (!isFound) {
+			System.out.println("Bike not found");
+		}
+
+	}
 }

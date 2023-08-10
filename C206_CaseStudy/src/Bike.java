@@ -13,6 +13,7 @@
 public class Bike {
 	private String bikeName;
 	private String bikeType;
+	
 
 	/**
 	 * @param bikeName
@@ -38,6 +39,7 @@ public class Bike {
 	public String getBikeName() {
 		return bikeName;
 	}
+	
 	
 
 }
