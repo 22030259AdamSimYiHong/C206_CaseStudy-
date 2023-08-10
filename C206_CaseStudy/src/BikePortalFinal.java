@@ -10,7 +10,7 @@
  */
 
 /**
- * @author solstation
+ * @author 22012568
  *
  */
 
@@ -485,7 +485,7 @@ public class BikePortalFinal {
 		}
 
 	}
-x
+
 	public static Admin inputAdmin() {
 
 		// write your code here
@@ -647,12 +647,12 @@ x
 		bikeList.add(newBike);
 	}
 
-	public static void deleteBike(ArrayList<Bike> bikeList, String deleteBike) {
+	public static void deleteBike(ArrayList<Bike> bikeList, Bike bike) {
 		boolean isFound = false;
 		for (int i = 0; i < bikeList.size(); i++) {
-			if (bikeList.get(i).getBikeName().equalsIgnoreCase(deleteBike)) {
+			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bike.getBikeName())) {
 				bikeList.remove(i);
-				System.out.println(deleteBike + " was deleted successfully");
+				System.out.println(bike + " was deleted successfully");
 				isFound = true;
 				break;
 			}
