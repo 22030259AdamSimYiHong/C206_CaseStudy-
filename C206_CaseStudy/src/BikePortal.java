@@ -61,145 +61,7 @@ public class BikePortal {
 
 		loginTypeMenu();
 		int option = Helper.readInt("Enter choice > ");
-//
-//		while (option != OPTION_EXIT) {
-//
-//			// ADMIN
-//			BikePortal.loginTypeMenu();
-//			option = Helper.readInt("Enter an option > ");
-//
-//			if (option == 1) {
-//				String email = Helper.readString("Enter your email > ");
-//				String pass = Helper.readString("Enter your password > ");
-//				if (BikePortal.adminLogin(adminList,email,pass) == true) {
-//					BikePortal.adminMenu();
-//					int choice = Helper.readInt("Enter an option > ");
-//					while (choice != 5) {
-//						if (choice == 1) {
-//							BikePortal.setHeader("View All User");
-//							BikePortal.viewAllUser(memberList);
-//							BikePortal.adminMenu();
-//							choice = Helper.readInt("Enter an option > ");
-//						} else if (choice == 2) {
-//							BikePortal.setHeader("View Registrations");
-//							BikePortal.viewAllReg(regList);
-//							BikePortal.adminMenu();
-//							choice = Helper.readInt("Enter an option > ");
-//						} else if (choice == 3) {
-//							BikePortal.setHeader("Delete User");
-//							BikePortal.deleteMember(memberList);
-//							BikePortal.adminMenu();
-//							choice = Helper.readInt("Enter an option > ");
-//						} else if (choice == 4) {
-//							BikePortal.setHeader("Delete Registration");
-//							BikePortal.removeReg(regList);
-//							BikePortal.adminMenu();
-//							choice = Helper.readInt("Enter an option > ");
-//						} else if (choice == 5) {
-//							break;
-//						} else {
-//							System.out.println("Invalid Choice");
-//							BikePortal.adminMenu();
-//							choice = Helper.readInt("Enter an option > ");
-//						}
-//					}
-//				}else {
-//					System.out.println("Unsuccessful Log In");
-//				}
-//
-//			} else if (option == 2) {
-//				// USER
-//
-//				BikePortal.userMenu();
-//				int choice = Helper.readInt("Enter an option > ");
-//				while (choice != 12) {
-//					if (choice == 1) {
-//						BikePortal.setHeader("Create a Group");
-//						BikePortal.createGrp(memberList, grpList);
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 2) {
-//						BikePortal.setHeader("View all Group");
-//						BikePortal.viewAllGrp(grpList);
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 3) {
-//						BikePortal.setHeader("Join a Group");
-//						Group joinedGroup = joinAGrp(grpList, memberList);
-//						if (joinedGroup != null) {
-//							BikePortal.viewGroupMembers(grpList, joinedGroup.getGroupName());
-//						}
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 4) {
-//						BikePortal.setHeader("Delete an exiting Group");
-//						BikePortal.deleteGrp(grpList);
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 5) {
-//						Event newEvent = createEvent();
-//						BikePortal.addEvent(eventList, newEvent);
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//
-//					} else if (choice == 6) {
-//						BikePortal.setHeader("View all Events ");
-//						BikePortal.viewAllEvent(eventList);
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 7) {
-//						BikePortal.setHeader("Delete Existing Event");
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 8) {
-//						BikePortal.setHeader("Create a Discussion");
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 9) {
-//						BikePortal.setHeader("View All Discussion");
-//						BikePortal.viewAllDiscussion(discussionList);
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 10) {
-//						BikePortal.setHeader("Join a Discussion");
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 11) {
-//						BikePortal.setHeader("Delete an Existing Discussion");
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					} else if (choice == 12) {
-//						break;
-//					}
-//					else {
-//						System.out.println("Invalid Choice");
-//						BikePortal.userMenu();
-//						choice = Helper.readInt("Enter an option > ");
-//					}
-//
-//				}
-//			} else if (option == 3) {
-//				// SIGN UP (REG)
-//				BikePortal.setHeader("Registering as new user");
-//				BikePortal.setHeader("SIGNUP AS NEW USER");
-//				Registration newReg = inputUser();
-//				Registration addedReg = BikePortal.addReg(regList, newReg);
-//				if (addedReg != null) {
-//					System.out.println("Registration successful.");
-//					Member newMember = new Member(addedReg.getName(), addedReg.getUsername(), addedReg.getPassword(),
-//							addedReg.getPreference());
-//					memberList.add(newMember);
-//				} else {
-//					System.out.println("Failed to register. Required fields are missing or user already exists.");
-//				}
-//
-//			} else if (option == OPTION_EXIT) {
-//				System.out.println("Bye!");
-//			} else {
-//				System.out.println("Invalid option");
-//			}
-//
-//		} 
+
 
 		while (option != OPTION_EXIT) {
 			if (option == 1) {
@@ -330,30 +192,12 @@ public class BikePortal {
 
 	}
 
-//	public static void loginTypeMenuOld() {
-//		BikePortal.setHeader("LOGIN METHOD");
-//		System.out.println("1. Log in as Admin");
-//		System.out.println("2. Log in as User");
-//		System.out.println("3. Sign Up as new user");
-//	}
-
 	public static void loginTypeMenu() {
 		BikePortal.setHeader("LOGIN METHOD");
 		System.out.println("1. Interact as Admin");
 		System.out.println("2. Interact as User");
 		System.out.println("3. Quit Program");
 	}
-
-//	public static void adminMenuOld() {
-//		BikePortal.setHeader("MY BIKE PORTAL");
-//		System.out.println("1. View all User Account ");
-//		System.out.println("2. View all Registration");
-//		System.out.println("3. Delete an existing user");
-//		System.out.println("4. Remove from registration list");
-//		System.out.println("5. Quit");
-//		Helper.line(80, "-");
-//
-//	}
 
 	public static void adminMenu() {
 		BikePortal.setHeader("MY BIKE PORTAL - ADMIN CONTROL");
@@ -366,23 +210,6 @@ public class BikePortal {
 
 	}
 
-//	public static void userMenuOld() {
-//		BikePortal.setHeader("MY BIKE PORTAL");
-//		System.out.println("1. Create a Group ");
-//		System.out.println("2. View all Group ");
-//		System.out.println("3. Join a Group ");
-//		System.out.println("4. Leave an Existing Group");
-//		System.out.println("5. Create an event");
-//		System.out.println("6. View all Events ");
-//		System.out.println("7. Delete Existing Event");
-//		System.out.println("8. Create a discussion");
-//		System.out.println("9. View all discussion");
-//		System.out.println("10. Join a discussion");
-//		System.out.println("11. Delete an existing Discussion");
-//		System.out.println("12. Quit");
-//		Helper.line(110, "-");
-//	}
-	
 	public static void userMenu() {
 		BikePortal.setHeader("MY BIKE PORTAL");
 		System.out.println("1. Groups");
@@ -714,18 +541,6 @@ public class BikePortal {
 		}
 	}
 
-//	public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
-//		Event event;
-//		// checking if user already exist
-//		for (int i = 0; i < eventList.size(); i++) {
-//			event = eventList.get(i);
-//			if (eventList.get(i).getEventName().equalsIgnoreCase(event.getEventName()))
-//				return;
-//		}
-//		// checking if user have input all the fields required
-//		eventList.add(newEvent);
-//
-//	}
 
 //------------------------------------------------Registration-------------------------------------------------------
 	public static String retrieveAllReg(ArrayList<Registration> regList) {
@@ -790,35 +605,6 @@ public class BikePortal {
 	// ------------------------------------------Group-----------------------------------------------------------
 
 	// Create a Group
-//	public static void createGrpOld(ArrayList<Member> memberList, ArrayList<Group> grpList) {
-//		String grpName = Helper.readString("Please Enter Group Name");
-//		String grpDescription = Helper.readString("Please Enter Group Description");
-//		String grpPreference = Helper.readString("Please Enter Group preference");
-//		char addMembers = Helper.readChar("Do you want to add members (y/n)");
-//		while (addMembers == 'y') {
-//			String memberName = Helper.readString("Enter member username");
-//			Member memberFound = null;
-//
-//			for (int x = 0; x < memberList.size(); x++) {
-//				if (memberList.get(x).getUsername().equalsIgnoreCase(memberName)) {
-//					memberFound = memberList.get(x);
-//					break;
-//				}
-//			}
-//			if (memberFound != null) {
-//				Group group = new Group(grpName, grpDescription, grpPreference);
-//				// Add the selected member to the group's memberList
-//				group.addMember(memberFound);
-//				grpList.add(group);
-//				System.out.println(memberFound.getUsername() + " has been added to the group " + grpName);
-//			} else {
-//				System.out.println("Member not found in the member list.");
-//			}
-//
-//			addMembers = Helper.readChar("Do you want to add more members (y/n)");
-//		}
-//	}
-//	
 	public static void createGrp(ArrayList<Member> memberList, ArrayList<Group> grpList) {
 		String grpName = Helper.readString("Enter group name > ");
 		String grpDescription = Helper.readString("Enter group description > ");
@@ -893,44 +679,6 @@ public class BikePortal {
 		System.out.println(output);
 
 	}
-
-//	public static Group joinAGrpOld(ArrayList<Group> grpList, ArrayList<Member> memberList) {
-//		String groupName = Helper.readString("Enter Group to Join > ");
-//		Group groupToJoin = null;
-//
-//		// Find the group to join
-//		for (Group group : grpList) {
-//			if (group.getGroupName().equalsIgnoreCase(groupName)) {
-//				groupToJoin = group;
-//				break;
-//			}
-//		}
-//
-//		if (groupToJoin != null) {
-//			String usernameToJoin = Helper.readString("Enter Username to Join > ");
-//			Member memberToJoin = null;
-//
-//			// Find the member in the memberList
-//			for (Member member : memberList) {
-//				if (member.getUsername().equalsIgnoreCase(usernameToJoin)) {
-//					memberToJoin = member;
-//					break;
-//				}
-//			}
-//
-//			if (memberToJoin != null) {
-//				// Add the member to the group
-//				groupToJoin.addMember(memberToJoin);
-//				System.out.println(memberToJoin.getUsername() + " has been added to the group " + groupName);
-//				return (groupToJoin);
-//			} else {
-//				System.out.println("Member not found in the member list.");
-//			}
-//		} else {
-//			System.out.println("Group not found.");
-//		}
-//		return (null);
-//	}
 	
 	public static Group joinGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
 	    Group groupToJoin = null; // Declare the variable outside the loop
@@ -987,22 +735,6 @@ public class BikePortal {
 			System.out.println("Group not found.");
 		}
 	}
-
-//	public static void deleteGrpOld(ArrayList<Group> grpList) {
-//		Group grp;
-//		String deleteGrp = Helper.readString("Enter Group Name > ");
-//		for (int i = 0; i < grpList.size(); i++) {
-//			grp = grpList.get(i);
-//			if (grp.getGroupName().equalsIgnoreCase(deleteGrp)) {
-//				grpList.remove(i);
-//				System.out.println("Successfully Deleted");
-//				break;
-//			} else {
-//				System.out.println("User not found");
-//			}
-//		}
-//
-//	} test
 
 	public static void deleteGrp(ArrayList<Group> grpList) {
 		String deleteGrp = Helper.readString("Enter Group Name > ");
