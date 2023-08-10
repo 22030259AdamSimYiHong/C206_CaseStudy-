@@ -166,12 +166,12 @@ public class BikePortal {
 									}
 								} else if (loginOption == 2) {
 									BikePortal.setHeader("View All Events");
-									BikePortal.recommendEvents(memberList, eventList,loginEmail) ;
+									BikePortal.viewAllEvent(eventList) ;
 									BikePortal.currentEMenu();
 									int eventOption = Helper.readInt("Enter an option > ");
 									while (eventOption != 4) {
 										if (eventOption == 1) {
-											// need to create a method to view events that user is currently in
+											BikePortal.recommendEvents(memberList, eventList,loginEmail) ;
 										} else if (eventOption == 2) {
 											BikePortal.createEvent();
 										} else if (eventOption == 3) {
@@ -281,7 +281,7 @@ public class BikePortal {
 	
 	public static void currentEMenu() {
 		BikePortal.setHeader("Event PAGE");
-		System.out.println("1. View current events");
+		System.out.println("1. View recommended events");
 		System.out.println("2. Create");
 		System.out.println("3. Join");
 		System.out.println("4. Return to previous page");
