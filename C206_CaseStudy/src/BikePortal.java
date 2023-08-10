@@ -32,7 +32,7 @@ public class BikePortal {
 		ArrayList<Group> grpList = new ArrayList<Group>();
 		ArrayList<Discussion> discussionList = new ArrayList<Discussion>();
 		ArrayList<Bike> bikeList = new ArrayList<Bike>();
-		
+
 		bikeList.add(new Bike("BMW", "Sport"));
 		discussionList.add(new Discussion("Competitve", "Mount Bike", "What are the features? "));
 
@@ -61,7 +61,6 @@ public class BikePortal {
 
 		loginTypeMenu();
 		int option = Helper.readInt("Enter choice > ");
-
 
 		while (option != OPTION_EXIT) {
 			if (option == 1) {
@@ -166,7 +165,7 @@ public class BikePortal {
 									}
 								} else if (loginOption == 2) {
 									BikePortal.setHeader("View All Events");
-									BikePortal.recommendEvents(memberList, eventList,loginEmail) ;
+									BikePortal.recommendEvents(memberList, eventList, loginEmail);
 									BikePortal.currentEMenu();
 									int eventOption = Helper.readInt("Enter an option > ");
 									while (eventOption != 4) {
@@ -178,15 +177,27 @@ public class BikePortal {
 //											BikePortal.
 										}
 									}
+								} else if (loginOption == 3) {
+									int UserOption = 0;
+									while (UserOption != 2) {
+										BikePortal.findUser(memberList);
+										UserOption = Helper.readInt("Enter an option > ");
+									}
+									BikePortal.userMenu();
+									loginOption = Helper.readInt("Enter option: ");
+								} else if (loginOption == 4) {
+									// charmain add your fucking code here
+								} else if (loginOption == 5) {
+									// delete this part
 								}
 							}
-							
+
 						}
 					}
 				}
 			}
 			BikePortal.loginTypeMenu();
-		    option = Helper.readInt("Enter choice > ");
+			option = Helper.readInt("Enter choice > ");
 		}
 		System.out.println("Good Bye!");
 
@@ -250,14 +261,14 @@ public class BikePortal {
 		System.out.println("1. Delete event");
 		System.out.println("2. Return to previous page");
 	}
-	
+
 	public static void userSMenu() {
 		BikePortal.setHeader("USER OPTION");
 		System.out.println("1. Login");
 		System.out.println("2. Sign up");
 		System.out.println("3. Return to previous page");
 	}
-	
+
 	public static void currentGMenu() {
 		BikePortal.setHeader("GROUP PAGE");
 		System.out.println("1. View current groups");
@@ -266,19 +277,19 @@ public class BikePortal {
 		System.out.println("4. View discussions");
 		System.out.println("5. Return to previous page");
 	}
-	
+
 	public static void currentG2Menu() {
 		BikePortal.setHeader("GROUP PAGE");
 		System.out.println("1. Leave");
 		System.out.println("2. Return to previous page");
 	}
-	
+
 	public static void discussionMenu() {
 		BikePortal.setHeader("DISCUSSION PAGE");
 		System.out.println("1. Leave discussion");
 		System.out.println("2. Return to previous page");
 	}
-	
+
 	public static void currentEMenu() {
 		BikePortal.setHeader("Event PAGE");
 		System.out.println("1. View current events");
@@ -336,6 +347,31 @@ public class BikePortal {
 		System.out.println(output);
 	}
 
+	public static void findUser (ArrayList<Member> memberList) {
+        BikePortal.setHeader("Search for Biker");
+        String username = Helper.readString("Enter Username: ");
+        String output = "";
+        output += String.format("%-20s %-20s\n", "USERNAME", "PREFERENCE");
+        boolean isFound = false;
+        for (int i = 0; i < memberList.size(); i++) {
+          Member m = memberList.get(i);
+            if (m.getUsername().toLowerCase().contains(username.toLowerCase())) {
+            output += String.format("%-20s %-20s\n", m.getUsername(), m.getPreference());
+            isFound = true;
+            break;
+            
+            } else {
+                isFound = false;
+            }
+        }
+
+        if(isFound == false) {
+            System.out.println("There is no such user\n");
+        } else { 
+        System.out.println(output);
+        }
+    }
+	
 	public static Registration inputUser() {
 		// REG
 		// user input when registering
@@ -438,14 +474,14 @@ public class BikePortal {
 		output += retrieveAllAdmin(adminList);
 		System.out.println(output);
 	}
-	
+
 	public static boolean userLogin(ArrayList<Member> memberList, String username, String password) {
-	    for (Member member : memberList) {
-	        if (username.equalsIgnoreCase(member.getUsername()) && password.equals(member.getPassword())) {
-	            return true;
-	        }
-	    }
-	    return false;
+		for (Member member : memberList) {
+			if (username.equalsIgnoreCase(member.getUsername()) && password.equals(member.getPassword())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 //----------------------------------------------------Event------------------------------------------------------------------
@@ -540,7 +576,6 @@ public class BikePortal {
 			System.out.println("Event not found");
 		}
 	}
-
 
 //------------------------------------------------Registration-------------------------------------------------------
 	public static String retrieveAllReg(ArrayList<Registration> regList) {
@@ -679,39 +714,37 @@ public class BikePortal {
 		System.out.println(output);
 
 	}
-	
+
 	public static Group joinGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
-	    Group groupToJoin = null; // Declare the variable outside the loop
+		Group groupToJoin = null; // Declare the variable outside the loop
 
-	    while (true) {
-	        String groupName = Helper.readString("Enter Group Name to Join (or type 'exit' to cancel) > ");
-	        
-	        if (groupName.equalsIgnoreCase("exit")) {
-	            System.out.println("Joining group canceled.");
-	            return null;
-	        }
+		while (true) {
+			String groupName = Helper.readString("Enter Group Name to Join (or type 'exit' to cancel) > ");
 
-	        // Find the group to join
-	        for (Group group : grpList) {
-	            if (group.getGroupName().equalsIgnoreCase(groupName)) {
-	                groupToJoin = group;
-	                break;
-	            }
-	        }
+			if (groupName.equalsIgnoreCase("exit")) {
+				System.out.println("Joining group canceled.");
+				return null;
+			}
 
-	        if (groupToJoin != null) {
-	            // Add the member to the group (assuming you have a member instance)
-	            // groupToJoin.addMember(memberToJoin);
-	            System.out.println("You have successfully joined the group: " + groupName);
-	            break;  // Exit the loop after successful join
-	        } else {
-	            System.out.println("Group not found. Please try again.");
-	        }
-	    }
-	    return groupToJoin;
+			// Find the group to join
+			for (Group group : grpList) {
+				if (group.getGroupName().equalsIgnoreCase(groupName)) {
+					groupToJoin = group;
+					break;
+				}
+			}
+
+			if (groupToJoin != null) {
+				// Add the member to the group (assuming you have a member instance)
+				// groupToJoin.addMember(memberToJoin);
+				System.out.println("You have successfully joined the group: " + groupName);
+				break; // Exit the loop after successful join
+			} else {
+				System.out.println("Group not found. Please try again.");
+			}
+		}
+		return groupToJoin;
 	}
-
-
 
 	public static void viewGroupMembers(ArrayList<Group> grpList, String groupName) {
 		Group groupToView = null;
@@ -789,8 +822,8 @@ public class BikePortal {
 		regList.add(newReg);
 		return (newReg);
 	}
-	
-	//--------------------------------------bike------------------------------------------------------
+
+	// --------------------------------------bike------------------------------------------------------
 	public static void addBike(ArrayList<Bike> bikeList, Bike newBike) {
 		Bike bike;
 		// checking if user already exist
@@ -806,28 +839,28 @@ public class BikePortal {
 		bikeList.add(newBike);
 
 	}
-	public static void recommendEvents(ArrayList<Member> memberList, ArrayList<Event> eventList, String loggedInMemberName) {
-	    BikePortal.setHeader("RECOMMENDED EVENTS");
-	    String output = String.format("%-15s %-25s %-25s %-25s %-15s\n", "DIFFICULTY", "EVENT NAME", "DATE", "TIME ",
-	            "VENUE");
 
-	    for (Member mem : memberList) {
-	        if (mem.getUsername().equalsIgnoreCase(loggedInMemberName)) {
-	            String preference = mem.getPreference();
-	            for (Event event : eventList) {
-	                if (event.getDifficulty().equalsIgnoreCase(preference)) {
-	                    output += String.format("%-15s %-25s %-25s %-25s %-15s\n", event.getDifficulty(),
-	                            event.getEventName(), event.getEventDate(), event.getEventTime(),
-	                            event.getVenue());
-	                }
-	            }
-	            break; // No need to continue once the logged-in member is found
-	        }
-	    }
+	public static void recommendEvents(ArrayList<Member> memberList, ArrayList<Event> eventList,
+			String loggedInMemberName) {
+		BikePortal.setHeader("RECOMMENDED EVENTS");
+		String output = String.format("%-15s %-25s %-25s %-25s %-15s\n", "DIFFICULTY", "EVENT NAME", "DATE", "TIME ",
+				"VENUE");
 
-	    System.out.println(output);
+		for (Member mem : memberList) {
+			if (mem.getUsername().equalsIgnoreCase(loggedInMemberName)) {
+				String preference = mem.getPreference();
+				for (Event event : eventList) {
+					if (event.getDifficulty().equalsIgnoreCase(preference)) {
+						output += String.format("%-15s %-25s %-25s %-25s %-15s\n", event.getDifficulty(),
+								event.getEventName(), event.getEventDate(), event.getEventTime(), event.getVenue());
+					}
+				}
+				break; // No need to continue once the logged-in member is found
+			}
+		}
+
+		System.out.println(output);
 	}
-
 
 }
 
