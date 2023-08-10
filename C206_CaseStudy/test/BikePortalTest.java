@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class BikePortalTest {
 	
@@ -23,12 +25,15 @@ public class BikePortalTest {
 	private Registration r3;
 	private Bike b1;
 	private Bike b2;
+	private Event e1;
+	private Event e2;
 
 	private ArrayList<Member> memberList;
 	private ArrayList<Admin> adminList;
 	private ArrayList<Discussion> discussionList;
 	private ArrayList<Registration> regList;
 	private ArrayList<Bike> bikeList;
+	private ArrayList<Event>eventList;
 
 	@Before
 	public void setUp() throws Exception {
@@ -47,6 +52,8 @@ public class BikePortalTest {
 		r3 = new Registration("Charizard", "Char789", "003", "Casual");
 		b1 = new Bike("bmw", "sports");
 		b2 = new Bike("kawasaki", "offroad");
+		e1 = new Event("Casual", "RP casual club", LocalDate.of(2023, 8, 15), LocalTime.of(14, 30), "Republic Polytechnic");
+		e2 = new Event("Competitive", "SP Competitive club", LocalDate.of(2023, 8, 14), LocalTime.of(18, 30), "Singapore Polytechnic");
 		
 
 		memberList = new ArrayList<Member>();
@@ -54,6 +61,7 @@ public class BikePortalTest {
 		discussionList = new ArrayList<Discussion>();
 		regList = new ArrayList<Registration>();
 		bikeList =new ArrayList<Bike>();
+		eventList = new ArrayList<Event>();
 		adminList.add(a1);
 		adminList.add(a2);
 		adminList.add(a3);
@@ -310,7 +318,7 @@ public class BikePortalTest {
 		  assertFalse("Test that the member username can be viewed", m1.getUsername() == null);
 		  
 	  }
-	  
+	  //
 	  // Yi Tuck
 	  @Test
 	  public void testDeletedetails() {
@@ -321,6 +329,35 @@ public class BikePortalTest {
 			  assertNotEquals("Test that deleted member is no longer in the memberlist", "003", member.getUsername());
 		  }
 	  }
+	  
+	// Yi Tuck
+      @Test
+      public void testAddEvent() {
+        BikePortalFinal.addEvent(eventList, e1);
+        assertEquals("Test that the Event arraylist size is 1.", 1, eventList.size());
+        
+      }
+      
+      // Yi Tuck
+      @Test
+      public void testViewEvent() {
+        BikePortalFinal.addEvent(eventList, e1);
+        BikePortalFinal.viewAllEvent(eventList);
+        assertNotNull("Check that viewed event list is not null", eventList);
+        assertEquals("Check the size of the viewed event list", 1, eventList.size());
+        assertTrue("Check if the viewed event list contains the test member", eventList.contains(e1));
+        
+      }
+      
+      // Yi Tuck
+      @Test
+      public void testDeleteEvent() {
+        BikePortal.addEvent(eventList, e1);
+        assertTrue("Check if the event list contains the test event",eventList.contains(e1));
+        BikePortalFinal.deleteEvent(eventList, "RP casual club");
+        assertEquals("Check that eventList size is lesser after delete", 0, eventList.size());
+        assertFalse("Check if the deleted event list contains the test member", eventList.contains(e1));
+      }
 
 	@After
 	public void tearDown() throws Exception {

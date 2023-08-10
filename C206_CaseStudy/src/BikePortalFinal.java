@@ -19,6 +19,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BikePortalFinal {
 	private static final int REG_OPTION = 2;
@@ -662,4 +663,107 @@ x
 		}
 
 	}
+	
+	//----------------------------------------------------Event------------------------------------------------------------------
+    public static String retrieveAllEvent(ArrayList<Event> eventList) {
+      // obtaining member
+      String output = "";
+      for (Event event : eventList) {
+        output += String.format("%-15s %-25s %-25s %-25s %-15s\n", event.getDifficulty(), event.getEventName(), event.getEventDate(), event.getEventTime(), event.getVenue());
+      }
+      return output;
+    }
+
+    public static void viewAllEvent(ArrayList<Event> eventList) {
+      // printing user
+      BikePortal.setHeader("EVENT LIST");
+      String output = String.format("%-15s %-25s %-25s %-25s %-15s\n", "DIFFICULTY", "EVENT NAME", "DATE", "TIME ",
+          "VENUE");
+      output += retrieveAllEvent(eventList);
+      System.out.println(output);
+    }
+
+    public static Event createEvent() {
+      // REG
+      // user input when registering
+
+      String name = Helper.readString("Enter Event Name > ");
+      String difficulty = Helper.readString("Enter Event Difficulty > ");
+      String date = Helper.readString("Enter Event Date (mm/dd/yyyy)> ");
+      String time = Helper.readString("Enter Event Time (HH:mm) > ");
+      String venue = Helper.readString("Enter Event Location > ");
+      LocalDate localDate = null;
+      LocalTime localTime = null;
+      
+      String[] difficultiesType = {"Competitive", "Intermediate", "Casual"};
+      if(!Arrays.asList(difficultiesType).contains(difficulty)) {
+        System.out.println("Invalid Difficulty Type");
+        return null;
+      }
+
+      try {
+        DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        localDate = LocalDate.parse(date, inputFormatter2);
+      } catch (DateTimeParseException e) {
+        System.out.println("Invalid date format. Please use mm/dd/yyyy format.");
+        return null;
+        // Handle the exception or return an error message if necessary
+      }
+
+      try {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        localTime = LocalTime.parse(time, inputFormatter);
+      } catch (DateTimeParseException e) {
+        System.out.println("Invalid time format. Please use HH:mm format.");
+        return null;
+        // Handle the exception or return an error message if necessary
+      }
+      Event newEvent = new Event(difficulty, name, localDate, localTime, venue);
+      return newEvent;
+    }
+
+    public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
+        
+        if (eventExists(eventList, newEvent.getEventName())) {
+            System.out.println("Event already exists");
+            return;
+        }
+        
+        
+        if (isEmptyField(newEvent.getEventName()) || isEmptyField(newEvent.getDifficulty()) || newEvent.getEventDate() == null || newEvent.getEventTime() == null || isEmptyField(newEvent.getVenue())) {
+            System.out.println("Please fill in all the required fields");
+            return;
+        }
+        
+        
+        eventList.add(newEvent);
+    }
+    
+    private static boolean eventExists(ArrayList<Event> eventList, String eventName) {
+      return eventList.stream().anyMatch(event -> event.getEventName().equalsIgnoreCase(eventName));
+    }
+    
+    private static boolean isEmptyField(String field) {
+      return field == null || field.trim().isEmpty();
+    }
+
+    public static void deleteEvent(ArrayList<Event> eventList, String eventName) {
+
+      Event foundEvent = null;
+      for (Event event : eventList) {
+        if (event.getEventName().equalsIgnoreCase(eventName)) {
+          foundEvent = event;
+          break;
+        }
+      }
+
+      if (foundEvent != null) {
+        eventList.remove(foundEvent);
+        System.out.println(eventName + " was successfully deleted");
+      } else {
+        System.out.println("Event not found");
+      }
+    }
+	
 }
+
