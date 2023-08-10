@@ -349,6 +349,7 @@ public class BikePortalTest {
         
       }
       
+      
       // Yi Tuck
       @Test
       public void testDeleteEvent() {
