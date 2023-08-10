@@ -31,15 +31,17 @@ public class BikePortal {
 		ArrayList<Registration> regList = new ArrayList<Registration>();
 		ArrayList<Group> grpList = new ArrayList<Group>();
 		ArrayList<Discussion> discussionList = new ArrayList<Discussion>();
-
+		ArrayList<Bike> bikeList = new ArrayList<Bike>();
+		
+		bikeList.add(new Bike("BMW", "Sport"));
 		discussionList.add(new Discussion("Competitve", "Mount Bike", "What are the features? "));
 
 		regList.add(new Registration("CharmainTAN", "Charmain123", "CharmainTanIsAwesome", "Competitive"));
 		memberList.add(new Member("CharmainTAN", "Charmain123", "CharmainTanIsAwesome", "Competitive"));
 
 		memberList.add(new Member("Charmain", "CharmainIsCool", "CharmainAwesome", "Competitive"));
-		memberList.add(new Member("Adam", "AdminIsCool", "AdamAwesome", "Competitive"));
-		memberList.add(new Member("testUser", "user", "user", "Competitve"));
+		memberList.add(new Member("Adam", "AdminIsCool", "AdamAwesome", "Casual"));
+		memberList.add(new Member("testUser", "user", "user", "Intermediate"));
 
 		adminList.add(new Admin("Charmain", "CharmainAwesome", "Charmaintan08@gmail.com"));
 		adminList.add(new Admin("kween", "kweenAwesome", "kween08@gmail.com"));
@@ -49,6 +51,10 @@ public class BikePortal {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
 		eventList.add(new Event("Competitive", "Exclusive Bike Ride", LocalDate.parse("08/15/2023", dateFormatter),
+				LocalTime.parse("14:30", timeFormatter), "Suntec City"));
+		eventList.add(new Event("Casual", "Exclusive Bike Ride", LocalDate.parse("08/15/2023", dateFormatter),
+				LocalTime.parse("14:30", timeFormatter), "Suntec City"));
+		eventList.add(new Event("Intermediate", "Exclusive Bike Ride", LocalDate.parse("08/15/2023", dateFormatter),
 				LocalTime.parse("14:30", timeFormatter), "Suntec City"));
 
 		grpList.add(new Group("kween", "kweenAwesome", "kween08@gmail.com"));
@@ -298,7 +304,7 @@ public class BikePortal {
 									}
 								} else if (loginOption == 2) {
 									BikePortal.setHeader("View All Events");
-									BikePortal.viewAllEvent(eventList);
+									BikePortal.recommendEvents(memberList, eventList,loginEmail) ;
 									BikePortal.currentEMenu();
 									int eventOption = Helper.readInt("Enter an option > ");
 									while (eventOption != 4) {
@@ -1051,5 +1057,44 @@ public class BikePortal {
 		regList.add(newReg);
 		return (newReg);
 	}
+	
+	//--------------------------------------bike------------------------------------------------------
+	public static void addBike(ArrayList<Bike> bikeList, Bike newBike) {
+		Bike bike;
+		// checking if user already exist
+		for (int i = 0; i < bikeList.size(); i++) {
+			bike = bikeList.get(i);
+			if (bike.getBikeName().equalsIgnoreCase(newBike.getBikeName()))
+				return;
+		}
+		if ((newBike.getBikeName().isEmpty()) || (newBike.getBikeType().isEmpty())) {
+			System.out.println("Please fill in the entire thing");
+			return;
+		}
+		bikeList.add(newBike);
+
+	}
+	public static void recommendEvents(ArrayList<Member> memberList, ArrayList<Event> eventList, String loggedInMemberName) {
+	    BikePortal.setHeader("RECOMMENDED EVENTS");
+	    String output = String.format("%-15s %-25s %-25s %-25s %-15s\n", "DIFFICULTY", "EVENT NAME", "DATE", "TIME ",
+	            "VENUE");
+
+	    for (Member mem : memberList) {
+	        if (mem.getUsername().equalsIgnoreCase(loggedInMemberName)) {
+	            String preference = mem.getPreference();
+	            for (Event event : eventList) {
+	                if (event.getDifficulty().equalsIgnoreCase(preference)) {
+	                    output += String.format("%-15s %-25s %-25s %-25s %-15s\n", event.getDifficulty(),
+	                            event.getEventName(), event.getEventDate(), event.getEventTime(),
+	                            event.getVenue());
+	                }
+	            }
+	            break; // No need to continue once the logged-in member is found
+	        }
+	    }
+
+	    System.out.println(output);
+	}
+
 
 }

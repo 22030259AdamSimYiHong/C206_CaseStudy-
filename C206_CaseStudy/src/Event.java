@@ -33,18 +33,23 @@ public class Event extends Tag{
 	 * @param eventTime
 	 * @param venue
 	 */
-	public Event(String tag,String eventName, LocalDate eventDate, LocalTime eventTime, String venue) {
-		super(tag);
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+	/**
+	 * @param difficulty
+	 * @param eventName
+	 * @param eventDate
+	 * @param eventTime
+	 * @param venue
+	 */
+	public Event(String difficulty, String eventName, LocalDate eventDate, LocalTime eventTime, String venue) {
+		super(difficulty);
 		this.eventName = eventName;
 		this.eventDate = eventDate;
 		this.eventTime = eventTime;
 		this.venue = venue;
-	}
-	/**
-	 * @param eventName the eventName to set
-	 */
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
 	}
 	/**
 	 * @return the eventDate

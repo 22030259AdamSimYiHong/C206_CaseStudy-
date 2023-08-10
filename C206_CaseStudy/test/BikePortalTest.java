@@ -21,11 +21,14 @@ public class BikePortalTest {
 	private Registration r1;
 	private Registration r2;
 	private Registration r3;
+	private Bike b1;
+	private Bike b2;
 
 	private ArrayList<Member> memberList;
 	private ArrayList<Admin> adminList;
 	private ArrayList<Discussion> discussionList;
 	private ArrayList<Registration> regList;
+	private ArrayList<Bike> bikeList;
 
 	@Before
 	public void setUp() throws Exception {
@@ -42,14 +45,19 @@ public class BikePortalTest {
 		r1 = new Registration("Char", "Char123", "001", "Casual");
 		r2 = new Registration("Charming", "Char246", "002", "Competitive");
 		r3 = new Registration("Charizard", "Char789", "003", "Casual");
+		b1 = new Bike("bmw", "sports");
+		b2 = new Bike("kawasaki", "offroad");
+		
 
 		memberList = new ArrayList<Member>();
 		adminList = new ArrayList<Admin>();
 		discussionList = new ArrayList<Discussion>();
 		regList = new ArrayList<Registration>();
+		bikeList =new ArrayList<Bike>();
 		adminList.add(a1);
 		adminList.add(a2);
 		adminList.add(a3);
+		
 	}
 //
 //<<<<<<< HEAD 1
@@ -115,6 +123,46 @@ public class BikePortalTest {
 		BikePortal.addReg(regList, reg_missing);
 		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
 	}
+	@Test
+	  public void testLoginAdmin() {
+	    assertTrue("Test that Admin Logs in with valid Username and Password",
+	        BikePortal.adminLogin(adminList, "yituck@admin.com", "Password4"));
+	    assertFalse("Test that the adminLogin does not go through when wrong username or password is input.",
+	        BikePortal.adminLogin(adminList, "yituckadmin.com", "Password4"));
+	    assertFalse("Test that the adminLogin does not go through when wrong username or password is input.",
+		        BikePortal.adminLogin(adminList, "yituck@admin.com", "assword4"));
+	
+	    
+	  }
+	  @Test
+	  public void testValidateRegAdmin(){
+	    assertTrue("Test that Admin Reegistered with valid email and a strong password",BikePortal.validateRegAdmin("charmaintan@admin.com", "12345678"));
+	    assertFalse("Test that if Admin Registers with an invalid email",BikePortal.validateRegAdmin("charmaintan_gmail.com", "12345678"));
+	    assertFalse("Test that if Admin Registers with a weak password",BikePortal.validateRegAdmin("Charmaintan@gmail.com", "123456"));
+	    assertFalse("Test that if Admin Registers with an invalid email and weak password",BikePortal.validateRegAdmin("chrmaint.com", "12"));
+	    //test empty field
+	  }
+	  @Test
+	  public void testAddBike() {
+			// Reglist not null and is empty
+			assertNotNull("Test if there is valid bike arraylist to add to", bikeList);
+			assertEquals("Test that the Bike arraylist is empty.", 0, bikeList.size());
+			// Given an empty list, after adding bike, the size of the list is 1
+			BikePortal.addBike(bikeList, b1);
+			assertEquals("Test that the Bike arraylist size is 1.", 1, bikeList.size());
+			// Add bike
+			BikePortal.addBike(bikeList, b2);
+			assertEquals("Test that the Bike arraylist size is now 2.", 2, bikeList.size());
+			assertSame("Test that bike is added to the end of the list.", b2, bikeList.get(1));
+			// Add an item that already exists in the list
+			BikePortal.addBike(bikeList,b2);
+			assertEquals("Test that the Bike arraylist size is unchange.", 2, bikeList.size());
+
+			// Add an user that has missing detail
+			Bike detail_missing = new Bike("yahma", "");
+			BikePortal.addBike(bikeList, detail_missing);
+			assertEquals("Test that the Bike arraylist size is unchange.", 2, bikeList.size());
+	  }
 	
 	// Kween
 
@@ -237,10 +285,12 @@ public class BikePortalTest {
 		r1 = null;
 		r2 = null;
 		r3 = null;
+		b1=null;
 		memberList = null;
 		adminList = null;
 		discussionList = null;
 		regList = null;
+		bikeList=null;
 	}
 
 }
