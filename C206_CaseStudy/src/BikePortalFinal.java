@@ -307,15 +307,8 @@ public class BikePortalFinal {
 	}
 
 	// ADD YOUR METHODS BELOW
-	public static boolean userLogin(ArrayList<Member> memberList, String username, String password) {
-		for (Member member : memberList) {
-			if (username.equalsIgnoreCase(member.getUsername()) && password.equals(member.getPassword())) {
-				return true;
-			}
-		}
-		return false;
-	}
-
+	
+	//---------------------------------------------MEMBER---------------------------------------------------
 	public static boolean adminLogin(ArrayList<Admin> adminList, String email, String password) {
 		for (int x = 0; x < adminList.size(); x++) {
 			if ((email.equalsIgnoreCase(adminList.get(x).getEmail()))
@@ -326,4 +319,234 @@ public class BikePortalFinal {
 		}
 		return false;
 	}
+	public static boolean validateRegAdmin(String email, String password) {
+		if (email.contains("@gmail.com")) {
+			if (password.length() <= 8) {
+				return (true);
+			} else {
+				System.out.println("Weak password");
+			}
+		} else {
+			System.out.println("Invalid email");
+		}
+
+		return (false);
+	}
+
+	// Obtaining all the Member from the memberList
+	public static String retrieveAllUser(ArrayList<Member> memberList) {
+		// obtaining member
+		String output = "";
+		for (int i = 0; i < memberList.size(); i++) {
+			output += String.format("%-15s %-25s %-25s %-15s\n", memberList.get(i).getName(),
+					memberList.get(i).getUsername(), memberList.get(i).getPassword(),
+					memberList.get(i).getPreference());
+		}
+		return output;
+	}
+	public static void viewAllUser(ArrayList<Member> memberList) {
+		// printing user
+		BikePortal.setHeader("MEMBER LIST");
+		String output = String.format("%-15s %-25s %-25s %-15s\n", "NAME", "USERNAME", "PASSWORD", "PREFERENCE");
+		output += retrieveAllUser(memberList);
+		System.out.println(output);
+	}
+	public static void findUser (ArrayList<Member> memberList) {
+        BikePortal.setHeader("Search for Biker");
+        String username = Helper.readString("Enter Username: ");
+        String output = "";
+        output += String.format("%-20s %-20s\n", "USERNAME", "PREFERENCE");
+        boolean isFound = false;
+        for (int i = 0; i < memberList.size(); i++) {
+          Member m = memberList.get(i);
+            if (m.getUsername().toLowerCase().contains(username.toLowerCase())) {
+            output += String.format("%-20s %-20s\n", m.getUsername(), m.getPreference());
+            isFound = true;
+            break;
+            
+            } else {
+                isFound = false;
+            }
+        }
+
+        if(isFound == false) {
+            System.out.println("There is no such user\n");
+        } else { 
+        System.out.println(output);
+        }
+    }
+	
+	public static Registration inputUser() {
+		// REG
+		// user input when registering
+		String name = Helper.readString("Enter Name > ");
+		String username = Helper.readString("Enter Username > ");
+		String password = Helper.readString("Enter Password > ");
+		String preference = Helper.readString("Enter Preference > ");
+
+		Registration newReg = new Registration(name, password, username, preference);
+		return newReg;
+		 
+	}
+
+	public static void addMember(ArrayList<Member> memberList, Member newMember) {
+		Member member;
+		// checking if user already exist
+		String new_username = newMember.getUsername();
+		for (int i = 0; i < memberList.size(); i++) {
+			member = memberList.get(i);
+			String username = member.getUsername();
+			if (username.equalsIgnoreCase(new_username))
+				return;
+		}
+		if ((new_username.isEmpty()) || (newMember.getPassword().isEmpty())
+				|| (newMember.getName().isEmpty()) || (newMember.getPreference().isEmpty())) {
+			return;
+		}
+		// checking if user have input all the fields required
+		memberList.add(newMember);
+
+	}
+
+	public static void deleteMember(ArrayList<Member> memberList, ArrayList<Registration> regList) {
+		boolean isFound = false;
+		Member mem;
+		String deleteUser = Helper.readString("Enter the user to delete > ");
+		for (int i = 0; i < memberList.size(); i++) {
+			mem = memberList.get(i);
+			if (mem.getUsername().equalsIgnoreCase(deleteUser)) {
+				memberList.remove(i);
+				System.out.println(deleteUser + " was deleted successfully");
+				Registration reg;
+				for (int x = 0; x < regList.size(); x++) {
+					reg = regList.get(x);
+					if (reg.getUsername().equalsIgnoreCase(deleteUser)) {
+						regList.remove(x);
+					}
+				}
+				isFound = true;
+				break;
+			}
+
+		}
+		if (!isFound) {
+			System.out.println("User not found");
+		}
+
+	}
+	public static Admin inputAdmin() {
+
+		// write your code here
+		String name = Helper.readString("Enter name > ");
+		String email = Helper.readString("Enter email > ");
+		String password = Helper.readString("Enter password > ");
+		if (BikePortal.validateRegAdmin(email, password) == true) {
+			Admin newAdmin = new Admin(name, email, password);
+			return newAdmin;
+		}
+		return null;
+
+	}
+
+	public static void addAdmin(ArrayList<Admin> adminList, Admin newAdmin) {
+		// write your code here
+		Admin admin;
+		for (int i = 0; i < adminList.size(); i++) {
+			admin = adminList.get(i);
+			if (admin.getEmail().equalsIgnoreCase(newAdmin.getEmail()))
+				return;
+		}
+		if ((newAdmin.getName().isEmpty()) && (newAdmin.getEmail().isEmpty()) && (newAdmin.getPassword().isEmpty())) {
+			return;
+		}
+
+		adminList.add(newAdmin);
+	}
+
+	public static String retrieveAllAdmin(ArrayList<Admin> adminList) {
+		// obtaining member
+		String output = "";
+		for (int i = 0; i < adminList.size(); i++) {
+			output += String.format("%-15s %-25s %-25s \n", adminList.get(i).getName(), adminList.get(i).getEmail(),
+					adminList.get(i).getPassword());
+		}
+		return output;
+	}
+
+	public static void viewAllAdmin(ArrayList<Admin> adminList) {
+		// printing user
+		BikePortal.setHeader("MEMBER LIST");
+		String output = String.format("%-15s %-25s %-25s\n", "NAME", "EMAIL", "PASSWORD");
+		output += retrieveAllAdmin(adminList);
+		System.out.println(output);
+	}
+	public static boolean userLogin(ArrayList<Member> memberList, String username, String password) {
+		for (Member member : memberList) {
+			if (username.equalsIgnoreCase(member.getUsername()) && password.equals(member.getPassword())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	// --------------------------------------REG------------------------------------------------------------
+	public static String retrieveAllReg(ArrayList<Registration> regList) {
+		// obtaining member
+		String output = "";
+		for (int i = 0; i < regList.size(); i++) {
+			output += String.format("%-15s %-25s %-25s %-15s\n", regList.get(i).getName(), regList.get(i).getUsername(),
+					regList.get(i).getPassword(), regList.get(i).getPreference());
+		}
+		return output;
+	}
+
+	public static void viewAllReg(ArrayList<Registration> regList) {
+		// printing user
+		BikePortal.setHeader("MEMBER LIST");
+		String output = String.format("%-15s %-25s %-25s %-15s\n", "NAME", "USERNAME", "PASSWORD", "PREFERENCE");
+		output += retrieveAllReg(regList);
+		System.out.println(output);
+	}
+
+	public static Registration addReg(ArrayList<Registration> regList, Registration newReg) {
+		Registration reg;
+		// checking if user already exist
+		for (int i = 0; i < regList.size(); i++) {
+			reg = regList.get(i);
+			if (reg.getUsername().equalsIgnoreCase(newReg.getUsername()))
+				return (null);
+		}
+		if ((newReg.getUsername().isEmpty()) || (newReg.getPassword().isEmpty()) || (newReg.getName().isEmpty())
+				|| (newReg.getPreference().isEmpty())) {
+			return (null);
+		}
+		regList.add(newReg);
+		return (newReg);
+	}
+
+	public static void removeReg(ArrayList<Registration> regList, ArrayList<Member> memberList) {
+		boolean isFound = false;
+		Registration reg;
+		String removeReg = Helper.readString("Enter the username to remove > ");
+		for (int i = 0; i < regList.size(); i++) {
+			reg = regList.get(i);
+			if (reg.getUsername().equalsIgnoreCase(removeReg)) {
+				regList.remove(i);
+				isFound = true;
+				Member mem;
+				for (int x = 0; x < memberList.size(); x++) {
+					mem = memberList.get(i);
+					if (mem.getUsername().equalsIgnoreCase(removeReg)) {
+						memberList.remove(x);
+					}
+					System.out.println(removeReg + " was removed from the registration list");
+					break;
+				}
+			}
+		}
+		if (!isFound) {
+			System.out.println("User not found");
+		}
+
+	}
+
 }

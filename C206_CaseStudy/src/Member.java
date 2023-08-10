@@ -58,7 +58,8 @@ public class Member extends Accounts{
 	/**
 	 * @return the password
 	 */
-	
+
+
 	public void display() {
 		System.out.println("Username: "+ username);
 		System.out.println("Password: "+ getPassword());
