@@ -84,6 +84,7 @@ public class BikePortalFinal {
 									String deleteUser = Helper.readString("Enter the user to delete > ");
 									BikePortalFinal.deleteMember(memberList, regList,deleteUser );
 								}
+								 
 								BikePortalFinal.setHeader("View All Users");
 								BikePortalFinal.viewAllUser(memberList);
 								BikePortalFinal.userPMenu();
@@ -368,10 +369,16 @@ public class BikePortalFinal {
 	public static String retrieveAllUser(ArrayList<Member> memberList) {
 		// obtaining member
 		String output = "";
-		for (int i = 0; i < memberList.size(); i++) {
-			output += String.format("%-15s %-25s %-25s %-15s\n", memberList.get(i).getName(),
-					memberList.get(i).getUsername(), memberList.get(i).getPassword(),
-					memberList.get(i).getPreference());
+		int size = memberList.size();
+		for (int i = 0; i < size; i++) {
+			String name = memberList.get(i).getName();
+			String username = memberList.get(i).getUsername();
+			String password = memberList.get(i).getPassword();
+			String preference = memberList.get(i).getPreference();
+			
+			output += String.format("%-15s %-25s %-25s %-15s\n", name,
+					username, password,
+					preference);
 		}
 		return output;
 	}
@@ -426,14 +433,21 @@ public class BikePortalFinal {
 		Member member;
 		// checking if user already exist
 		String new_username = newMember.getUsername();
-		for (int i = 0; i < memberList.size(); i++) {
+		int size = memberList.size();
+		for (int i = 0; i < size; i++) {
 			member = memberList.get(i);
 			String username = member.getUsername();
-			if (username.equalsIgnoreCase(new_username))
+			boolean equalsIgnoreCase = username.equalsIgnoreCase(new_username);
+			if (equalsIgnoreCase)
 				return;
 		}
-		if ((new_username.isEmpty()) || (newMember.getPassword().isEmpty()) || (newMember.getName().isEmpty())
-				|| (newMember.getPreference().isEmpty())) {
+		boolean empty = new_username.isEmpty();
+		boolean passwordEmpty = newMember.getPassword().isEmpty();
+		boolean nameEmpty = newMember.getName().isEmpty();
+		boolean preferenceEmpty = newMember.getPreference().isEmpty();
+		
+		if (empty || passwordEmpty || nameEmpty
+				|| preferenceEmpty) {
 			return;
 		}
 		// checking if user have input all the fields required
@@ -445,15 +459,18 @@ public class BikePortalFinal {
 		boolean isFound = false;
 		Member mem;
 
-		for (int i = 0; i < memberList.size(); i++) {
+		int size = memberList.size();
+		for (int i = 0; i < size; i++) {
 			mem = memberList.get(i);
-			if (mem.getUsername().equalsIgnoreCase(deleteUser)) {
+			boolean equalsIgnoreCase = mem.getUsername().equalsIgnoreCase(deleteUser);
+			if (equalsIgnoreCase) {
 				memberList.remove(i);
 				System.out.println(deleteUser + " was deleted successfully");
 				Registration reg;
-				for (int x = 0; x < regList.size(); x++) {
+				int regListsize = regList.size();
+				for (int x = 0; x < regListsize; x++) {
 					reg = regList.get(x);
-					if (reg.getUsername().equalsIgnoreCase(deleteUser)) {
+					if (equalsIgnoreCase) {
 						regList.remove(x);
 					}
 				}
@@ -467,7 +484,7 @@ public class BikePortalFinal {
 		}
 
 	}
-
+x
 	public static Admin inputAdmin() {
 
 		// write your code here
