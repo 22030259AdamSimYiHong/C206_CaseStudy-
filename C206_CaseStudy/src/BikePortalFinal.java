@@ -690,7 +690,7 @@ public class BikePortalFinal {
 	public static void deleteBike(ArrayList<Bike> bikeList, String bikeName) {
 		boolean isFound = false;
 		for (int i = 0; i < bikeList.size(); i++) {
-			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bikeName.getBikeName())) {
+			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bikeName)) {
 				bikeList.remove(i);
 				System.out.println(bikeName + " was deleted successfully");
 				isFound = true;
