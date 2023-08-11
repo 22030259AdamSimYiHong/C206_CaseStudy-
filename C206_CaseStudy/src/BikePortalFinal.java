@@ -205,8 +205,8 @@ public class BikePortalFinal {
 											bikeOption = Helper.readInt("Enter Bike Option > ");
 										} else if (bikeOption == 3) {
 											// delete bike
-											String bikeName = Helper.readString("Enter bike name to delete > ");
-											BikePortalFinal.deleteBike(bikeList, bikeName);
+											Bike newBike = inputBike();
+											BikePortalFinal.deleteBike(bikeList, newBike);
 											BikePortalFinal.bikeMenu();
 											bikeOption = Helper.readInt("Enter Bike Option > ");
 
@@ -687,10 +687,10 @@ public class BikePortalFinal {
 		bikeList.add(newBike);
 	}
 
-	public static void deleteBike(ArrayList<Bike> bikeList, String bikeName) {
+	public static void deleteBike(ArrayList<Bike> bikeList, Bike bikeName) {
 		boolean isFound = false;
 		for (int i = 0; i < bikeList.size(); i++) {
-			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bikeName)) {
+			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bikeName.getBikeName())) {
 				bikeList.remove(i);
 				System.out.println(bikeName + " was deleted successfully");
 				isFound = true;
