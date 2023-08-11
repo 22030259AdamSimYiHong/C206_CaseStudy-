@@ -153,23 +153,23 @@ public class BikePortalFinal {
 						if (BikePortalFinal.userLogin(memberList, loginEmail, loginPW)) {
 							BikePortalFinal.userMenu();
 							int loginOption = Helper.readInt("Enter an option > ");
-							while (loginOption != 6) {
+							while (loginOption != 5) {
 								if (loginOption == 1) {
 									BikePortalFinal.setHeader("View All Groups");
 //									BikePortalFinal.viewAllGrp(grpList);
 									BikePortalFinal.currentGMenu();
 									int grpOption = Helper.readInt("Enter an option > ");
-									while (grpOption != 5) {
+									while (grpOption != 4) {
 										if (grpOption == 1) {
 											// need to create a method to view groups that user is currently in
 										} else if (grpOption == 2) {
 //											BikePortalFinal.createGrp(memberList, grpList);
 										} else if (grpOption == 3) {
 //											BikePortalFinal.joinGrp(grpList, memberList);
-										} else if (grpOption == 4) {
-//											BikePortalFinal.viewAllDiscussion(discussionList);
 										}
 									}
+									BikePortalFinal.userMenu();
+									loginOption = Helper.readInt("Enter an option > ");
 								} else if (loginOption == 2) {
 									BikePortalFinal.setHeader("View All Events");
 //									BikePortalFinal.recommendEvents(memberList, eventList, loginEmail);
@@ -184,47 +184,54 @@ public class BikePortalFinal {
 //											BikePortalFinal.
 										}
 									}
-								} else if (loginOption == 3) {
-									int UserOption = 0;
-									while (UserOption != 2) {
-//										BikePortalFinal.findUser(memberList);
-										UserOption = Helper.readInt("Enter an option > ");
-									}
 									BikePortalFinal.userMenu();
-									loginOption = Helper.readInt("Enter option > ");
-								} else if (loginOption == 4) {
-									BikePortal.bikeMenu();
-									int bikeOption = Helper.readInt("Enter an bike option > ");
+									loginOption = Helper.readInt("Enter an option > ");
+								} else if (loginOption == 3) {
+									BikePortalFinal.bikeMenu();
+									int bikeOption = Helper.readInt("Enter an option > ");
 									while (bikeOption != 4) {
 										if (bikeOption == 1) {
 											// view all the bike i own 
-											BikePortal.viewAllBike(bikeList);
-											BikePortal.bikeMenu();
+											BikePortalFinal.viewAllBike(bikeList);
+											BikePortalFinal.bikeMenu();
 											bikeOption = Helper.readInt("Enter Bike Option > ");
 										} else if (bikeOption == 2) {
 											// add bike
 											Bike newBike = inputBike();
 											BikePortal.addBike(bikeList, newBike);
 											System.out.println("Bike added");
-											BikePortal.bikeMenu();
+											BikePortalFinal.bikeMenu();
 											bikeOption = Helper.readInt("Enter Bike Option > ");
 										} else if (bikeOption == 3) {
 											// delete bike
 											String bikeName = Helper.readString("Enter bike name to delete > ");
-											BikePortal.deleteBike(bikeList, bikeName);
-											BikePortal.bikeMenu();
+											BikePortalFinal.deleteBike(bikeList, bikeName);
+											BikePortalFinal.bikeMenu();
 											bikeOption = Helper.readInt("Enter Bike Option > ");
 
 										}
 									}
-								} else if (loginOption == 5) {
-									// delete this part
+									BikePortalFinal.userMenu();
+									loginOption = Helper.readInt("Enter an option > ");
+								} else if (loginOption == 4) {
+									BikePortalFinal.discussionMenu();
+									int discussionOption = Helper.readInt("Enter an option > ");
+									while (discussionOption != 3) {
+										if (discussionOption == 1) {
+											// Add your create discussion method here
+										} else if (discussionOption == 2) {
+											// add your leave discussion method here
+										}
+									}
+									BikePortalFinal.userMenu();
+									loginOption = Helper.readInt("Enter an option > ");
 								}
 							}
-
+							BikePortalFinal.userSMenu();
+							internalOption = Helper.readInt("Enter choice > ");
 						}
 					} else if (internalOption == 2) {
-//						BikePortalFinal.inputUser(memberList, regList);
+						BikePortalFinal.inputUser(memberList, regList);
 						BikePortalFinal.userSMenu();
 						internalOption = Helper.readInt("Enter option: ");
 					}
@@ -259,10 +266,9 @@ public class BikePortalFinal {
 		BikePortalFinal.setHeader("MY BIKE PORTAL");
 		System.out.println("1. Groups");
 		System.out.println("2. Events");
-		System.out.println("3. Users");
-		System.out.println("4. Bikes");
-		System.out.println("5. Profile");
-		System.out.println("6. Logout");
+		System.out.println("3. Bikes");
+		System.out.println("4. Discussions");
+		System.out.println("5. Logout");
 		Helper.line(110, "-");
 	}
 
@@ -308,8 +314,7 @@ public class BikePortalFinal {
 		System.out.println("1. View current groups");
 		System.out.println("2. Create");
 		System.out.println("3. Join");
-		System.out.println("4. View discussions");
-		System.out.println("5. Return to previous page");
+		System.out.println("4. Return to previous page");
 	}
 
 	public static void currentG2Menu() {
@@ -320,8 +325,9 @@ public class BikePortalFinal {
 
 	public static void discussionMenu() {
 		BikePortalFinal.setHeader("DISCUSSION PAGE");
-		System.out.println("1. Leave discussion");
-		System.out.println("2. Return to previous page");
+		System.out.println("1. Create discussion");
+		System.out.println("2. Leave discussion");
+		System.out.println("3. Return to previous page");
 	}
 
 	public static void currentEMenu() {
@@ -417,18 +423,49 @@ public class BikePortalFinal {
 		}
 	}
 
-	public static Registration inputUser() {
-		// REG
-		// user input when registering
-		String name = Helper.readString("Enter Name > ");
-		String username = Helper.readString("Enter Username > ");
-		String password = Helper.readString("Enter Password > ");
-		String preference = Helper.readString("Enter Preference > ");
+	public static void inputUser(ArrayList<Member> memberList, ArrayList<Registration> regList) {
+	    String name = Helper.readString("Enter Name > ");
+	    String username = "";
+	    boolean isUsernameAvailable = true;
 
-		Registration newReg = new Registration(name, password, username, preference);
-		return newReg;
+	    while (isUsernameAvailable) {
+	        username = Helper.readString("Enter Username > ");
 
+	        // Check if the username is available
+	        for (Member member : memberList) {
+	            if (member.getUsername().equalsIgnoreCase(username)) {
+	                System.out.println("Username is not available. Please choose another.");
+	                break;
+	            }
+	        }
+
+	        if (!usernameIsTaken(memberList, username)) {
+	            isUsernameAvailable = false;
+	        }
+	    }
+
+	    String password = Helper.readString("Enter Password > ");
+	    String preference = Helper.readString("Enter Preference > ");
+
+	    Registration newReg = new Registration(name, password, username, preference);
+	    Member newMember = new Member(name, password, username, preference);
+
+	    memberList.add(newMember); // Add to memberList
+	    regList.add(newReg); // Add to regList
+
+	    System.out.println("Registration successful.");
 	}
+
+	// Helper method to check if username is taken
+	public static boolean usernameIsTaken(ArrayList<Member> memberList, String username) {
+	    for (Member member : memberList) {
+	        if (member.getUsername().equalsIgnoreCase(username)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
 
 	public static void addMember(ArrayList<Member> memberList, Member newMember) {
 		Member member;
@@ -647,12 +684,12 @@ public class BikePortalFinal {
 		bikeList.add(newBike);
 	}
 
-	public static void deleteBike(ArrayList<Bike> bikeList, Bike bike) {
+	public static void deleteBike(ArrayList<Bike> bikeList, String bikeName) {
 		boolean isFound = false;
 		for (int i = 0; i < bikeList.size(); i++) {
-			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bike.getBikeName())) {
+			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bikeName.getBikeName())) {
 				bikeList.remove(i);
-				System.out.println(bike + " was deleted successfully");
+				System.out.println(bikeName + " was deleted successfully");
 				isFound = true;
 				break;
 			}
