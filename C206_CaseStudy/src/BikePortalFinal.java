@@ -83,7 +83,7 @@ public class BikePortalFinal {
 							while (userOption != 2) {
 								if (userOption == 1) {
 									String deleteUser = Helper.readString("Enter the user to delete > ");
-									BikePortalFinal.deleteMember(memberList, regList,deleteUser );
+									BikePortalFinal.deleteMember(memberList, regList, deleteUser);
 								}
 								 
 								BikePortalFinal.setHeader("View All Users");
@@ -100,7 +100,8 @@ public class BikePortalFinal {
 							int regOption = Helper.readInt("Enter an option > ");
 							while (regOption != 2) {
 								if (regOption == 1) {
-									BikePortalFinal.removeReg(regList, memberList);
+									String removeReg = Helper.readString("Enter the username to remove > ");
+									BikePortalFinal.removeReg(regList, memberList, removeReg);
 								}
 								BikePortalFinal.setHeader("View All Registrations");
 							BikePortalFinal.viewAllReg(regList);
@@ -508,7 +509,8 @@ public class BikePortalFinal {
 				int regListsize = regList.size();
 				for (int x = 0; x < regListsize; x++) {
 					reg = regList.get(x);
-					if (equalsIgnoreCase) {
+					boolean equalsIgnoreCaseReg = reg.getUsername().equalsIgnoreCase(deleteUser);
+					if (equalsIgnoreCaseReg) {
 						regList.remove(x);
 					}
 				}
@@ -614,19 +616,20 @@ public class BikePortalFinal {
 		return (newReg);
 	}
 
-	public static void removeReg(ArrayList<Registration> regList, ArrayList<Member> memberList) {
+	public static void removeReg(ArrayList<Registration> regList, ArrayList<Member> memberList, String removeReg) {
 		boolean isFound = false;
 		Registration reg;
-		String removeReg = Helper.readString("Enter the username to remove > ");
 		for (int i = 0; i < regList.size(); i++) {
 			reg = regList.get(i);
-			if (reg.getUsername().equalsIgnoreCase(removeReg)) {
+			boolean equalsIgnoreCaseRegg = reg.getUsername().equalsIgnoreCase(removeReg);
+			if (equalsIgnoreCaseRegg) {
 				regList.remove(i);
 				isFound = true;
 				Member mem;
 				for (int x = 0; x < memberList.size(); x++) {
 					mem = memberList.get(i);
-					if (mem.getUsername().equalsIgnoreCase(removeReg)) {
+					boolean equalsIgnoreCaseMemm = mem.getUsername().equalsIgnoreCase(removeReg);
+					if (equalsIgnoreCaseMemm) {
 						memberList.remove(x);
 					}
 					System.out.println(removeReg + " was removed from the registration list");

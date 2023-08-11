@@ -122,8 +122,8 @@ public class BikePortalTest {
 		assertEquals("Test that Reg arraylist size is 2", 2, regList.size());
 
 		// Delete a member and registration (assumed functionality)
-		BikePortalFinal.deleteMember(memberList, regList, "001");
-
+		BikePortalFinal.deleteMember(memberList, regList, "002");
+		BikePortalFinal.removeReg(regList, memberList, "002");
 		// Check that the member and registration were removed
 		assertEquals("Test that Member arraylist size is 1 after deletion", 1, memberList.size());
 		assertEquals("Test that Reg arraylist size is 1 after deletion", 1, regList.size());
