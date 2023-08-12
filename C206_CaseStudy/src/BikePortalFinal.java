@@ -189,7 +189,8 @@ public class BikePortalFinal {
 											if(newEvent != null) {
 												BikePortalFinal.addEvent(eventList, newEvent);
 											}
-										}else {
+										}
+										else {
 											BikePortalFinal.userMenu();
 										}
 										eventOption = Helper.readInt("Enter an option > ");
@@ -226,13 +227,21 @@ public class BikePortalFinal {
 								} else if (loginOption == 4) {
 									BikePortalFinal.discussionMenu();
 									int discussionOption = Helper.readInt("Enter an option > ");
-									while (discussionOption != 3) {
+									while (discussionOption != 4) {
 										if (discussionOption == 1) {
 											// Add your create discussion method here
+											BikePortalFinal.findDiscussion(discussionList);											
 										} else if (discussionOption == 2) {
 											// add your leave discussion method here
+											BikePortalFinal.addDiscussion(discussionList);
+
 										}
+										else if (discussionOption == 3) {
+											BikePortalFinal.deleteDiscussion(discussionList);
+										}
+										discussionOption = Helper.readInt("Enter an option > ");
 									}
+									BikePortalFinal.discussionMenu();
 									BikePortalFinal.userMenu();
 									loginOption = Helper.readInt("Enter an option > ");
 								}
@@ -281,6 +290,8 @@ public class BikePortalFinal {
 		System.out.println("5. Logout");
 		Helper.line(110, "-");
 	}
+	
+
 
 	public static void setHeader(String header) {
 		Helper.line(110, "-");
@@ -334,10 +345,11 @@ public class BikePortalFinal {
 	}
 
 	public static void discussionMenu() {
-		BikePortalFinal.setHeader("DISCUSSION PAGE");
-		System.out.println("1. Create discussion");
-		System.out.println("2. Leave discussion");
-		System.out.println("3. Return to previous page");
+		BikePortal.setHeader("DISCUSSION PAGE");
+		System.out.println("1. View all discussions");
+		System.out.println("2. Add a discussion");
+		System.out.println("3. Delete a discussion");
+		System.out.println("4. Return to previous page");
 	}
 
 	public static void currentEMenu() {
@@ -815,6 +827,71 @@ public class BikePortalFinal {
         System.out.println("Event not found");
       }
     }
+    
+
+  //Start of discussion change 2
+  	public static void findDiscussion (ArrayList<Discussion> discussionList) {
+  		 BikePortalFinal.setHeader("View All Discussion");
+  		 String output = "";
+  	        output += String.format("%-20s %-20s\n", "TOPIC", "QUESTION");
+  	        for (int i = 0; i < discussionList.size(); i++) {
+  	        	Discussion d = discussionList.get(i);
+  	        	output += String.format("%-20s %-20s\n", d.getTopic(), d.getQuestion());
+  	            
+  	        }
+  	        System.out.println(output);
+  	}
+  	
+  	public static void addDiscussion (ArrayList<Discussion> discussionList) {
+  		 BikePortalFinal.setHeader("Add Discussion");
+  		 String difficulty = Helper.readString("Enter difficulty: ");
+  		 String topic = Helper.readString("Enter Topic: ");
+  		 String question = Helper.readString("Enter Question: ");
+  		 String output = "";
+  	        output += String.format("%-20s %-20s %-20s\n","DIFFICULTY", "TOPIC", "QUESTION");
+  	        boolean isSame = false;
+  	        for (int i = 0; i < discussionList.size(); i++) {
+  	        	Discussion d = discussionList.get(i);
+  	            if (d.getTopic().toLowerCase().contains(topic.toLowerCase()) && 
+  	            		(d.getQuestion().toLowerCase().contains(question.toLowerCase())) 
+  	            		&& 
+  	            		(d.getTopic().toLowerCase().contains(topic.toLowerCase()))) {
+  	            isSame = true;
+  	            break;
+  	            } else {
+  	                isSame = false;
+  	                discussionList.add(new Discussion(difficulty, topic, question));
+  	                System.out.println("The discussion has been added!");
+  	            }
+  	            if (isSame == true) {
+  	            	System.out.println("The discussion already exists!");
+  	            }
+  	        }
+  	}
+  	
+  	public static void deleteDiscussion (ArrayList<Discussion> discussionList) {
+ 		 BikePortalFinal.setHeader("Delete Discussion");
+ 		 String difficulty = Helper.readString("Enter difficulty: ");
+ 		 String topic = Helper.readString("Enter Topic: ");
+ 		 String question = Helper.readString("Enter Question: ");
+ 		 String output = "";
+ 	        output += String.format("%-20s %-20s %-20s\n", "DIFFICULTY", "TOPIC", "QUESTION");
+ 	        boolean isSame = false;
+ 	        for (int i = 0; i < discussionList.size(); i++) {
+ 	        	Discussion d = discussionList.get(i);
+ 	            if (d.getTopic().toLowerCase().contains(topic.toLowerCase())) {
+ 	                discussionList.remove(d);
+ 	                System.out.println("The discussion has been removed!");
+                   isSame = true;
+                   break;
+ 	            }
+ 	            
+ 	        }
+           if (isSame == false) {
+ 	            	System.out.println("The discussion does not exist!");
+           }
+ 	}
+ 	//End of discussion change 2
 	
 }
 

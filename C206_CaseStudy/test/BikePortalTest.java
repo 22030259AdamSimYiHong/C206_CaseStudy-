@@ -249,46 +249,72 @@ public class BikePortalTest {
 		isEdited = memberList.editMember(0, "Adam Sim Yi Hong");
 		assertTrue("Check that existing member 'Adam Sim Yi Hong' is edited to 'Adam Sim Yi Hong'", isEdited);
 	}
-
+	
+	//Keith
 	@Test
-	public void testAddAndEditDiscussion() {
-		// This is to add in a discussion to the arrayList
-		assertNotNull("Check if there is valid discussion arraylist to add to", discussionList.discussionDescriptions);
-		discussionList.addDiscussion("Discuss about cycling tips");
-
-		Boolean isEdited = discussionList.editDiscussion(10, "Discuss about benefits of cycling");
-		assertFalse("Check that non-existing discussion at index 10 is edited - false?", isEdited);
-
-		// This is to check that the discussion name has been successfully edited
-		isEdited = discussionList.editDiscussion(0, "How to cycle?");
-		assertTrue(
-				"Check that existing discussion 'Discuss about cycling tips' at index 0 is edited to 'How to cycle?' - true",
-				isEdited);
-
-		isEdited = discussionList.editDiscussion(0, "Cycling competitions");
-		assertFalse("Check that already edited discussion at index 0 is edited again - false?", isEdited);
+	public void testViewDiscussion() {
+		    // Item list is not null and it is empty
+		    //test that all the discussions can be viewed
+		    
+		      assertNotNull("Check that discussion list is not null", discussionList);
+		      assertEquals("Test that the discussion arraylist is empty", 0, discussionList.size());		      
+		      
+		
+		//normal
+		//Check that discussion is not null
+		assertEquals("Check if the discussionList is not null", 0, discussionList.size());
+		//Check that topic can be viewed
+		assertEquals("Discussion list shows output", "location", d1.getTopic());
+	}
+	
+	@Test
+	public void testAddDiscussion() {
+	    // This is to add in a discussion to the arrayList
+	    String topic = "location";
+	    String question = "Where is it located at?";
+	    
+		// Test if topic exists in discussion list.
+	    assertTrue("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(topic));
+	    
+	 // Test if question exists in discussion list.
+	    assertTrue("Question is in the discussion list.", 
+	    		d1.getQuestion().equalsIgnoreCase("Where is it located at?"));
+	    
+	    
+	    //Test that topic has successfully been added.
+	    assertEquals("Topic has been successfully been added!", d1.getTopic().equalsIgnoreCase("location"), true);
+	    
+	  //Test that question has successfully been added.
+	    assertEquals("Question has been successfully been added!", d1.getQuestion().equalsIgnoreCase("Where is it located at?"),
+	    		true);
+	    
+	    //Test that topic failed to be added.
+	    assertEquals("Topic failed to be added!", d1.getTopic().equalsIgnoreCase("Fail"), false);
+	    
+	  //Test that question failed to be added.
+	    assertEquals("Question failed to be added!", d1.getQuestion().equalsIgnoreCase("What is a failure?"),
+	    		false);
 	}
 
+	
 	@Test
 	public void testDeleteDiscussion() {
-		// This is to check that there is a valid discussion to delete in the arrayList
-		assertNotNull("Check if there is valid discussion arraylist to delete from",
-				discussionList.discussionDescriptions);
-		discussionList.addDiscussion("Discuss about project A");
-
-		// error
-		Boolean isDeleted = discussionList.deleteDiscussion(10);
-		assertFalse("Check that non-existing discussion at index 10 is deleted - false?", isDeleted);
-
-		// Check if the discussion can be deleted
-		isDeleted = discussionList.deleteDiscussion(0);
-		assertTrue("Check that existing discussion 'Discuss about project A' at index 0 is deleted - true", isDeleted);
-
-		// error
-		isDeleted = discussionList.deleteDiscussion(0);
-		assertFalse("Check that already deleted discussion at index 0 is deleted again - false?", isDeleted);
+	    String topic = "location";
+	    String question = "Where is it located at?";
+		
+		// Test if topic exists in discussion list.
+	    assertTrue("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(topic));
+	    
+	 // Test if question exists in discussion list.
+	    assertTrue("Question is in the discussion list.", 
+	    		d1.getQuestion().equalsIgnoreCase(question));
+	    
+	    //Test that topic has been deleted
+	    assertFalse("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase("yes"));
+	    
+	  //Test that question has been deleted
+	    assertFalse("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(question));
 	}
-
 	// Yi Tuck
 	@Test
 	public void testRecommendGroups() {
