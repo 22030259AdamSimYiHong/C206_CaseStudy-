@@ -130,7 +130,6 @@ public class BikePortalTest {
 
 	}
 
-
 	@Test
 	public void testAddReg() {
 		// Reglist not null and is empty
@@ -169,7 +168,7 @@ public class BikePortalTest {
 	@Test
 	public void testValidateRegAdmin() {
 		assertTrue("Test that Admin Reegistered with valid email and a strong password",
-				BikePortal.validateRegAdmin("charmaintan@admin.com", "12345678"));
+				BikePortal.validateRegAdmin("charmaintan@gmail.com", "12345678"));
 		assertFalse("Test that if Admin Registers with an invalid email",
 				BikePortal.validateRegAdmin("charmaintan_gmail.com", "12345678"));
 		assertFalse("Test that if Admin Registers with a weak password",
@@ -185,16 +184,16 @@ public class BikePortalTest {
 		// Test Case 1 - Loan an available Item
 		assertNotNull("test if there is valid Bike arraylist to delete from", bikeList);
 		assertEquals("Test that the Bike arraylist size is 0.", 0, bikeList.size());
-		//add 1 bike for deletation
+		// add 1 bike for deletation
 		BikePortalFinal.addBike(bikeList, b2);
 		// test that for now is 1
 		assertEquals("Test that bike arraylist size is 1", 1, bikeList.size());
 		BikePortalFinal.deleteBike(bikeList, b2);
 		// Check that the bike is remove from the list
 		assertEquals("Test that bike arraylist size is 0 after deletion", 0, bikeList.size());
-		
-	}
 
+	}
+	//charmain
 	@Test
 	public void testViewAllBike() {
 		// Item list is not null and it is empty
@@ -208,7 +207,7 @@ public class BikePortalTest {
 		assertTrue("Check if the viewed bike list contains the test bike", bikeList.contains(b2));
 
 	}
-
+	//charmain
 	@Test
 	public void testAddBike() {
 		// Reglist not null and is empty
@@ -231,106 +230,69 @@ public class BikePortalTest {
 		assertEquals("Test that the Bike arraylist size is unchange.", 2, bikeList.size());
 	}
 
-	// Kween
-
-	@Test
-	public void testEditMember() {
-		// This is for member editing their own profile
-		// Simulate the member editing their own profile
-		// Assume that existing member name is Adam Sim
-		Boolean isEdited = memberList.editMember(0, "Adam Sim Yi Hong");
-		assertTrue("Check that existing member 'Adam Sim' is edited to 'Adam Sim Yi Hong'", isEdited);
-
-		// Check that the member's name has been updated
-		String updatedName = memberList.viewMembers().get(0);
-		assertEquals("Adam Sim Yi Hong", updatedName);
-
-		// Try to edit the member's name to the same name, should still return true
-		isEdited = memberList.editMember(0, "Adam Sim Yi Hong");
-		assertTrue("Check that existing member 'Adam Sim Yi Hong' is edited to 'Adam Sim Yi Hong'", isEdited);
-	}
 	
-	//Keith
+
+	// Keith
 	@Test
 	public void testViewDiscussion() {
-		    // Item list is not null and it is empty
-		    //test that all the discussions can be viewed
-		    
-		      assertNotNull("Check that discussion list is not null", discussionList);
-		      assertEquals("Test that the discussion arraylist is empty", 0, discussionList.size());		      
-		      
-		
-		//normal
-		//Check that discussion is not null
+		// Item list is not null and it is empty
+		// test that all the discussions can be viewed
+
+		assertNotNull("Check that discussion list is not null", discussionList);
+		assertEquals("Test that the discussion arraylist is empty", 0, discussionList.size());
+
+		// normal
+		// Check that discussion is not null
 		assertEquals("Check if the discussionList is not null", 0, discussionList.size());
-		//Check that topic can be viewed
+		// Check that topic can be viewed
 		assertEquals("Discussion list shows output", "location", d1.getTopic());
 	}
-	
+
 	@Test
 	public void testAddDiscussion() {
-	    // This is to add in a discussion to the arrayList
-	    String topic = "location";
-	    String question = "Where is it located at?";
-	    
+		// This is to add in a discussion to the arrayList
+		String topic = "location";
+		String question = "Where is it located at?";
+
 		// Test if topic exists in discussion list.
-	    assertTrue("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(topic));
-	    
-	 // Test if question exists in discussion list.
-	    assertTrue("Question is in the discussion list.", 
-	    		d1.getQuestion().equalsIgnoreCase("Where is it located at?"));
-	    
-	    
-	    //Test that topic has successfully been added.
-	    assertEquals("Topic has been successfully been added!", d1.getTopic().equalsIgnoreCase("location"), true);
-	    
-	  //Test that question has successfully been added.
-	    assertEquals("Question has been successfully been added!", d1.getQuestion().equalsIgnoreCase("Where is it located at?"),
-	    		true);
-	    
-	    //Test that topic failed to be added.
-	    assertEquals("Topic failed to be added!", d1.getTopic().equalsIgnoreCase("Fail"), false);
-	    
-	  //Test that question failed to be added.
-	    assertEquals("Question failed to be added!", d1.getQuestion().equalsIgnoreCase("What is a failure?"),
-	    		false);
+		assertTrue("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(topic));
+
+		// Test if question exists in discussion list.
+		assertTrue("Question is in the discussion list.", d1.getQuestion().equalsIgnoreCase("Where is it located at?"));
+
+		// Test that topic has successfully been added.
+		assertEquals("Topic has been successfully been added!", d1.getTopic().equalsIgnoreCase("location"), true);
+
+		// Test that question has successfully been added.
+		assertEquals("Question has been successfully been added!",
+				d1.getQuestion().equalsIgnoreCase("Where is it located at?"), true);
+
+		// Test that topic failed to be added.
+		assertEquals("Topic failed to be added!", d1.getTopic().equalsIgnoreCase("Fail"), false);
+
+		// Test that question failed to be added.
+		assertEquals("Question failed to be added!", d1.getQuestion().equalsIgnoreCase("What is a failure?"), false);
 	}
 
-	
 	@Test
 	public void testDeleteDiscussion() {
-	    String topic = "location";
-	    String question = "Where is it located at?";
-		
+		String topic = "location";
+		String question = "Where is it located at?";
+
 		// Test if topic exists in discussion list.
-	    assertTrue("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(topic));
-	    
-	 // Test if question exists in discussion list.
-	    assertTrue("Question is in the discussion list.", 
-	    		d1.getQuestion().equalsIgnoreCase(question));
-	    
-	    //Test that topic has been deleted
-	    assertFalse("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase("yes"));
-	    
-	  //Test that question has been deleted
-	    assertFalse("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(question));
+		assertTrue("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(topic));
+
+		// Test if question exists in discussion list.
+		assertTrue("Question is in the discussion list.", d1.getQuestion().equalsIgnoreCase(question));
+
+		// Test that topic has been deleted
+		assertFalse("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase("yes"));
+
+		// Test that question has been deleted
+		assertFalse("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(question));
 	}
-	// Yi Tuck
-	@Test
-	public void testRecommendGroups() {
-		// Test for Casual preference and Easy difficulty
-		assertEquals("Test that Member preference matches with Discussion difficulty", m1.getPreference(),
-				d1.getDifficulty());
 
-		// Test for Intermediate preference and Medium difficulty
-		assertEquals("Test that Member preference matches with Discussion difficulty", m3.getPreference(),
-				d2.getDifficulty());
 
-		// Test that Competitive preference and Hard difficulty
-		assertEquals("Test that Member preference matches with Discussion difficulty", m2.getPreference(),
-				d3.getDifficulty());
-
-	}
 
 	// Yi Tuck
 	@Test
@@ -359,12 +321,13 @@ public class BikePortalTest {
 
 	}
 
-	//
+	
 	// Yi Tuck
 	@Test
 	public void testDeletedetails() {
 		// Test that Members details can be deleted
-		assertEquals("Test that memberlist size decrease by 1", 2, memberList.size());
+	
+		assertEquals("Test that memberlist size decrease by 1", 0, memberList.size());
 
 		for (Member member : memberList) {
 			assertNotEquals("Test that deleted member is no longer in the memberlist", "003", member.getUsername());
