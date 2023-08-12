@@ -127,12 +127,13 @@ public class BikePortalFinal {
 							BikePortalFinal.adminMenu();
 							internalOption = Helper.readInt("Enter an option > ");
 						} else if (internalOption == 4) {
-//							BikePortalFinal.viewAllEvent(eventList);
+					        BikePortalFinal.currentEMenu();
 							BikePortalFinal.eventMenu();
 							int eventOption = Helper.readInt("Enter an option > ");
 							while (eventOption != 2) {
 								if (eventOption == 1) {
-//									BikePortalFinal.deleteEvent(eventList);
+									String newEvent = Helper.readString("Enter name of event to delete: ");
+									BikePortalFinal.deleteEvent(eventList, newEvent);
 								}
 								BikePortalFinal.setHeader("View All Groups");
 //								BikePortalFinal.viewAllEvent(eventList);
@@ -164,7 +165,7 @@ public class BikePortalFinal {
 										if (grpOption == 1) {
 											// need to create a method to view groups that user is currently in
 										} else if (grpOption == 2) {
-//											BikePortalFinal.createGrp(memberList, grpList);
+//											BikePortal.createGrp(memberList, grpList);
 										} else if (grpOption == 3) {
 //											BikePortalFinal.joinGrp(grpList, memberList);
 										}
@@ -172,18 +173,26 @@ public class BikePortalFinal {
 									BikePortalFinal.userMenu();
 									loginOption = Helper.readInt("Enter an option > ");
 								} else if (loginOption == 2) {
-									BikePortalFinal.setHeader("View All Events");
 //									BikePortalFinal.recommendEvents(memberList, eventList, loginEmail);
 									BikePortalFinal.currentEMenu();
 									int eventOption = Helper.readInt("Enter an option > ");
 									while (eventOption != 4) {
 										if (eventOption == 1) {
-											// need to create a method to view events that user is currently in
+											BikePortalFinal.setHeader("View All Events");
+											BikePortalFinal.retrieveAllEvent(eventList);
+											BikePortalFinal.viewAllEvent(eventList);
 										} else if (eventOption == 2) {
-//											BikePortalFinal.createEvent();
+									        BikePortalFinal.createEvent(eventList);
 										} else if (eventOption == 3) {
-//											BikePortalFinal.
+											Event newEvent = BikePortalFinal.createEvent(eventList);
+											
+											if(newEvent != null) {
+												BikePortalFinal.addEvent(eventList, newEvent);
+											}
+										}else {
+											BikePortalFinal.userMenu();
 										}
+										eventOption = Helper.readInt("Enter an option > ");
 									}
 									BikePortalFinal.userMenu();
 									loginOption = Helper.readInt("Enter an option > ");
@@ -723,7 +732,7 @@ public class BikePortalFinal {
       System.out.println(output);
     }
 
-    public static Event createEvent() {
+    public static Event createEvent(ArrayList<Event> eventList) {
       // REG
       // user input when registering
 
@@ -759,6 +768,8 @@ public class BikePortalFinal {
         // Handle the exception or return an error message if necessary
       }
       Event newEvent = new Event(difficulty, name, localDate, localTime, venue);
+      eventList.add(newEvent);
+      System.out.println("Event created and added sucessfully");
       return newEvent;
     }
 
