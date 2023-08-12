@@ -294,44 +294,23 @@ public class BikePortalTest {
 
 
 
-	// Yi Tuck
+	// Kween
 	@Test
 	public void testViewMemberGroup() {
-		// Test that Member has missing details
-		assertNull("Test that missing member name returns null", m1.getName());
-		assertNull("Test that missing member username returns null", m1.getUsername());
-
-		// Test that members can be viewed
-		assertTrue("Test that member username is not null", m2.getUsername() != null);
-		assertTrue("Test that member name is not null", m2.getName() != null);
 
 	}
 
-	// Yi Tuck
+	// Kween
 	@Test
-	public void testViewMemberdetails() {
-		// Test that no Member fields are missing
-		assertNotNull("Test that member name is not missing", m3.getName());
-		assertNotNull("Test that member password is not empty", m3.getPassword());
-		assertFalse("Test that member username is not empty", m3.getUsername() == null);
-		assertNotNull("Test that member preference is not missing", m3.getPreference());
-		// Test that Members details can be viewed
-		assertFalse("Test that the member name can be viewed", m1.getName() == null);
-		assertFalse("Test that the member username can be viewed", m1.getUsername() == null);
+	public void testviewallGroups() {
 
 	}
 
 	
-	// Yi Tuck
+	// Kween
 	@Test
-	public void testDeletedetails() {
-		// Test that Members details can be deleted
-	
-		assertEquals("Test that memberlist size decrease by 1", 0, memberList.size());
+	public void testDeleteGroup() {
 
-		for (Member member : memberList) {
-			assertNotEquals("Test that deleted member is no longer in the memberlist", "003", member.getUsername());
-		}
 	}
 
 	// Yi Tuck
@@ -361,6 +340,23 @@ public class BikePortalTest {
 		BikePortalFinal.deleteEvent(eventList, "RP casual club");
 		assertEquals("Check that eventList size is lesser after delete", 0, eventList.size());
 		assertFalse("Check if the deleted event list contains the test member", eventList.contains(e1));
+	}
+	
+	//Kenneth
+	@Test
+	public void testaddReg() {
+		
+	}
+	//Kenneth
+	@Test
+	public void testviewallReg() {
+		
+	}
+	
+	//Kenneth
+	@Test
+	public void testDeleteReg() {
+		
 	}
 
 	@After
