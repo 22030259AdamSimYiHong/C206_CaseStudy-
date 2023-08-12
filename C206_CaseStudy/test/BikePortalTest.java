@@ -129,7 +129,7 @@ public class BikePortalTest {
 		assertEquals("Test that Reg arraylist size is 1 after deletion", 1, regList.size());
 
 	}
-}
+
 
 	@Test
 	public void testLoginAdmin() {
