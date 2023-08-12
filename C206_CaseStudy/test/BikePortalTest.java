@@ -129,30 +129,7 @@ public class BikePortalTest {
 		assertEquals("Test that Reg arraylist size is 1 after deletion", 1, regList.size());
 
 	}
-
-	@Test
-	public void testAddReg() {
-		// Reglist not null and is empty
-		assertNotNull("Test if there is valid registration arraylist to add to", regList);
-		assertEquals("Test that the Registration arraylist is empty.", 0, regList.size());
-		// Given an empty list, after adding user, the size of the list is 1
-		BikePortal.addReg(regList, r1);
-		assertEquals("Test that the Registration arraylist size is 1.", 1, regList.size());
-		// Add an item
-		BikePortal.addReg(regList, r2);
-		assertEquals("Test that the Registration arraylist size is now 2.", 2, regList.size());
-		// The user just added already exist in the list
-		assertSame("Test that User is added to the end of the list.", r2, regList.get(1));
-
-		// Add an item that already exists in the list
-		BikePortal.addReg(regList, r2);
-		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
-
-		// Add an user that has missing detail
-		Registration reg_missing = new Registration("CB0014", "", "", "");
-		BikePortal.addReg(regList, reg_missing);
-		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
-	}
+}
 
 	@Test
 	public void testLoginAdmin() {
@@ -344,8 +321,27 @@ public class BikePortalTest {
 	
 	//Kenneth
 	@Test
-	public void testaddReg() {
-		
+	public void testAddReg() {
+		// Reglist not null and is empty
+		assertNotNull("Test if there is valid registration arraylist to add to", regList);
+		assertEquals("Test that the Registration arraylist is empty.", 0, regList.size());
+		// Given an empty list, after adding user, the size of the list is 1
+		BikePortal.addReg(regList, r1);
+		assertEquals("Test that the Registration arraylist size is 1.", 1, regList.size());
+		// Add an item
+		BikePortal.addReg(regList, r2);
+		assertEquals("Test that the Registration arraylist size is now 2.", 2, regList.size());
+		// The user just added already exist in the list
+		assertSame("Test that User is added to the end of the list.", r2, regList.get(1));
+
+		// Add an item that already exists in the list
+		BikePortal.addReg(regList, r2);
+		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
+
+		// Add an user that has missing detail
+		Registration reg_missing = new Registration("CB0014", "", "", "");
+		BikePortal.addReg(regList, reg_missing);
+		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
 	}
 	//Kenneth
 	@Test
