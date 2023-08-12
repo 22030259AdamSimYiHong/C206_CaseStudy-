@@ -702,6 +702,7 @@ public class BikePortalFinal {
 				return;
 		}
 		if ((newBike.getBikeName().isEmpty()) || (newBike.getBikeType().isEmpty())) {
+			
 			return;
 		}
 
@@ -710,10 +711,12 @@ public class BikePortalFinal {
 
 	public static void deleteBike(ArrayList<Bike> bikeList, Bike bikeName) {
 		boolean isFound = false;
+		Bike bike;
 		for (int i = 0; i < bikeList.size(); i++) {
-			if (bikeList.get(i).getBikeName().equalsIgnoreCase(bikeName.getBikeName())) {
+			bike = bikeList.get(i);
+			if (bike.getBikeName().equalsIgnoreCase(bikeName.getBikeName())) {
 				bikeList.remove(i);
-				System.out.println(bikeName + " was deleted successfully");
+				System.out.println(bikeName.getBikeName() + " was deleted successfully");
 				isFound = true;
 				break;
 			}
