@@ -25,6 +25,7 @@ public class BikePortalTest {
 	private Registration r3;
 	private Bike b1;
 	private Bike b2;
+	private Bike b3;
 	private Event e1;
 	private Event e2;
 
@@ -52,6 +53,7 @@ public class BikePortalTest {
 		r3 = new Registration("Charizard", "Char789", "003", "Casual");
 		b1 = new Bike("bmw", "sports");
 		b2 = new Bike("kawasaki", "offroad");
+		b3 = new Bike("bikeName", "bikeType");
 		e1 = new Event("Casual", "RP casual club", LocalDate.of(2023, 8, 15), LocalTime.of(14, 30),
 				"Republic Polytechnic");
 		e2 = new Event("Competitive", "SP Competitive club", LocalDate.of(2023, 8, 14), LocalTime.of(18, 30),
@@ -134,7 +136,7 @@ public class BikePortalTest {
 	@Test
 	public void testLoginAdmin() {
 		assertTrue("Test that Admin Logs in with valid Username and Password",
-				BikePortal.adminLogin(adminList, "yituck@admin.com", "Password4"));
+				BikePortal.adminLogin(adminList, "yituck@gmail.com", "Password4"));
 		assertFalse("Test that the adminLogin does not go through when wrong username or password is input.",
 				BikePortal.adminLogin(adminList, "yituckadmin.com", "Password4"));
 		assertFalse("Test that the adminLogin does not go through when wrong username or password is input.",
@@ -182,6 +184,14 @@ public class BikePortalTest {
 		BikePortalFinal.addBike(bikeList, b2);
 		assertEquals("Test that the bike arraylist size is now 1.", 1, bikeList.size());
 		assertTrue("Check if the viewed bike list contains the test bike", bikeList.contains(b2));
+		BikePortalFinal.addBike(bikeList, b1);
+		assertEquals("Test that the bike arraylist size is now 2.", 2, bikeList.size());
+		assertTrue("Check if the viewed bike list contains the test bike", bikeList.contains(b1));
+		BikePortalFinal.deleteBike(bikeList, b2);
+		assertEquals("Test that the bike arraylist size is now 1.", 1, bikeList.size());
+		BikePortalFinal.deleteBike(bikeList, b1);
+		assertTrue("Test that the bike list is empty.", bikeList.isEmpty());
+		
 
 	}
 	//charmain

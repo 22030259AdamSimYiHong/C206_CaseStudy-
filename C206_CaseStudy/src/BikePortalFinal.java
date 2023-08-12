@@ -666,6 +666,9 @@ public class BikePortalFinal {
 
 	// ---------------------------------------------------Bike---------------------------------------------------
 	public static String retrieveAllBike(ArrayList<Bike> bikeList) {
+		if (bikeList.isEmpty()) {
+	        return("No Bike Found");
+	    }
 		// obtaining member
 		String output = "";
 		for (int i = 0; i < bikeList.size(); i++) {
