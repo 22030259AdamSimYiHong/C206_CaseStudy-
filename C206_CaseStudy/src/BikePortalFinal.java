@@ -25,6 +25,8 @@ import java.util.Arrays;
 public class BikePortalFinal {
 	private static final int REG_OPTION = 2;
 	private static final int OPTION_EXIT = 3;
+	private static final int BIKE_OPTION_EXIT = 4;
+
 
 	/**
 	 * @param args
@@ -183,10 +185,24 @@ public class BikePortalFinal {
 									while (grpOption != 4) {
 										if (grpOption == 1) {
 											// need to create a method to view groups that user is currently in
+											BikePortalFinal.setHeader("View All Groups");
+											BikePortalFinal.viewAllGroups(grpList);
+											BikePortalFinal.groupMenu();
+											grpOption = Helper.readInt("Enter an option > ");
 										} else if (grpOption == 2) {
-											BikePortal.createGrp(memberList, grpList);
+											BikePortalFinal.createGroup(grpList, memberList);
+											BikePortalFinal.groupMenu();
+											grpOption = Helper.readInt("Enter an option > ");
 										} else if (grpOption == 3) {
 											BikePortalFinal.joinGrp(grpList, memberList, loginPW);
+											BikePortalFinal.groupMenu();
+											grpOption = Helper.readInt("Enter an option > ");
+										}else if (grpOption == 4) {
+											
+										}else if(grpOption == 5) {
+											BikePortalFinal.deleteGrp(grpList);
+											BikePortalFinal.groupMenu();
+											grpOption = Helper.readInt("Enter an option > ");
 										}
 									}
 									BikePortalFinal.userMenu();
@@ -198,7 +214,7 @@ public class BikePortalFinal {
 									while (eventOption != 4) {
 										if (eventOption == 1) {
 											BikePortalFinal.setHeader("View All Events");
-											BikePortalFinal.retrieveAllEvent(eventList);
+											
 											BikePortalFinal.viewAllEvent(eventList);
 										} else if (eventOption == 2) {
 											BikePortalFinal.createEvent(eventList);
@@ -218,7 +234,7 @@ public class BikePortalFinal {
 								} else if (loginOption == 3) {
 									BikePortalFinal.bikeMenu();
 									int bikeOption = Helper.readInt("Enter an option > ");
-									while (bikeOption != 4) {
+									while (bikeOption != BIKE_OPTION_EXIT) {
 										if (bikeOption == 1) {
 											// view all the bike i own
 											BikePortalFinal.viewAllBike(bikeList);
@@ -227,7 +243,7 @@ public class BikePortalFinal {
 										} else if (bikeOption == 2) {
 											// add bike
 											Bike newBike = inputBike();
-											BikePortal.addBike(bikeList, newBike);
+											BikePortalFinal.addBike(bikeList, newBike);
 											System.out.println("Bike added");
 											BikePortalFinal.bikeMenu();
 											bikeOption = Helper.readInt("Enter Bike Option > ");
@@ -424,14 +440,14 @@ public class BikePortalFinal {
 
 	public static void viewAllUser(ArrayList<Member> memberList) {
 		// printing user
-		BikePortal.setHeader("MEMBER LIST");
+		BikePortalFinal.setHeader("MEMBER LIST");
 		String output = String.format("%-15s %-25s %-25s %-15s\n", "NAME", "USERNAME", "PASSWORD", "PREFERENCE");
 		output += retrieveAllUser(memberList);
 		System.out.println(output);
 	}
 
 	public static void findUser(ArrayList<Member> memberList) {
-		BikePortal.setHeader("Search for Biker");
+		BikePortalFinal.setHeader("Search for Biker");
 		String username = Helper.readString("Enter Username: ");
 		String output = "";
 		output += String.format("%-20s %-20s\n", "USERNAME", "PREFERENCE");
@@ -560,7 +576,7 @@ public class BikePortalFinal {
 		String name = Helper.readString("Enter name > ");
 		String email = Helper.readString("Enter email > ");
 		String password = Helper.readString("Enter password > ");
-		if (BikePortal.validateRegAdmin(email, password) == true) {
+		if (BikePortalFinal.validateRegAdmin(email, password) == true) {
 			Admin newAdmin = new Admin(name, email, password);
 			return newAdmin;
 		}
@@ -595,7 +611,7 @@ public class BikePortalFinal {
 
 	public static void viewAllAdmin(ArrayList<Admin> adminList) {
 		// printing user
-		BikePortal.setHeader("MEMBER LIST");
+		BikePortalFinal.setHeader("MEMBER LIST");
 		String output = String.format("%-15s %-25s %-25s\n", "NAME", "EMAIL", "PASSWORD");
 		output += retrieveAllAdmin(adminList);
 		System.out.println(output);
@@ -623,7 +639,7 @@ public class BikePortalFinal {
 
 	public static void viewAllReg(ArrayList<Registration> regList) {
 		// printing user
-		BikePortal.setHeader("MEMBER LIST");
+		BikePortalFinal.setHeader("MEMBER LIST");
 		String output = String.format("%-15s %-25s %-25s %-15s\n", "NAME", "USERNAME", "PASSWORD", "PREFERENCE");
 		output += retrieveAllReg(regList);
 		System.out.println(output);
@@ -685,7 +701,7 @@ public class BikePortalFinal {
 
 	public static void viewAllBike(ArrayList<Bike> bikeList) {
 		// printing user
-		BikePortal.setHeader("BIKE LIST");
+		BikePortalFinal.setHeader("BIKE LIST");
 		String output = String.format("%-15s %-25s \n", "NAME", "TYPE");
 		output += retrieveAllBike(bikeList);
 		System.out.println(output);
