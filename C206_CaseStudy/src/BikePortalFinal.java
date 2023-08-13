@@ -27,6 +27,7 @@ public class BikePortalFinal {
 	private static final int OPTION_EXIT = 3;
 	private static final int BIKE_OPTION_EXIT = 4;
 
+
 	/**
 	 * @param args
 	 */
@@ -125,7 +126,7 @@ public class BikePortalFinal {
 									viewAllGroups(grpList);
 									break;
 								case 2:
-									createGroup(grpList);
+									createGroup(grpList, memberList);
 									break;
 								case 3:
 									joinGrp(grpList, memberList, loginPW);
@@ -189,17 +190,21 @@ public class BikePortalFinal {
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
 										} else if (grpOption == 2) {
-											BikePortalFinal.createGroup(grpList);
+											String groupName = Helper.readString("Enter group name > ");
+											String groupDescription = Helper.readString("Enter group description > ");
+											String tag = Helper.readString("Select difficulty > ");
+											BikePortalFinal.createGroup(grpList,groupName,groupDescription,tag);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
 										} else if (grpOption == 3) {
 											BikePortalFinal.joinGrp(grpList, memberList, loginPW);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
-										} else if (grpOption == 4) {
-
-										} else if (grpOption == 5) {
-											BikePortalFinal.deleteGrp(grpList);
+										}else if (grpOption == 4) {
+											
+										}else if(grpOption == 5) {
+											String groupName = Helper.readString("Enter group name to delete > ");
+											BikePortalFinal.deleteGrp(grpList,groupName);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
 										}
@@ -213,7 +218,7 @@ public class BikePortalFinal {
 									while (eventOption != 4) {
 										if (eventOption == 1) {
 											BikePortalFinal.setHeader("View All Events");
-
+											
 											BikePortalFinal.viewAllEvent(eventList);
 										} else if (eventOption == 2) {
 											BikePortalFinal.createEvent(eventList);
@@ -297,7 +302,7 @@ public class BikePortalFinal {
 
 	private static void leaveGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	public static void loginTypeMenu() {
@@ -933,7 +938,10 @@ public class BikePortalFinal {
 	}
 
 	// Create new groups
-	public static void createGroup(ArrayList<Group> grpList, String groupName, String groupDescription, String tag) {
+
+	public static void createGroup(ArrayList<Group> grpList,String groupName, String groupDescription,String tag) {
+		
+
 		// Check if the group name already exists
 		for (Group group : grpList) {
 			if (group.getGroupName().equalsIgnoreCase(groupName)) {
@@ -948,9 +956,11 @@ public class BikePortalFinal {
 		System.out.println("Group successfully created!");
 	}
 
-	// Delete Group
+	// Delete group
 
-	public static void deleteGrp(ArrayList<Group> grpList) {
+	public static void deleteGrp(ArrayList<Group> grpList, String groupName) {
+		
+
 		for (Group group : grpList) {
 			if (group.getGroupName().equalsIgnoreCase(groupName)) {
 				grpList.remove(group);
