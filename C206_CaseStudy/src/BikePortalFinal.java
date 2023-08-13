@@ -741,7 +741,7 @@ public class BikePortalFinal {
 
     public static void viewAllEvent(ArrayList<Event> eventList) {
       // printing user
-      BikePortal.setHeader("EVENT LIST");
+      BikePortalFinal.setHeader("EVENT LIST");
       String output = String.format("%-15s %-25s %-25s %-25s %-15s\n", "DIFFICULTY", "EVENT NAME", "DATE", "TIME ",
           "VENUE");
       output += retrieveAllEvent(eventList);
