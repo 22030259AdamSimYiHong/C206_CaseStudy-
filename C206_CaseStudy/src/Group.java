@@ -71,13 +71,18 @@ public class Group extends Tag{
 	}
 	
     public void printMembers() {
-        BikePortal.setHeader("MEMBERS OF GROUP: " + groupName);
+        BikePortalFinal.setHeader("MEMBERS OF GROUP: " + groupName);
         String output = String.format("%-15s %-25s %-15s\n", "NAME", "USERNAME", "PREFERENCE");
         for (Member member : memberList) {
             output += String.format("%-15s %-25s %-25s %-15s\n", member.getName(), member.getUsername(), member.getPassword(), member.getPreference());
         }
         System.out.println(output);
     }
+
+	public String getTag() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
    
 	

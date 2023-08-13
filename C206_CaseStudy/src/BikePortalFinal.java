@@ -27,7 +27,6 @@ public class BikePortalFinal {
 	private static final int OPTION_EXIT = 3;
 	private static final int BIKE_OPTION_EXIT = 4;
 
-
 	/**
 	 * @param args
 	 */
@@ -126,7 +125,7 @@ public class BikePortalFinal {
 									viewAllGroups(grpList);
 									break;
 								case 2:
-									createGroup(grpList, memberList);
+									createGroup(grpList);
 									break;
 								case 3:
 									joinGrp(grpList, memberList, loginPW);
@@ -190,16 +189,16 @@ public class BikePortalFinal {
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
 										} else if (grpOption == 2) {
-											BikePortalFinal.createGroup(grpList, memberList);
+											BikePortalFinal.createGroup(grpList);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
 										} else if (grpOption == 3) {
 											BikePortalFinal.joinGrp(grpList, memberList, loginPW);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
-										}else if (grpOption == 4) {
-											
-										}else if(grpOption == 5) {
+										} else if (grpOption == 4) {
+
+										} else if (grpOption == 5) {
 											BikePortalFinal.deleteGrp(grpList);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
@@ -214,7 +213,7 @@ public class BikePortalFinal {
 									while (eventOption != 4) {
 										if (eventOption == 1) {
 											BikePortalFinal.setHeader("View All Events");
-											
+
 											BikePortalFinal.viewAllEvent(eventList);
 										} else if (eventOption == 2) {
 											BikePortalFinal.createEvent(eventList);
@@ -298,7 +297,7 @@ public class BikePortalFinal {
 
 	private static void leaveGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public static void loginTypeMenu() {
@@ -934,12 +933,7 @@ public class BikePortalFinal {
 	}
 
 	// Create new groups
-
-	public static void createGroup(ArrayList<Group> grpList, ArrayList<Member> memberList) {
-		String groupName = Helper.readString("Enter group name > ");
-		String groupDescription = Helper.readString("Enter group description > ");
-		String tag = Helper.readString("Select difficulty > ");
-
+	public static void createGroup(ArrayList<Group> grpList, String groupName, String groupDescription, String tag) {
 		// Check if the group name already exists
 		for (Group group : grpList) {
 			if (group.getGroupName().equalsIgnoreCase(groupName)) {
@@ -954,11 +948,9 @@ public class BikePortalFinal {
 		System.out.println("Group successfully created!");
 	}
 
-	// Delete group
+	// Delete Group
 
 	public static void deleteGrp(ArrayList<Group> grpList) {
-		String groupName = Helper.readString("Enter group name to delete > ");
-
 		for (Group group : grpList) {
 			if (group.getGroupName().equalsIgnoreCase(groupName)) {
 				grpList.remove(group);

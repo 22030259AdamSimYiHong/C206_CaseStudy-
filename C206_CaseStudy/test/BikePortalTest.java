@@ -1,6 +1,5 @@
 import static org.junit.Assert.*;
 
-
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -32,6 +31,10 @@ public class BikePortalTest {
 	private Bike b3;
 	private Event e1;
 	private Event e2;
+	private Group g1;
+	private Group g2;
+	private Group gd1;
+	private Group diff1;
 
 	private ArrayList<Member> memberList;
 	private ArrayList<Admin> adminList;
@@ -39,6 +42,7 @@ public class BikePortalTest {
 	private ArrayList<Registration> regList;
 	private ArrayList<Bike> bikeList;
 	private ArrayList<Event> eventList;
+	private ArrayList<Group> grpList;
 
 	@Before
 	public void setUp() throws Exception {
@@ -137,7 +141,6 @@ public class BikePortalTest {
 
 	}
 
-
 	@Test
 	public void testLoginAdmin() {
 		BikePortalFinal.addAdmin(adminList, a1);
@@ -177,7 +180,8 @@ public class BikePortalTest {
 		assertEquals("Test that bike arraylist size is 0 after deletion", 0, bikeList.size());
 
 	}
-	//charmain
+
+	// charmain
 	@Test
 	public void testViewAllBike() {
 		// Item list is not null and it is empty
@@ -196,10 +200,10 @@ public class BikePortalTest {
 		assertEquals("Test that the bike arraylist size is now 1.", 1, bikeList.size());
 		BikePortalFinal.deleteBike(bikeList, b1);
 		assertTrue("Test that the bike list is empty.", bikeList.isEmpty());
-		
 
 	}
-	//charmain
+
+	// charmain
 	@Test
 	public void testAddBike() {
 		// Reglist not null and is empty
@@ -221,8 +225,6 @@ public class BikePortalTest {
 		BikePortalFinal.addBike(bikeList, detail_missing);
 		assertEquals("Test that the Bike arraylist size is unchange.", 2, bikeList.size());
 	}
-
-	
 
 	// Keith
 	@Test
@@ -284,24 +286,45 @@ public class BikePortalTest {
 		assertFalse("Topic is in the discussion list.", d1.getTopic().equalsIgnoreCase(question));
 	}
 
-
-
-	// Kween
 	@Test
+	public void testAddGroup() {
+		ArrayList<Group> grpList = new ArrayList<>();
 
+		// Test adding a new group
+		BikePortalFinal.createGroup(grpList, "GroupName1", "GroupDescription1", "Difficulty1");
+		assertEquals("Test that the group was added.", 1, grpList.size());
 
-	// Kween
-	@Test
-	public void testviewallGroups() {
-
+		// Test adding a group with the same name (should not be added)
+		BikePortalFinal.createGroup(grpList, "GroupName1", "GroupDescription1", "Difficulty1");
+		assertEquals("Test that the group was not added.", 1, grpList.size());
 	}
 
-	
 	// Kween
 	@Test
-	public void testDeleteGroup() {
+    public void testviewallGroups() {
+        ArrayList<Group> grpList = new ArrayList<>();
 
-	}
+        BikePortalFinal.createGroup(grpList, "GroupName1", "GroupDescription1", "Difficulty1");
+        
+        // Perform the method you want to test
+        BikePortalFinal.viewAllGroups(grpList);
+        
+        // Add assertions to check the correctness of the viewed group list
+        assertEquals("Check the size of the viewed group list", 1, grpList.size());
+    }
+
+	// Kween
+	@Test
+    public void testDeleteGroup() {
+        ArrayList<Group> grpList = new ArrayList<>();
+
+        BikePortalFinal.createGroup(grpList, "GroupName1", "GroupDescription1", "Difficulty1");
+        
+        BikePortalFinal.deleteGrp(grpList, "GroupName1");
+        
+        // Add assertions to check the group was deleted
+        assertEquals("Test that the group was deleted.", 0, grpList.size());
+    }
 
 	// Yi Tuck
 	@Test
@@ -331,8 +354,8 @@ public class BikePortalTest {
 		assertEquals("Check that eventList size is lesser after delete", 0, eventList.size());
 		assertFalse("Check if the deleted event list contains the test member", eventList.contains(e1));
 	}
-	
-	//Kenneth
+
+	// Kenneth
 	@Test
 	public void testAddReg() {
 		BikePortalFinal.addReg(regList, r1);
@@ -341,9 +364,11 @@ public class BikePortalTest {
 		// Test that the new user is added to the registration list
 		assertEquals("Check that the registration list is updated after new user is added", 1, regList.size());
 		// Test that the new user can access the portal after signing up
-		assertTrue("check that the new user can access the portal", BikePortalFinal.userLogin(memberList, rm1.getUsername(), rm1.getPassword()));
+		assertTrue("check that the new user can access the portal",
+				BikePortalFinal.userLogin(memberList, rm1.getUsername(), rm1.getPassword()));
 	}
-	//Kenneth
+
+	// Kenneth
 	@Test
 	public void testviewallReg() {
 		BikePortalFinal.addReg(regList, r1);
@@ -352,15 +377,17 @@ public class BikePortalTest {
 		// Test that the registration list is updated
 		assertEquals("Check that the registration list has 1 registration", 1, regList.size());
 	}
-	
-	//Kenneth
+
+	// Kenneth
 	@Test
 	public void testDeleteReg() {
-		// Test that the registrations removed are not able to access the website with their login credentials anymore.
+		// Test that the registrations removed are not able to access the website with
+		// their login credentials anymore.
 		BikePortalFinal.addReg(regList, r1);
 		BikePortalFinal.addMember(memberList, rm1);
 		BikePortalFinal.removeReg(regList, memberList, r1.getUsername());
-		assertFalse("Check that the user is no longer able to log into the portal", BikePortalFinal.userLogin(memberList, rm1.getUsername(), rm1.getPassword()));
+		assertFalse("Check that the user is no longer able to log into the portal",
+				BikePortalFinal.userLogin(memberList, rm1.getUsername(), rm1.getPassword()));
 		// Test that the registration list no longer displays users who were removed.
 		assertFalse("Check that the registration does not contain the removed user", regList.contains(r1));
 		// Test that the size of registration list decreases after removing user.
@@ -382,11 +409,14 @@ public class BikePortalTest {
 		r2 = null;
 		r3 = null;
 		b1 = null;
+		g1 = null;
+		g2 = null;
 		memberList = null;
 		adminList = null;
 		discussionList = null;
 		regList = null;
 		bikeList = null;
+		grpList = null;
 	}
 // Try committing new code
 }
