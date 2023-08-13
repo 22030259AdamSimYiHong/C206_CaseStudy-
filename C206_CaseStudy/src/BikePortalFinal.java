@@ -27,7 +27,6 @@ public class BikePortalFinal {
 	private static final int OPTION_EXIT = 3;
 	private static final int BIKE_OPTION_EXIT = 4;
 
-
 	/**
 	 * @param args
 	 */
@@ -117,34 +116,6 @@ public class BikePortalFinal {
 							BikePortalFinal.setHeader("View All Groups");
 							BikePortalFinal.viewAllGroups(grpList);
 							BikePortalFinal.groupMenu();
-
-							// Sorry. I changed the group menu to have 6 options instead. - Kween
-							int grpOption = Helper.readInt("Enter an option > ");
-							while (grpOption != 6) {
-								switch (grpOption) {
-								case 1:
-									viewAllGroups(grpList);
-									break;
-								case 2:
-									createGroup(grpList, memberList);
-									break;
-								case 3:
-									joinGrp(grpList, memberList, loginPW);
-									break;
-								case 4:
-									leaveGrp(grpList, memberList);
-									break;
-								case 5:
-									deleteGrp(grpList);
-									break;
-								default:
-									System.out.println("Invalid option. Please try again.");
-									break;
-								}
-								groupMenu();
-								grpOption = Helper.readInt("Enter an option > ");
-							}
-
 							BikePortalFinal.adminMenu();
 							internalOption = Helper.readInt("Enter an option > ");
 						} else if (internalOption == 4) {
@@ -193,18 +164,18 @@ public class BikePortalFinal {
 											String groupName = Helper.readString("Enter group name > ");
 											String groupDescription = Helper.readString("Enter group description > ");
 											String tag = Helper.readString("Select difficulty > ");
-											BikePortalFinal.createGroup(grpList,groupName,groupDescription,tag);
+											BikePortalFinal.createGroup(grpList, groupName, groupDescription, tag);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
 										} else if (grpOption == 3) {
 											BikePortalFinal.joinGrp(grpList, memberList, loginPW);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
-										}else if (grpOption == 4) {
-											
-										}else if(grpOption == 5) {
+										} else if (grpOption == 4) {
+
+										} else if (grpOption == 5) {
 											String groupName = Helper.readString("Enter group name to delete > ");
-											BikePortalFinal.deleteGrp(grpList,groupName);
+											BikePortalFinal.deleteGrp(grpList, groupName);
 											BikePortalFinal.groupMenu();
 											grpOption = Helper.readInt("Enter an option > ");
 										}
@@ -218,7 +189,7 @@ public class BikePortalFinal {
 									while (eventOption != 4) {
 										if (eventOption == 1) {
 											BikePortalFinal.setHeader("View All Events");
-											
+
 											BikePortalFinal.viewAllEvent(eventList);
 										} else if (eventOption == 2) {
 											BikePortalFinal.createEvent(eventList);
@@ -302,7 +273,7 @@ public class BikePortalFinal {
 
 	private static void leaveGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public static void loginTypeMenu() {
@@ -926,32 +897,24 @@ public class BikePortalFinal {
 
 	// ----------------------------------------------------Group------------------------------------------------------------------
 
-	// View all groups
-
 	public static void viewAllGroups(ArrayList<Group> grpList) {
 		System.out.println("VIEW ALL GROUPS");
-		String output = String.format("%-20s %-30s\n", "GROUP NAME", "DESCRIPTION");
+		String formatString = "%-20s %-30s\n";
+		System.out.printf(formatString, "GROUP NAME", "DESCRIPTION");
 		for (Group group : grpList) {
-			output += String.format("%-20s %-30s\n", group.getGroupName(), group.getDescription());
+			System.out.printf(formatString, group.getGroupName(), group.getDescription());
 		}
-		System.out.println(output);
 	}
 
 	// Create new groups
 
-	public static void createGroup(ArrayList<Group> grpList,String groupName, String groupDescription,String tag) {
-		
-
-		// Check if the group name already exists
-		for (Group group : grpList) {
-			if (group.getGroupName().equalsIgnoreCase(groupName)) {
-				System.out.println("Group name " + groupName + " already exists. Please enter another name.");
-				return; // Exit the method if the group name already exists
-			}
+	public static void createGroup(ArrayList<Group> grpList, String groupName, String groupDescription, String tag) {
+		if (groupExists(grpList, groupName)) {
+			System.out.println("Group name " + groupName + " already exists. Please enter another name.");
+			return;
 		}
 
-		// If the group name does not exist, create a new group
-		Group newGroup = new Group(tag, groupName, groupDescription); // Adjusted to match the constructor
+		Group newGroup = new Group(tag, groupName, groupDescription);
 		grpList.add(newGroup);
 		System.out.println("Group successfully created!");
 	}
@@ -959,75 +922,77 @@ public class BikePortalFinal {
 	// Delete group
 
 	public static void deleteGrp(ArrayList<Group> grpList, String groupName) {
-		
-
-		for (Group group : grpList) {
-			if (group.getGroupName().equalsIgnoreCase(groupName)) {
-				grpList.remove(group);
-				System.out.println("Group successfully deleted!");
-				return;
-			}
+		Group groupToDelete = findGroupByName(grpList, groupName);
+		if (groupToDelete != null) {
+			grpList.remove(groupToDelete);
+			System.out.println("Group successfully deleted!");
+		} else {
+			System.out.println("Group not found!");
 		}
-
-		System.out.println("Group not found!");
 	}
 
 	// Join Group
 
 	public static void joinGrp(ArrayList<Group> grpList, ArrayList<Member> memberList, String username) {
 		String groupName = Helper.readString("Enter group name to join > ");
-		Group groupToJoin = null;
+		Group groupToJoin = findGroupByName(grpList, groupName);
 
-		for (Group group : grpList) {
-			if (group.getGroupName().equalsIgnoreCase(groupName)) {
-				groupToJoin = group;
-				break;
-			}
-		}
-
-		if (groupToJoin == null) {
-			System.out.println("Group not found!");
-			return;
-		}
-
-		for (Member member : memberList) {
-			if (member.getUsername().equalsIgnoreCase(username)) {
+		if (groupToJoin != null) {
+			Member member = findMemberByUsername(memberList, username);
+			if (member != null) {
 				groupToJoin.addMember(member);
 				System.out.println("Successfully joined the group!");
-				return;
+			} else {
+				System.out.println("Member not found!");
 			}
+		} else {
+			System.out.println("Group not found!");
 		}
-
-		System.out.println("Member not found!");
 	}
 
 	// Leave group
 
 	public static void leaveGrp(ArrayList<Group> grpList, String username) {
 		String groupName = Helper.readString("Enter group name to leave > ");
-		Group groupToLeave = null;
+		Group groupToLeave = findGroupByName(grpList, groupName);
 
-		for (Group group : grpList) {
-			if (group.getGroupName().equalsIgnoreCase(groupName)) {
-				groupToLeave = group;
-				break;
-			}
-		}
-
-		if (groupToLeave == null) {
-			System.out.println("Group not found!");
-			return;
-		}
-
-		for (Member member : groupToLeave.getMemberList()) {
-			if (member.getUsername().equalsIgnoreCase(username)) {
+		if (groupToLeave != null) {
+			Member member = findMemberByUsername(groupToLeave.getMemberList(), username);
+			if (member != null) {
 				groupToLeave.getMemberList().remove(member);
 				System.out.println("Successfully left the group!");
-				return;
+			} else {
+				System.out.println("Member not found in the group!");
 			}
+		} else {
+			System.out.println("Group not found!");
 		}
-
-		System.out.println("Member not found in the group!");
 	}
 
+	private static boolean groupExists(ArrayList<Group> grpList, String groupName) {
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static Group findGroupByName(ArrayList<Group> grpList, String groupName) {
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				return group;
+			}
+		}
+		return null;
+	}
+
+	private static Member findMemberByUsername(ArrayList<Member> memberList, String username) {
+		for (Member member : memberList) {
+			if (member.getUsername().equalsIgnoreCase(username)) {
+				return member;
+			}
+		}
+		return null;
+	}
 }
