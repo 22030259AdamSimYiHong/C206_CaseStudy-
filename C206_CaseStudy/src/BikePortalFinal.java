@@ -48,8 +48,8 @@ public class BikePortalFinal {
 		memberList.add(new Member("Adam", "AdminIsCool", "AdamAwesome", "Casual"));
 		memberList.add(new Member("testUser", "user", "user", "Intermediate"));
 
-		adminList.add(new Admin("Charmain", "CharmainAwesome", "Charmaintan08@gmail.com"));
-		adminList.add(new Admin("kween", "kweenAwesome", "kween08@gmail.com"));
+		adminList.add(new Admin("Charmain", "CharmainAwesome", "Charmaintan08@admin.com"));
+		adminList.add(new Admin("kween", "kweenAwesome", "kween08@admin.com"));
 		adminList.add(new Admin("admin", "1234", "admin@admin.com"));
 
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -381,8 +381,8 @@ public class BikePortalFinal {
 	}
 
 	public static boolean validateRegAdmin(String email, String password) {
-		if (email.contains("@gmail.com")) {
-			if (password.length() <= 8) {
+		if (email.contains("@admin.com")) {
+			if (password.length() >= 8) {
 				return (true);
 			} else {
 				System.out.println("Weak password");
