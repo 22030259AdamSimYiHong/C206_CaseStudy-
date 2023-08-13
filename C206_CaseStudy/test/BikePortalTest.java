@@ -288,9 +288,7 @@ public class BikePortalTest {
 
 	// Kween
 	@Test
-	public void testViewMemberGroup() {
 
-	}
 
 	// Kween
 	@Test

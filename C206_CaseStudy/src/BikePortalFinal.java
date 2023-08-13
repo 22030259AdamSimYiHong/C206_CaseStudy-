@@ -1,3 +1,4 @@
+
 /*
  * I declare that this code was written by me. 
  * I do not copy or allow others to copy my code. 
@@ -85,7 +86,7 @@ public class BikePortalFinal {
 									String deleteUser = Helper.readString("Enter the user to delete > ");
 									BikePortalFinal.deleteMember(memberList, regList, deleteUser);
 								}
-								 
+
 								BikePortalFinal.setHeader("View All Users");
 								BikePortalFinal.viewAllUser(memberList);
 								BikePortalFinal.userPMenu();
@@ -104,7 +105,7 @@ public class BikePortalFinal {
 									BikePortalFinal.removeReg(regList, memberList, removeReg);
 								}
 								BikePortalFinal.setHeader("View All Registrations");
-							BikePortalFinal.viewAllReg(regList);
+								BikePortalFinal.viewAllReg(regList);
 								BikePortalFinal.regMenu();
 								regOption = Helper.readInt("Enter an option > ");
 							}
@@ -112,22 +113,40 @@ public class BikePortalFinal {
 							internalOption = Helper.readInt("Enter an option > ");
 						} else if (internalOption == 3) {
 							BikePortalFinal.setHeader("View All Groups");
-//							BikePortalFinal.viewAllGrp(grpList);
+							BikePortalFinal.viewAllGroups(grpList);
 							BikePortalFinal.groupMenu();
+
+							// Sorry. I changed the group menu to have 6 options instead. - Kween
 							int grpOption = Helper.readInt("Enter an option > ");
-							while (grpOption != 2) {
-								if (grpOption == 1) {
-//									BikePortalFinal.deleteGrp(grpList);
+							while (grpOption != 6) {
+								switch (grpOption) {
+								case 1:
+									viewAllGroups(grpList);
+									break;
+								case 2:
+									createGroup(grpList, memberList);
+									break;
+								case 3:
+									joinGrp(grpList, memberList, loginPW);
+									break;
+								case 4:
+									leaveGrp(grpList, memberList);
+									break;
+								case 5:
+									deleteGrp(grpList);
+									break;
+								default:
+									System.out.println("Invalid option. Please try again.");
+									break;
 								}
-								BikePortalFinal.setHeader("View All Groups");
-//								BikePortalFinal.viewAllGrp(grpList);
-								BikePortalFinal.groupMenu();
+								groupMenu();
 								grpOption = Helper.readInt("Enter an option > ");
 							}
+
 							BikePortalFinal.adminMenu();
 							internalOption = Helper.readInt("Enter an option > ");
 						} else if (internalOption == 4) {
-					        BikePortalFinal.currentEMenu();
+							BikePortalFinal.currentEMenu();
 							BikePortalFinal.eventMenu();
 							int eventOption = Helper.readInt("Enter an option > ");
 							while (eventOption != 2) {
@@ -136,7 +155,7 @@ public class BikePortalFinal {
 									BikePortalFinal.deleteEvent(eventList, newEvent);
 								}
 								BikePortalFinal.setHeader("View All Groups");
-//								BikePortalFinal.viewAllEvent(eventList);
+								BikePortalFinal.viewAllEvent(eventList);
 								BikePortalFinal.eventMenu();
 								eventOption = Helper.readInt("Enter an option > ");
 							}
@@ -158,16 +177,16 @@ public class BikePortalFinal {
 							while (loginOption != 5) {
 								if (loginOption == 1) {
 									BikePortalFinal.setHeader("View All Groups");
-//									BikePortalFinal.viewAllGrp(grpList);
-									BikePortalFinal.currentGMenu();
+									BikePortalFinal.viewAllGroups(grpList);
+									BikePortalFinal.groupMenu();
 									int grpOption = Helper.readInt("Enter an option > ");
 									while (grpOption != 4) {
 										if (grpOption == 1) {
 											// need to create a method to view groups that user is currently in
 										} else if (grpOption == 2) {
-//											BikePortal.createGrp(memberList, grpList);
+											BikePortal.createGrp(memberList, grpList);
 										} else if (grpOption == 3) {
-//											BikePortalFinal.joinGrp(grpList, memberList);
+											BikePortalFinal.joinGrp(grpList, memberList, loginPW);
 										}
 									}
 									BikePortalFinal.userMenu();
@@ -182,15 +201,14 @@ public class BikePortalFinal {
 											BikePortalFinal.retrieveAllEvent(eventList);
 											BikePortalFinal.viewAllEvent(eventList);
 										} else if (eventOption == 2) {
-									        BikePortalFinal.createEvent(eventList);
+											BikePortalFinal.createEvent(eventList);
 										} else if (eventOption == 3) {
 											Event newEvent = BikePortalFinal.createEvent(eventList);
-											
-											if(newEvent != null) {
+
+											if (newEvent != null) {
 												BikePortalFinal.addEvent(eventList, newEvent);
 											}
-										}
-										else {
+										} else {
 											BikePortalFinal.userMenu();
 										}
 										eventOption = Helper.readInt("Enter an option > ");
@@ -202,7 +220,7 @@ public class BikePortalFinal {
 									int bikeOption = Helper.readInt("Enter an option > ");
 									while (bikeOption != 4) {
 										if (bikeOption == 1) {
-											// view all the bike i own 
+											// view all the bike i own
 											BikePortalFinal.viewAllBike(bikeList);
 											BikePortalFinal.bikeMenu();
 											bikeOption = Helper.readInt("Enter Bike Option > ");
@@ -230,13 +248,12 @@ public class BikePortalFinal {
 									while (discussionOption != 4) {
 										if (discussionOption == 1) {
 											// Add your create discussion method here
-											BikePortalFinal.findDiscussion(discussionList);											
+											BikePortalFinal.findDiscussion(discussionList);
 										} else if (discussionOption == 2) {
 											// add your leave discussion method here
 											BikePortalFinal.addDiscussion(discussionList);
 
-										}
-										else if (discussionOption == 3) {
+										} else if (discussionOption == 3) {
 											BikePortalFinal.deleteDiscussion(discussionList);
 										}
 										discussionOption = Helper.readInt("Enter an option > ");
@@ -261,6 +278,11 @@ public class BikePortalFinal {
 		}
 		System.out.println("Good Bye!");
 
+	}
+
+	private static void leaveGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public static void loginTypeMenu() {
@@ -290,8 +312,6 @@ public class BikePortalFinal {
 		System.out.println("5. Logout");
 		Helper.line(110, "-");
 	}
-	
-
 
 	public static void setHeader(String header) {
 		Helper.line(110, "-");
@@ -301,8 +321,13 @@ public class BikePortalFinal {
 
 	public static void groupMenu() {
 		BikePortalFinal.setHeader("GROUP PAGE");
-		System.out.println("1. Delete a group");
-		System.out.println("2. Return to previous page");
+		System.out.println("1. View Current Groups");
+		System.out.println("2. Create Group");
+		System.out.println("3. Join Group");
+		System.out.println("4. Leave Group");
+		System.out.println("5. Delete Group");
+		System.out.println("6. Return to Previous Page");
+
 	}
 
 	public static void regMenu() {
@@ -330,22 +355,8 @@ public class BikePortalFinal {
 		System.out.println("3. Return to previous page");
 	}
 
-	public static void currentGMenu() {
-		BikePortalFinal.setHeader("GROUP PAGE");
-		System.out.println("1. View current groups");
-		System.out.println("2. Create");
-		System.out.println("3. Join");
-		System.out.println("4. Return to previous page");
-	}
-
-	public static void currentG2Menu() {
-		BikePortalFinal.setHeader("GROUP PAGE");
-		System.out.println("1. Leave");
-		System.out.println("2. Return to previous page");
-	}
-
 	public static void discussionMenu() {
-		BikePortal.setHeader("DISCUSSION PAGE");
+		BikePortalFinal.setHeader("DISCUSSION PAGE");
 		System.out.println("1. View all discussions");
 		System.out.println("2. Add a discussion");
 		System.out.println("3. Delete a discussion");
@@ -359,8 +370,9 @@ public class BikePortalFinal {
 		System.out.println("3. Join");
 		System.out.println("4. Return to previous page");
 	}
+
 	public static void bikeMenu() {
-		BikePortal.setHeader("Bike PAGE");
+		BikePortalFinal.setHeader("Bike PAGE");
 		System.out.println("1. View all bike");
 		System.out.println("2. Add a bike");
 		System.out.println("3. Delete an existing bike");
@@ -404,10 +416,8 @@ public class BikePortalFinal {
 			String username = memberList.get(i).getUsername();
 			String password = memberList.get(i).getPassword();
 			String preference = memberList.get(i).getPreference();
-			
-			output += String.format("%-15s %-25s %-25s %-15s\n", name,
-					username, password,
-					preference);
+
+			output += String.format("%-15s %-25s %-25s %-15s\n", name, username, password, preference);
 		}
 		return output;
 	}
@@ -446,48 +456,47 @@ public class BikePortalFinal {
 	}
 
 	public static void inputUser(ArrayList<Member> memberList, ArrayList<Registration> regList) {
-	    String name = Helper.readString("Enter Name > ");
-	    String username = "";
-	    boolean isUsernameAvailable = true;
+		String name = Helper.readString("Enter Name > ");
+		String username = "";
+		boolean isUsernameAvailable = true;
 
-	    while (isUsernameAvailable) {
-	        username = Helper.readString("Enter Username > ");
+		while (isUsernameAvailable) {
+			username = Helper.readString("Enter Username > ");
 
-	        // Check if the username is available
-	        for (Member member : memberList) {
-	            if (member.getUsername().equalsIgnoreCase(username)) {
-	                System.out.println("Username is not available. Please choose another.");
-	                break;
-	            }
-	        }
+			// Check if the username is available
+			for (Member member : memberList) {
+				if (member.getUsername().equalsIgnoreCase(username)) {
+					System.out.println("Username is not available. Please choose another.");
+					break;
+				}
+			}
 
-	        if (!usernameIsTaken(memberList, username)) {
-	            isUsernameAvailable = false;
-	        }
-	    }
+			if (!usernameIsTaken(memberList, username)) {
+				isUsernameAvailable = false;
+			}
+		}
 
-	    String password = Helper.readString("Enter Password > ");
-	    String preference = Helper.readString("Enter Preference > ");
+		String password = Helper.readString("Enter Password > ");
+		String preference = Helper.readString("Enter Preference > ");
 
-	    Registration newReg = new Registration(name, password, username, preference);
-	    Member newMember = new Member(name, password, username, preference);
+		Registration newReg = new Registration(name, password, username, preference);
+		Member newMember = new Member(name, password, username, preference);
 
-	    memberList.add(newMember); // Add to memberList
-	    regList.add(newReg); // Add to regList
+		memberList.add(newMember); // Add to memberList
+		regList.add(newReg); // Add to regList
 
-	    System.out.println("Registration successful.");
+		System.out.println("Registration successful.");
 	}
 
 	// Helper method to check if username is taken
 	public static boolean usernameIsTaken(ArrayList<Member> memberList, String username) {
-	    for (Member member : memberList) {
-	        if (member.getUsername().equalsIgnoreCase(username)) {
-	            return true;
-	        }
-	    }
-	    return false;
+		for (Member member : memberList) {
+			if (member.getUsername().equalsIgnoreCase(username)) {
+				return true;
+			}
+		}
+		return false;
 	}
-
 
 	public static void addMember(ArrayList<Member> memberList, Member newMember) {
 		Member member;
@@ -505,9 +514,8 @@ public class BikePortalFinal {
 		boolean passwordEmpty = newMember.getPassword().isEmpty();
 		boolean nameEmpty = newMember.getName().isEmpty();
 		boolean preferenceEmpty = newMember.getPreference().isEmpty();
-		
-		if (empty || passwordEmpty || nameEmpty
-				|| preferenceEmpty) {
+
+		if (empty || passwordEmpty || nameEmpty || preferenceEmpty) {
 			return;
 		}
 		// checking if user have input all the fields required
@@ -606,9 +614,9 @@ public class BikePortalFinal {
 	public static String retrieveAllReg(ArrayList<Registration> regList) {
 		// obtaining member
 		String output = "";
-		for (Registration i: regList) {
-			output += String.format("%-15s %-25s %-25s %-15s\n", i.getName(), i.getUsername(),
-					i.getPassword(), i.getPreference());
+		for (Registration i : regList) {
+			output += String.format("%-15s %-25s %-25s %-15s\n", i.getName(), i.getUsername(), i.getPassword(),
+					i.getPreference());
 		}
 		return output;
 	}
@@ -623,7 +631,7 @@ public class BikePortalFinal {
 
 	public static Registration addReg(ArrayList<Registration> regList, Registration newReg) {
 		// checking if user already exist
-		for (Registration i: regList) {
+		for (Registration i : regList) {
 			if (i.getUsername().equalsIgnoreCase(newReg.getUsername()))
 				return (null);
 		}
@@ -665,8 +673,8 @@ public class BikePortalFinal {
 	// ---------------------------------------------------Bike---------------------------------------------------
 	public static String retrieveAllBike(ArrayList<Bike> bikeList) {
 		if (bikeList.isEmpty()) {
-	        return("No Bike Found");
-	    }
+			return ("No Bike Found");
+		}
 		// obtaining member
 		String output = "";
 		for (int i = 0; i < bikeList.size(); i++) {
@@ -703,7 +711,7 @@ public class BikePortalFinal {
 				return;
 		}
 		if ((newBike.getBikeName().isEmpty()) || (newBike.getBikeType().isEmpty())) {
-			
+
 			return;
 		}
 
@@ -728,176 +736,280 @@ public class BikePortalFinal {
 		}
 
 	}
-	
-	//----------------------------------------------------Event------------------------------------------------------------------
-    public static String retrieveAllEvent(ArrayList<Event> eventList) {
-      // obtaining member
-      String output = "";
-      for (Event event : eventList) {
-        output += String.format("%-15s %-25s %-25s %-25s %-15s\n", event.getDifficulty(), event.getEventName(), event.getEventDate(), event.getEventTime(), event.getVenue());
-      }
-      return output;
-    }
 
-    public static void viewAllEvent(ArrayList<Event> eventList) {
-      // printing user
-      BikePortalFinal.setHeader("EVENT LIST");
-      String output = String.format("%-15s %-25s %-25s %-25s %-15s\n", "DIFFICULTY", "EVENT NAME", "DATE", "TIME ",
-          "VENUE");
-      output += retrieveAllEvent(eventList);
-      System.out.println(output);
-    }
+	// ----------------------------------------------------Event------------------------------------------------------------------
+	public static String retrieveAllEvent(ArrayList<Event> eventList) {
+		// obtaining member
+		String output = "";
+		for (Event event : eventList) {
+			output += String.format("%-15s %-25s %-25s %-25s %-15s\n", event.getDifficulty(), event.getEventName(),
+					event.getEventDate(), event.getEventTime(), event.getVenue());
+		}
+		return output;
+	}
 
-    public static Event createEvent(ArrayList<Event> eventList) {
-      // REG
-      // user input when registering
+	public static void viewAllEvent(ArrayList<Event> eventList) {
+		// printing user
+		BikePortalFinal.setHeader("EVENT LIST");
+		String output = String.format("%-15s %-25s %-25s %-25s %-15s\n", "DIFFICULTY", "EVENT NAME", "DATE", "TIME ",
+				"VENUE");
+		output += retrieveAllEvent(eventList);
+		System.out.println(output);
+	}
 
-      String name = Helper.readString("Enter Event Name > ");
-      String difficulty = Helper.readString("Enter Event Difficulty > ");
-      String date = Helper.readString("Enter Event Date (mm/dd/yyyy)> ");
-      String time = Helper.readString("Enter Event Time (HH:mm) > ");
-      String venue = Helper.readString("Enter Event Location > ");
-      LocalDate localDate = null;
-      LocalTime localTime = null;
-      
-      String[] difficultiesType = {"Competitive", "Intermediate", "Casual"};
-      if(!Arrays.asList(difficultiesType).contains(difficulty)) {
-        System.out.println("Invalid Difficulty Type");
-        return null;
-      }
+	public static Event createEvent(ArrayList<Event> eventList) {
+		// REG
+		// user input when registering
 
-      try {
-        DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        localDate = LocalDate.parse(date, inputFormatter2);
-      } catch (DateTimeParseException e) {
-        System.out.println("Invalid date format. Please use mm/dd/yyyy format.");
-        return null;
-        // Handle the exception or return an error message if necessary
-      }
+		String name = Helper.readString("Enter Event Name > ");
+		String difficulty = Helper.readString("Enter Event Difficulty > ");
+		String date = Helper.readString("Enter Event Date (mm/dd/yyyy)> ");
+		String time = Helper.readString("Enter Event Time (HH:mm) > ");
+		String venue = Helper.readString("Enter Event Location > ");
+		LocalDate localDate = null;
+		LocalTime localTime = null;
 
-      try {
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HH:mm");
-        localTime = LocalTime.parse(time, inputFormatter);
-      } catch (DateTimeParseException e) {
-        System.out.println("Invalid time format. Please use HH:mm format.");
-        return null;
-        // Handle the exception or return an error message if necessary
-      }
-      Event newEvent = new Event(difficulty, name, localDate, localTime, venue);
-      eventList.add(newEvent);
-      System.out.println("Event created and added sucessfully");
-      return newEvent;
-    }
+		String[] difficultiesType = { "Competitive", "Intermediate", "Casual" };
+		if (!Arrays.asList(difficultiesType).contains(difficulty)) {
+			System.out.println("Invalid Difficulty Type");
+			return null;
+		}
 
-    public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
-        
-        if (eventExists(eventList, newEvent.getEventName())) {
-            System.out.println("Event already exists");
-            return;
-        }
-        
-        
-        if (isEmptyField(newEvent.getEventName()) || isEmptyField(newEvent.getDifficulty()) || newEvent.getEventDate() == null || newEvent.getEventTime() == null || isEmptyField(newEvent.getVenue())) {
-            System.out.println("Please fill in all the required fields");
-            return;
-        }
-        
-        
-        eventList.add(newEvent);
-    }
-    
-    private static boolean eventExists(ArrayList<Event> eventList, String eventName) {
-      return eventList.stream().anyMatch(event -> event.getEventName().equalsIgnoreCase(eventName));
-    }
-    
-    private static boolean isEmptyField(String field) {
-      return field == null || field.trim().isEmpty();
-    }
+		try {
+			DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+			localDate = LocalDate.parse(date, inputFormatter2);
+		} catch (DateTimeParseException e) {
+			System.out.println("Invalid date format. Please use mm/dd/yyyy format.");
+			return null;
+			// Handle the exception or return an error message if necessary
+		}
 
-    public static void deleteEvent(ArrayList<Event> eventList, String eventName) {
+		try {
+			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+			localTime = LocalTime.parse(time, inputFormatter);
+		} catch (DateTimeParseException e) {
+			System.out.println("Invalid time format. Please use HH:mm format.");
+			return null;
+			// Handle the exception or return an error message if necessary
+		}
+		Event newEvent = new Event(difficulty, name, localDate, localTime, venue);
+		eventList.add(newEvent);
+		System.out.println("Event created and added sucessfully");
+		return newEvent;
+	}
 
-      Event foundEvent = null;
-      for (Event event : eventList) {
-        if (event.getEventName().equalsIgnoreCase(eventName)) {
-          foundEvent = event;
-          break;
-        }
-      }
+	public static void addEvent(ArrayList<Event> eventList, Event newEvent) {
 
-      if (foundEvent != null) {
-        eventList.remove(foundEvent);
-        System.out.println(eventName + " was successfully deleted");
-      } else {
-        System.out.println("Event not found");
-      }
-    }
-    
+		if (eventExists(eventList, newEvent.getEventName())) {
+			System.out.println("Event already exists");
+			return;
+		}
 
-  //Start of discussion change 2
-  	public static void findDiscussion (ArrayList<Discussion> discussionList) {
-  		 BikePortalFinal.setHeader("View All Discussion");
-  		 String output = "";
-  	        output += String.format("%-20s %-20s\n", "TOPIC", "QUESTION");
-  	        for (int i = 0; i < discussionList.size(); i++) {
-  	        	Discussion d = discussionList.get(i);
-  	        	output += String.format("%-20s %-20s\n", d.getTopic(), d.getQuestion());
-  	            
-  	        }
-  	        System.out.println(output);
-  	}
-  	
-  	public static void addDiscussion (ArrayList<Discussion> discussionList) {
-  		 BikePortalFinal.setHeader("Add Discussion");
-  		 String difficulty = Helper.readString("Enter difficulty: ");
-  		 String topic = Helper.readString("Enter Topic: ");
-  		 String question = Helper.readString("Enter Question: ");
-  		 String output = "";
-  	        output += String.format("%-20s %-20s %-20s\n","DIFFICULTY", "TOPIC", "QUESTION");
-  	        boolean isSame = false;
-  	        for (int i = 0; i < discussionList.size(); i++) {
-  	        	Discussion d = discussionList.get(i);
-  	            if (d.getTopic().toLowerCase().contains(topic.toLowerCase()) && 
-  	            		(d.getQuestion().toLowerCase().contains(question.toLowerCase())) 
-  	            		&& 
-  	            		(d.getTopic().toLowerCase().contains(topic.toLowerCase()))) {
-  	            isSame = true;
-  	            break;
-  	            } else {
-  	                isSame = false;
-  	                discussionList.add(new Discussion(difficulty, topic, question));
-  	                System.out.println("The discussion has been added!");
-  	            }
-  	            if (isSame == true) {
-  	            	System.out.println("The discussion already exists!");
-  	            }
-  	        }
-  	}
-  	
-  	public static void deleteDiscussion (ArrayList<Discussion> discussionList) {
- 		 BikePortalFinal.setHeader("Delete Discussion");
- 		 String difficulty = Helper.readString("Enter difficulty: ");
- 		 String topic = Helper.readString("Enter Topic: ");
- 		 String question = Helper.readString("Enter Question: ");
- 		 String output = "";
- 	        output += String.format("%-20s %-20s %-20s\n", "DIFFICULTY", "TOPIC", "QUESTION");
- 	        boolean isSame = false;
- 	        for (int i = 0; i < discussionList.size(); i++) {
- 	        	Discussion d = discussionList.get(i);
- 	            if (d.getTopic().toLowerCase().contains(topic.toLowerCase())) {
- 	                discussionList.remove(d);
- 	                System.out.println("The discussion has been removed!");
-                   isSame = true;
-                   break;
- 	            }
- 	            
- 	        }
-           if (isSame == false) {
- 	            	System.out.println("The discussion does not exist!");
-           }
- 	}
- 	//End of discussion change 2
-  	
-	//Try committing new code
+		if (isEmptyField(newEvent.getEventName()) || isEmptyField(newEvent.getDifficulty())
+				|| newEvent.getEventDate() == null || newEvent.getEventTime() == null
+				|| isEmptyField(newEvent.getVenue())) {
+			System.out.println("Please fill in all the required fields");
+			return;
+		}
+
+		eventList.add(newEvent);
+	}
+
+	private static boolean eventExists(ArrayList<Event> eventList, String eventName) {
+		return eventList.stream().anyMatch(event -> event.getEventName().equalsIgnoreCase(eventName));
+	}
+
+	private static boolean isEmptyField(String field) {
+		return field == null || field.trim().isEmpty();
+	}
+
+	public static void deleteEvent(ArrayList<Event> eventList, String eventName) {
+
+		Event foundEvent = null;
+		for (Event event : eventList) {
+			if (event.getEventName().equalsIgnoreCase(eventName)) {
+				foundEvent = event;
+				break;
+			}
+		}
+
+		if (foundEvent != null) {
+			eventList.remove(foundEvent);
+			System.out.println(eventName + " was successfully deleted");
+		} else {
+			System.out.println("Event not found");
+		}
+	}
+
+	// Start of discussion change 2
+	public static void findDiscussion(ArrayList<Discussion> discussionList) {
+		BikePortalFinal.setHeader("View All Discussion");
+		String output = "";
+		output += String.format("%-20s %-20s\n", "TOPIC", "QUESTION");
+		for (int i = 0; i < discussionList.size(); i++) {
+			Discussion d = discussionList.get(i);
+			output += String.format("%-20s %-20s\n", d.getTopic(), d.getQuestion());
+
+		}
+		System.out.println(output);
+	}
+
+	public static void addDiscussion(ArrayList<Discussion> discussionList) {
+		BikePortalFinal.setHeader("Add Discussion");
+		String difficulty = Helper.readString("Enter difficulty: ");
+		String topic = Helper.readString("Enter Topic: ");
+		String question = Helper.readString("Enter Question: ");
+		String output = "";
+		output += String.format("%-20s %-20s %-20s\n", "DIFFICULTY", "TOPIC", "QUESTION");
+		boolean isSame = false;
+		for (int i = 0; i < discussionList.size(); i++) {
+			Discussion d = discussionList.get(i);
+			if (d.getTopic().toLowerCase().contains(topic.toLowerCase())
+					&& (d.getQuestion().toLowerCase().contains(question.toLowerCase()))
+					&& (d.getTopic().toLowerCase().contains(topic.toLowerCase()))) {
+				isSame = true;
+				break;
+			} else {
+				isSame = false;
+				discussionList.add(new Discussion(difficulty, topic, question));
+				System.out.println("The discussion has been added!");
+			}
+			if (isSame == true) {
+				System.out.println("The discussion already exists!");
+			}
+		}
+	}
+
+	public static void deleteDiscussion(ArrayList<Discussion> discussionList) {
+		BikePortalFinal.setHeader("Delete Discussion");
+		String difficulty = Helper.readString("Enter difficulty: ");
+		String topic = Helper.readString("Enter Topic: ");
+		String question = Helper.readString("Enter Question: ");
+		String output = "";
+		output += String.format("%-20s %-20s %-20s\n", "DIFFICULTY", "TOPIC", "QUESTION");
+		boolean isSame = false;
+		for (int i = 0; i < discussionList.size(); i++) {
+			Discussion d = discussionList.get(i);
+			if (d.getTopic().toLowerCase().contains(topic.toLowerCase())) {
+				discussionList.remove(d);
+				System.out.println("The discussion has been removed!");
+				isSame = true;
+				break;
+			}
+
+		}
+		if (isSame == false) {
+			System.out.println("The discussion does not exist!");
+		}
+	}
+	// End of discussion change 2
+
+	// ----------------------------------------------------Group------------------------------------------------------------------
+
+	// View all groups
+
+	public static void viewAllGroups(ArrayList<Group> grpList) {
+		System.out.println("VIEW ALL GROUPS");
+		String output = String.format("%-20s %-30s\n", "GROUP NAME", "DESCRIPTION");
+		for (Group group : grpList) {
+			output += String.format("%-20s %-30s\n", group.getGroupName(), group.getDescription());
+		}
+		System.out.println(output);
+	}
+
+	// Create new groups
+
+	public static void createGroup(ArrayList<Group> grpList, ArrayList<Member> memberList) {
+		String groupName = Helper.readString("Enter group name > ");
+		String groupDescription = Helper.readString("Enter group description > ");
+		String tag = Helper.readString("Select difficulty > ");
+
+		// Check if the group name already exists
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				System.out.println("Group name " + groupName + " already exists. Please enter another name.");
+				return; // Exit the method if the group name already exists
+			}
+		}
+
+		// If the group name does not exist, create a new group
+		Group newGroup = new Group(tag, groupName, groupDescription); // Adjusted to match the constructor
+		grpList.add(newGroup);
+		System.out.println("Group successfully created!");
+	}
+
+	// Delete group
+
+	public static void deleteGrp(ArrayList<Group> grpList) {
+		String groupName = Helper.readString("Enter group name to delete > ");
+
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				grpList.remove(group);
+				System.out.println("Group successfully deleted!");
+				return;
+			}
+		}
+
+		System.out.println("Group not found!");
+	}
+
+	// Join Group
+
+	public static void joinGrp(ArrayList<Group> grpList, ArrayList<Member> memberList, String username) {
+		String groupName = Helper.readString("Enter group name to join > ");
+		Group groupToJoin = null;
+
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				groupToJoin = group;
+				break;
+			}
+		}
+
+		if (groupToJoin == null) {
+			System.out.println("Group not found!");
+			return;
+		}
+
+		for (Member member : memberList) {
+			if (member.getUsername().equalsIgnoreCase(username)) {
+				groupToJoin.addMember(member);
+				System.out.println("Successfully joined the group!");
+				return;
+			}
+		}
+
+		System.out.println("Member not found!");
+	}
+
+	// Leave group
+
+	public static void leaveGrp(ArrayList<Group> grpList, String username) {
+		String groupName = Helper.readString("Enter group name to leave > ");
+		Group groupToLeave = null;
+
+		for (Group group : grpList) {
+			if (group.getGroupName().equalsIgnoreCase(groupName)) {
+				groupToLeave = group;
+				break;
+			}
+		}
+
+		if (groupToLeave == null) {
+			System.out.println("Group not found!");
+			return;
+		}
+
+		for (Member member : groupToLeave.getMemberList()) {
+			if (member.getUsername().equalsIgnoreCase(username)) {
+				groupToLeave.getMemberList().remove(member);
+				System.out.println("Successfully left the group!");
+				return;
+			}
+		}
+
+		System.out.println("Member not found in the group!");
+	}
+
 }
-
-
