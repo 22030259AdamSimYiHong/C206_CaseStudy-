@@ -77,6 +77,7 @@ public class BikePortalTest {
 
 	}
 
+	
 	@Test
 	public void testaddMember() {
 		// Item list is not null and it is empty
