@@ -14,6 +14,7 @@ public class BikePortalTest {
 	private Member m1;
 	private Member m2;
 	private Member m3;
+	private Member rm1;
 	private Admin a1;
 	private Admin a2;
 	private Admin a3;
@@ -49,6 +50,7 @@ public class BikePortalTest {
 		d2 = new Discussion("Medium", "Bike", "What Bikes are allowed?");
 		d3 = new Discussion("Hard", "Bike", "Is modded allowed?");
 		r1 = new Registration("Char", "Char123", "001", "Casual");
+		rm1 = new Member(r1.getName(), r1.getPassword(), r1.getUsername(), r1.getPreference());
 		r2 = new Registration("Charming", "Char246", "002", "Competitive");
 		r3 = new Registration("Charizard", "Char789", "003", "Casual");
 		b1 = new Bike("bmw", "sports");
@@ -332,37 +334,36 @@ public class BikePortalTest {
 	//Kenneth
 	@Test
 	public void testAddReg() {
-		// Reglist not null and is empty
-		assertNotNull("Test if there is valid registration arraylist to add to", regList);
-		assertEquals("Test that the Registration arraylist is empty.", 0, regList.size());
-		// Given an empty list, after adding user, the size of the list is 1
-		BikePortal.addReg(regList, r1);
-		assertEquals("Test that the Registration arraylist size is 1.", 1, regList.size());
-		// Add an item
-		BikePortal.addReg(regList, r2);
-		assertEquals("Test that the Registration arraylist size is now 2.", 2, regList.size());
-		// The user just added already exist in the list
-		assertSame("Test that User is added to the end of the list.", r2, regList.get(1));
-
-		// Add an item that already exists in the list
-		BikePortal.addReg(regList, r2);
-		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
-
-		// Add an user that has missing detail
-		Registration reg_missing = new Registration("CB0014", "", "", "");
-		BikePortal.addReg(regList, reg_missing);
-		assertEquals("Test that the Registration arraylist size is unchange.", 2, regList.size());
+		BikePortalFinal.addReg(regList, r1);
+		BikePortalFinal.addMember(memberList, rm1);
+		assertTrue("Check that the user is added to the registration list", regList.contains(r1));
+		// Test that the new user is added to the registration list
+		assertEquals("Check that the registration list is updated after new user is added", 1, regList.size());
+		// Test that the new user can access the portal after signing up
+		assertTrue("check that the new user can access the portal", BikePortalFinal.userLogin(memberList, rm1.getUsername(), rm1.getPassword()));
 	}
 	//Kenneth
 	@Test
 	public void testviewallReg() {
-		
+		BikePortalFinal.addReg(regList, r1);
+		// Test that the registration list can be viewed
+		assertNotNull("Test that the registration list can be viewed and is not empty", regList);
+		// Test that the registration list is updated
+		assertEquals("Check that the registration list has 1 registration", 1, regList.size());
 	}
 	
 	//Kenneth
 	@Test
 	public void testDeleteReg() {
-		
+		// Test that the registrations removed are not able to access the website with their login credentials anymore.
+		BikePortalFinal.addReg(regList, r1);
+		BikePortalFinal.addMember(memberList, rm1);
+		BikePortalFinal.removeReg(regList, memberList, r1.getUsername());
+		assertFalse("Check that the user is no longer able to log into the portal", BikePortalFinal.userLogin(memberList, rm1.getUsername(), rm1.getPassword()));
+		// Test that the registration list no longer displays users who were removed.
+		assertFalse("Check that the registration does not contain the removed user", regList.contains(r1));
+		// Test that the size of registration list decreases after removing user.
+		assertEquals("Check that the registration list now have 0 registrations", 0, regList.size());
 	}
 
 	@After

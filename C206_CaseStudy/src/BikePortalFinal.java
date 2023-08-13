@@ -606,9 +606,9 @@ public class BikePortalFinal {
 	public static String retrieveAllReg(ArrayList<Registration> regList) {
 		// obtaining member
 		String output = "";
-		for (int i = 0; i < regList.size(); i++) {
-			output += String.format("%-15s %-25s %-25s %-15s\n", regList.get(i).getName(), regList.get(i).getUsername(),
-					regList.get(i).getPassword(), regList.get(i).getPreference());
+		for (Registration i: regList) {
+			output += String.format("%-15s %-25s %-25s %-15s\n", i.getName(), i.getUsername(),
+					i.getPassword(), i.getPreference());
 		}
 		return output;
 	}
@@ -622,11 +622,9 @@ public class BikePortalFinal {
 	}
 
 	public static Registration addReg(ArrayList<Registration> regList, Registration newReg) {
-		Registration reg;
 		// checking if user already exist
-		for (int i = 0; i < regList.size(); i++) {
-			reg = regList.get(i);
-			if (reg.getUsername().equalsIgnoreCase(newReg.getUsername()))
+		for (Registration i: regList) {
+			if (i.getUsername().equalsIgnoreCase(newReg.getUsername()))
 				return (null);
 		}
 		if ((newReg.getUsername().isEmpty()) || (newReg.getPassword().isEmpty()) || (newReg.getName().isEmpty())
