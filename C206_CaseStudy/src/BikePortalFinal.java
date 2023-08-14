@@ -271,11 +271,6 @@ public class BikePortalFinal {
 
 	}
 
-	private static void leaveGrp(ArrayList<Group> grpList, ArrayList<Member> memberList) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static void loginTypeMenu() {
 		BikePortalFinal.setHeader("LOGIN METHOD");
 		System.out.println("1. Interact as Admin");
