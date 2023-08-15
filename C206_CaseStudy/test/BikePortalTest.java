@@ -193,10 +193,10 @@ public class BikePortalTest {
 		// Add Member
 		BikePortalFinal.addBike(bikeList, b2);
 		assertEquals("Test that the bike arraylist size is now 1.", 1, bikeList.size());
-		assertTrue("Check if the viewed bike list contains the test bike", bikeList.contains(b2));
+		assertSame("Test that bike added is the same bike listed when viewed.",b2,bikeList.get(0));
 		BikePortalFinal.addBike(bikeList, b1);
 		assertEquals("Test that the bike arraylist size is now 2.", 2, bikeList.size());
-		assertTrue("Check if the viewed bike list contains the test bike", bikeList.contains(b1));
+		assertSame("Test that bike added is the same bike listed when viewed.",b1,bikeList.get(1));
 		BikePortalFinal.deleteBike(bikeList, b2);
 		assertEquals("Test that the bike arraylist size is now 1.", 1, bikeList.size());
 		BikePortalFinal.deleteBike(bikeList, b1);
@@ -213,6 +213,7 @@ public class BikePortalTest {
 		// Given an empty list, after adding bike, the size of the list is 1
 		BikePortalFinal.addBike(bikeList, b1);
 		assertEquals("Test that the Bike arraylist size is 1.", 1, bikeList.size());
+		assertSame("Test that bike added is the same bike listed when viewed.",b1,bikeList.get(0));
 		// Add bike
 		BikePortalFinal.addBike(bikeList, b2);
 		assertEquals("Test that the Bike arraylist size is now 2.", 2, bikeList.size());
