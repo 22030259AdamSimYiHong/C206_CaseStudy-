@@ -179,6 +179,8 @@ public class BikePortalTest {
 		BikePortalFinal.deleteBike(bikeList, b2);
 		// Check that the bike is remove from the list
 		assertEquals("Test that bike arraylist size is 0 after deletion", 0, bikeList.size());
+		BikePortalFinal.deleteBike(bikeList, b2);
+		assertEquals("Test that the Bike arraylist size is unchange.", 0, bikeList.size());
 
 	}
 
