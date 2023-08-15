@@ -207,7 +207,7 @@ public class BikePortalTest {
 	// charmain
 	@Test
 	public void testAddBike() {
-		// Reglist not null and is empty
+		// bikeList not null and is empty
 		assertNotNull("Test if there is valid bike arraylist to add to", bikeList);
 		assertEquals("Test that the Bike arraylist is empty.", 0, bikeList.size());
 		// Given an empty list, after adding bike, the size of the list is 1
